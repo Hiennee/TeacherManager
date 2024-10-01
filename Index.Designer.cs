@@ -60,8 +60,8 @@
             btnAddClass.Text = "Thêm lớp";
             btnAddClass.TextColor = Color.White;
             btnAddClass.UseVisualStyleBackColor = false;
-            btnAddClass.MouseHover += BtnAddClass_MouseHover;
             btnAddClass.MouseLeave += BtnAddClass_MouseLeave;
+            btnAddClass.MouseHover += BtnAddClass_MouseHover;
             // 
             // textBox2
             // 
@@ -79,7 +79,7 @@
             Controls.Add(btnAddClass);
             Controls.Add(textBox1);
             Name = "Index";
-            Size = new Size(1437, 524);
+            Size = new Size(1492, 589);
             ResumeLayout(false);
             PerformLayout();
         }

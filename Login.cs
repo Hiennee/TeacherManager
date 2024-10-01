@@ -1,4 +1,5 @@
-﻿using MongoDB.Bson;
+﻿using Microsoft.Extensions.Configuration;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using System.Diagnostics;
 using System.Drawing.Text;
@@ -8,23 +9,24 @@ namespace TeacherManager
 {
     public partial class Login : Form
     {
-        public MongoClient client;
-        public static IMongoDatabase database;
-        public IMongoCollection<Account> accounts;
-        public PrivateFontCollection privateFonts = new PrivateFontCollection();
-        public Font customFont;
+        public MongoClient Client;
+        public static IMongoDatabase Database;
+        public IMongoCollection<Account> Accounts;
+        public PrivateFontCollection PrivateFonts = new PrivateFontCollection();
+        public Font CustomFont;
         public Login()
         {
+            string connectionString = Environment.GetEnvironmentVariable("MONGODB_ATLAS_CONNECTION_STRING") ?? "";
             InitializeComponent();
-            client = new MongoClient("mongodb+srv://hienne:Hien123@clusterhehe.vjr23zx.mongodb.net/?retryWrites=true&w=majority&appName=Clusterhehe");
-            database = client.GetDatabase("TeacherManager");
-            accounts = database.GetCollection<Account>("Account");
+            Client = new MongoClient(connectionString);
+            Database = Client.GetDatabase("TeacherManager");
+            Accounts = Database.GetCollection<Account>("Account");
         }
         public void OnLoginAttempt(object sender, EventArgs e)
         {
             var filter = Builders<Account>.Filter.Eq("accountId", txbID.Text) &
                          Builders<Account>.Filter.Eq("password", txbPassword.Text);
-            var result = accounts.Find(filter).FirstOrDefault();
+            var result = Accounts.Find(filter).FirstOrDefault();
             Console.WriteLine(result);
             Console.WriteLine("hello");
             if (result == null)
