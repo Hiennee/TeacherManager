@@ -32,7 +32,7 @@
             label1 = new Label();
             panelNavigate = new Panel();
             btnLogOut = new CustomControls.CustomControls.CustomButton();
-            btnLHK = new CustomControls.CustomControls.CustomButton();
+            btnQLHK = new CustomControls.CustomControls.CustomButton();
             btnLGD = new CustomControls.CustomControls.CustomButton();
             btnQLTK = new CustomControls.CustomControls.CustomButton();
             btnQLLH = new CustomControls.CustomControls.CustomButton();
@@ -62,9 +62,9 @@
             // 
             // panelNavigate
             // 
-            panelNavigate.Controls.Add(btnLogOut);
-            panelNavigate.Controls.Add(btnLHK);
             panelNavigate.Controls.Add(btnLGD);
+            panelNavigate.Controls.Add(btnLogOut);
+            panelNavigate.Controls.Add(btnQLHK);
             panelNavigate.Controls.Add(btnQLTK);
             panelNavigate.Controls.Add(btnQLLH);
             panelNavigate.Location = new Point(2, 157);
@@ -97,30 +97,31 @@
             btnLogOut.UseVisualStyleBackColor = false;
             btnLogOut.MouseClick += OnButtonNavigateClick;
             // 
-            // btnLHK
+            // btnQLHK
             // 
-            btnLHK.BackColor = Color.MediumSlateBlue;
-            btnLHK.BackgroundColor = Color.MediumSlateBlue;
-            btnLHK.BorderColor = Color.PaleVioletRed;
-            btnLHK.BorderRadius = 1;
-            btnLHK.BorderSize = 0;
-            btnLHK.Cursor = Cursors.PanEast;
-            btnLHK.FlatAppearance.BorderSize = 0;
-            btnLHK.FlatStyle = FlatStyle.Flat;
-            btnLHK.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnLHK.ForeColor = Color.White;
-            btnLHK.Image = Properties.Resources.book_icon;
-            btnLHK.ImageAlign = ContentAlignment.MiddleLeft;
-            btnLHK.Location = new Point(0, 258);
-            btnLHK.Name = "btnLHK";
-            btnLHK.Padding = new Padding(6, 0, 12, 0);
-            btnLHK.Size = new Size(351, 92);
-            btnLHK.TabIndex = 3;
-            btnLHK.Text = "LỊCH HỌC KÌ";
-            btnLHK.TextAlign = ContentAlignment.MiddleRight;
-            btnLHK.TextColor = Color.White;
-            btnLHK.UseVisualStyleBackColor = false;
-            btnLHK.MouseClick += OnButtonNavigateClick;
+            btnQLHK.BackColor = Color.MediumSlateBlue;
+            btnQLHK.BackgroundColor = Color.MediumSlateBlue;
+            btnQLHK.BorderColor = Color.PaleVioletRed;
+            btnQLHK.BorderRadius = 1;
+            btnQLHK.BorderSize = 0;
+            btnQLHK.Cursor = Cursors.PanEast;
+            btnQLHK.FlatAppearance.BorderSize = 0;
+            btnQLHK.FlatStyle = FlatStyle.Flat;
+            btnQLHK.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnQLHK.ForeColor = Color.White;
+            btnQLHK.Image = Properties.Resources.book_icon;
+            btnQLHK.ImageAlign = ContentAlignment.MiddleLeft;
+            btnQLHK.Location = new Point(0, 178);
+            btnQLHK.Name = "btnQLHK";
+            btnQLHK.Padding = new Padding(6, 0, 12, 0);
+            btnQLHK.Size = new Size(351, 92);
+            btnQLHK.TabIndex = 3;
+            btnQLHK.Text = "QUẢN LÍ HỌC KÌ";
+            btnQLHK.TextAlign = ContentAlignment.MiddleRight;
+            btnQLHK.TextColor = Color.White;
+            btnQLHK.UseVisualStyleBackColor = false;
+            btnQLHK.Click += btnLHK_Click;
+            btnQLHK.MouseClick += OnButtonNavigateClick;
             // 
             // btnLGD
             // 
@@ -136,7 +137,7 @@
             btnLGD.ForeColor = Color.White;
             btnLGD.Image = Properties.Resources.calendar_icon;
             btnLGD.ImageAlign = ContentAlignment.MiddleLeft;
-            btnLGD.Location = new Point(0, 173);
+            btnLGD.Location = new Point(0, 263);
             btnLGD.Name = "btnLGD";
             btnLGD.Padding = new Padding(12, 0, 12, 0);
             btnLGD.Size = new Size(351, 92);
@@ -232,7 +233,7 @@
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private CustomControls.CustomControls.CustomButton btnQLLH;
         private CustomControls.CustomControls.CustomButton btnLogOut;
-        private CustomControls.CustomControls.CustomButton btnLHK;
+        private CustomControls.CustomControls.CustomButton btnQLHK;
         private CustomControls.CustomControls.CustomButton btnLGD;
         private CustomControls.CustomControls.CustomButton btnQLTK;
     }

@@ -1,4 +1,5 @@
 ﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,13 @@ namespace TeacherManager.Models
     public class Student
     {
         public ObjectId Id { get; set; }
-        public DateTime dob { get; set; }
-        public string email { get; set; }
-        public string name { get; set; }
-        public string phone { get; set; }
+        [BsonElement("dob")]
+        public DateTime Dob { get; set; }
+        [BsonElement("email")]
+        public string Email { get; set; }
+        [BsonElement("name")]
+        public string Name { get; set; }
+        [BsonElement("phone")]
+        public string Phone { get; set; }
     }
 }

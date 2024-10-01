@@ -15,6 +15,7 @@ namespace TeacherManager
         public Index()
         {
             InitializeComponent();
+            Size = MainForm.PanelControlSize;
         }
 
         private void BtnAddClass_MouseLeave(object? sender, EventArgs e)

@@ -8,12 +8,12 @@ namespace TeacherManager.Models
 {
     public class Navigator
     {
-        List<UserControl> controls;
-        Panel panel;
+        List<UserControl> Controls;
+        Panel Panel;
         public Navigator(List<UserControl> controls, Panel panel)
         {
-            this.controls = controls;
-            this.panel = panel;
+            this.Controls = controls;
+            this.Panel = panel;
             foreach (UserControl ctrl in controls)
             {
                 ctrl.Dock = DockStyle.Fill;
@@ -22,7 +22,7 @@ namespace TeacherManager.Models
         }
         public void Display(int index)
         {
-            controls[index].BringToFront();
+            Controls[index].BringToFront();
         }
     }
 }
