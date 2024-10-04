@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             label1 = new Label();
+            btnAddSemester = new TeacherManager.CustomControls.CustomButton();
             SuspendLayout();
             // 
             // label1
@@ -40,10 +41,32 @@
             label1.TabIndex = 0;
             label1.Text = "Quản lý học kỳ";
             // 
+            // btnAddSemester
+            // 
+            btnAddSemester.BackColor = Color.MediumSlateBlue;
+            btnAddSemester.BackgroundColor = Color.MediumSlateBlue;
+            btnAddSemester.BorderColor = Color.PaleVioletRed;
+            btnAddSemester.BorderRadius = 10;
+            btnAddSemester.BorderSize = 0;
+            btnAddSemester.FlatAppearance.BorderSize = 0;
+            btnAddSemester.FlatStyle = FlatStyle.Flat;
+            btnAddSemester.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnAddSemester.ForeColor = Color.White;
+            btnAddSemester.ImageAlign = ContentAlignment.MiddleLeft;
+            btnAddSemester.Location = new Point(1155, 55);
+            btnAddSemester.Name = "btnAddSemester";
+            btnAddSemester.Size = new Size(201, 43);
+            btnAddSemester.TabIndex = 3;
+            btnAddSemester.Text = "Thêm học kỳ";
+            btnAddSemester.TextColor = Color.White;
+            btnAddSemester.UseVisualStyleBackColor = false;
+            btnAddSemester.Click += ShowAddSemesterForm;
+            // 
             // FormQLHK
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(btnAddSemester);
             Controls.Add(label1);
             Name = "FormQLHK";
             Size = new Size(1492, 589);
@@ -54,5 +77,6 @@
         #endregion
 
         private Label label1;
+        private TeacherManager.CustomControls.CustomButton btnAddSemester;
     }
 }

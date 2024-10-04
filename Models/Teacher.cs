@@ -11,13 +11,7 @@ namespace TeacherManager.Models
     public class Teacher
     {
         public ObjectId Id { get; set; }
-        [BsonElement("dob")]
-        public DateTime Dob { get; set; }
-        [BsonElement("email")]
-        public string Email { get; set; }
-        [BsonElement("name")]
-        public string Name { get; set; }
-        [BsonElement("phone")]
-        public string Phone { get; set; }
+        [BsonElement("AccountId")]
+        public String accountId { get; set; }
     }
 }

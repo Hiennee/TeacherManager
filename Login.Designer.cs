@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            pictureBox1 = new PictureBox();
             chkBoxShowPassword = new CheckBox();
             btnLogin = new Button();
             txbPassword = new TextBox();
@@ -37,7 +38,6 @@
             lblName = new Label();
             lblHeader = new Label();
             lblHeader_2 = new Label();
-            pictureBox1 = new PictureBox();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
@@ -55,6 +55,16 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(481, 205);
             panel1.TabIndex = 1;
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.BackgroundImage = Properties.Resources.account_icon;
+            pictureBox1.Location = new Point(3, 18);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(53, 53);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox1.TabIndex = 5;
+            pictureBox1.TabStop = false;
             // 
             // chkBoxShowPassword
             // 
@@ -137,16 +147,6 @@
             lblHeader_2.Size = new Size(207, 38);
             lblHeader_2.TabIndex = 3;
             lblHeader_2.Text = "Cho giảng viên";
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.BackgroundImage = Properties.Resources.account_icon;
-            pictureBox1.Location = new Point(0, 24);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(53, 40);
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox1.TabIndex = 5;
-            pictureBox1.TabStop = false;
             // 
             // Login
             // 
