@@ -11,11 +11,21 @@ namespace TeacherManager.Models
     public class Account
     {
         public ObjectId Id { get; set; }
+        [BsonElement("accountId")]
+        public string AccountId { get; set; }
+        [BsonElement("name")]
+        public string Name { get; set; }
         [BsonElement("email")]
         public string Email { get; set; }
         [BsonElement("password")]
         public string Password { get; set; }
-        [BsonElement("accountId")]
-        public string AccountId { get; set; }
+        [BsonElement("role")]
+        public string Role { get; set; }
+        [BsonElement("avatar")]
+        public string Avatar { get; set; }
+        [BsonElement("dob")]
+        public DateTime? DOB { get; set; }
+        [BsonElement("phone")]
+        public string Phone { get; set; }
     }
 }

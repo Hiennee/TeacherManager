@@ -9,33 +9,45 @@ namespace TeacherManager
 {
     public partial class Login : Form
     {
-        public MongoClient Client;
         public static IMongoDatabase Database;
-        public IMongoCollection<Account> Accounts;
+        public static IMongoCollection<Account> Accounts;
+        public static IMongoCollection<Student> Students;
+        public static IMongoCollection<Teacher> Teachers;
+        public static IMongoCollection<Class> Classes;
+        public static IMongoCollection<Semester> Semesters;
+        public static IMongoCollection<Student_Class_Detail> StudentClasses;
+        public static Account Account;
+        public static Teacher Teacher;
+
+        public MongoClient Client;
         public PrivateFontCollection PrivateFonts = new PrivateFontCollection();
         public Font CustomFont;
         public Login()
         {
-            string connectionString = Environment.GetEnvironmentVariable("MONGODB_ATLAS_CONNECTION_STRING") ?? "";
             InitializeComponent();
-            Client = new MongoClient(connectionString);
+            Client = new MongoClient("mongodb+srv://hienne:Hien123@clusterhehe.vjr23zx.mongodb.net/?retryWrites=true&w=majority&appName=Clusterhehe");
             Database = Client.GetDatabase("TeacherManager");
             Accounts = Database.GetCollection<Account>("Account");
+            Students = Database.GetCollection<Student>("Student");
+            Teachers = Database.GetCollection<Teacher>("Teacher");
+            Classes = Database.GetCollection<Class>("Class");
+            Semesters = Database.GetCollection<Semester>("Semester");
+            StudentClasses = Database.GetCollection<Student_Class_Detail>("StudentClasses");
         }
         public void OnLoginAttempt(object sender, EventArgs e)
         {
             var filter = Builders<Account>.Filter.Eq("accountId", txbID.Text) &
                          Builders<Account>.Filter.Eq("password", txbPassword.Text);
-            var result = Accounts.Find(filter).FirstOrDefault();
-            Console.WriteLine(result);
-            Console.WriteLine("hello");
-            if (result == null)
+            Account = Accounts.Find(filter).FirstOrDefault();
+            if (Account == null)
             {
                 MessageBox.Show("Sai tên người dùng hoặc mật khẩu", "Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
                 return;
             }
-
-            MainForm mainForm = new MainForm(result);
+            var teacherFilter = Builders<Teacher>.Filter.Eq(t => t.accountId, Account.AccountId);
+            Teacher = Teachers.Find(teacherFilter).FirstOrDefault();
+            //if (result.Role == "teacher")
+            MainForm mainForm = new MainForm();
             mainForm.Show();
             this.Hide();
         }

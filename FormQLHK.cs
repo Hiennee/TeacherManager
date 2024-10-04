@@ -17,5 +17,10 @@ namespace TeacherManager
             InitializeComponent();
             Size = MainForm.PanelControlSize;
         }
+
+        private void ShowAddSemesterForm(object sender, EventArgs e)
+        {
+            new FormCreateSemester().ShowDialog();
+        }
     }
 }

@@ -1,6 +1,6 @@
-﻿namespace TeacherManager
+﻿namespace TeacherManager.CustomControls
 {
-    partial class FormLGD
+    partial class CustomTextBox
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,31 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
-            label1 = new Label();
+            textBox1 = new TextBox();
             SuspendLayout();
             // 
-            // label1
+            // textBox1
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(613, 94);
-            label1.Name = "label1";
-            label1.Size = new Size(104, 20);
-            label1.TabIndex = 0;
-            label1.Text = "Lớp giảng dạy";
+            textBox1.BorderStyle = BorderStyle.None;
+            textBox1.Dock = DockStyle.Fill;
+            textBox1.Location = new Point(7, 7);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(236, 18);
+            textBox1.TabIndex = 0;
             // 
-            // FormLGD
+            // CustomTextBox
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
-            AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(label1);
-            Name = "FormLGD";
-            Size = new Size(1492, 589);
+            AutoScaleMode = AutoScaleMode.None;
+            BackColor = SystemColors.Window;
+            Controls.Add(textBox1);
+            Font = new Font("Microsoft Sans Serif", 9.5F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ForeColor = Color.DimGray;
+            Margin = new Padding(4);
+            Name = "CustomTextBox";
+            Padding = new Padding(7);
+            Size = new Size(250, 30);
             ResumeLayout(false);
             PerformLayout();
         }
-
         #endregion
-
-        private Label label1;
+        private System.Windows.Forms.TextBox textBox1;
     }
 }

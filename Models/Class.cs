@@ -11,14 +11,20 @@ namespace TeacherManager.Models
     public class Class
     {
         public ObjectId Id { get; set; }
-        [BsonElement("schedule")]
-        public string Schedule { get; set; }
+        [BsonElement("classId")]
+        public string ClassId { get; set; }
+        [BsonElement("semesterId")]
+        public string SemesterId { get; set; }
         [BsonElement("teacherId")]
         public string TeacherId { get; set; }
-        [BsonElement("room")]
-        public string Room { get; set; }
+        [BsonElement("schedule")]
+        public string Schedule { get; set; }
         [BsonElement("name")]
         public string Name { get; set; }
+
+        [BsonElement("room")]
+        public string Room { get; set; }
+        
         [BsonElement("grade01_weight")]
         public int Grade01_weight { get; set; }
         [BsonElement("grade02_weight")]

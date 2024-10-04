@@ -113,6 +113,26 @@ namespace TeacherManager.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap calendarDark {
+            get {
+                object obj = ResourceManager.GetObject("calendarDark", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap calendarWhite {
+            get {
+                object obj = ResourceManager.GetObject("calendarWhite", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap class_icon {
             get {
                 object obj = ResourceManager.GetObject("class_icon", resourceCulture);
@@ -123,9 +143,19 @@ namespace TeacherManager.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap class_icon1 {
+        internal static System.Drawing.Bitmap courses_class_whiteboard_1 {
             get {
-                object obj = ResourceManager.GetObject("class_icon1", resourceCulture);
+                object obj = ResourceManager.GetObject("courses-class-whiteboard-1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap default_avatar_icon {
+            get {
+                object obj = ResourceManager.GetObject("default_avatar_icon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -136,6 +166,26 @@ namespace TeacherManager.Properties {
         internal static System.Drawing.Bitmap dooropen_icon {
             get {
                 object obj = ResourceManager.GetObject("dooropen_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap minus_icon {
+            get {
+                object obj = ResourceManager.GetObject("minus_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap x_icon {
+            get {
+                object obj = ResourceManager.GetObject("x_icon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -1,6 +1,6 @@
-﻿namespace TeacherManager
+﻿namespace TeacherManager.CustomControls
 {
-    partial class FormLGD
+    partial class CustomNumericUpDown
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,31 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            label1 = new Label();
-            SuspendLayout();
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(613, 94);
-            label1.Name = "label1";
-            label1.Size = new Size(104, 20);
-            label1.TabIndex = 0;
-            label1.Text = "Lớp giảng dạy";
-            // 
-            // FormLGD
-            // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
-            AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(label1);
-            Name = "FormLGD";
-            Size = new Size(1492, 589);
-            ResumeLayout(false);
-            PerformLayout();
+            components = new System.ComponentModel.Container();
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
         }
 
         #endregion
-
-        private Label label1;
     }
 }

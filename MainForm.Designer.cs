@@ -28,40 +28,93 @@
         /// </summary>
         private void InitializeComponent()
         {
-            panel1 = new Panel();
-            label1 = new Label();
+            panelHeading = new Panel();
+            pictureAvt = new CustomControls.CustomPictureBox();
+            btnChangAvatar = new CustomControls.CustomButton();
+            lblName = new Label();
             panelNavigate = new Panel();
-            btnLogOut = new CustomControls.CustomControls.CustomButton();
-            btnQLHK = new CustomControls.CustomControls.CustomButton();
-            btnLGD = new CustomControls.CustomControls.CustomButton();
-            btnQLTK = new CustomControls.CustomControls.CustomButton();
-            btnQLLH = new CustomControls.CustomControls.CustomButton();
+            lblVersion = new Label();
+            btnLGD = new CustomControls.CustomButton();
+            btnLogOut = new CustomControls.CustomButton();
+            btnQLHK = new CustomControls.CustomButton();
+            btnQLTK = new CustomControls.CustomButton();
+            btnQLLH = new CustomControls.CustomButton();
             panelControl = new Panel();
+            formlgd1 = new FormLGD();
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            panel1.SuspendLayout();
+            ChooseAvtDialog = new OpenFileDialog();
+            customButton1 = new CustomControls.CustomButton();
+            panelHeading.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureAvt).BeginInit();
             panelNavigate.SuspendLayout();
+            panelControl.SuspendLayout();
             SuspendLayout();
             // 
-            // panel1
+            // panelHeading
             // 
-            panel1.BackColor = SystemColors.ActiveCaption;
-            panel1.Controls.Add(label1);
-            panel1.Location = new Point(353, -2);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(1492, 160);
-            panel1.TabIndex = 0;
+            panelHeading.BackColor = Color.CornflowerBlue;
+            panelHeading.Controls.Add(pictureAvt);
+            panelHeading.Controls.Add(btnChangAvatar);
+            panelHeading.Controls.Add(lblName);
+            panelHeading.Location = new Point(353, -2);
+            panelHeading.Name = "panelHeading";
+            panelHeading.Size = new Size(1492, 160);
+            panelHeading.TabIndex = 0;
             // 
-            // label1
+            // pictureAvt
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(154, 68);
-            label1.Name = "label1";
-            label1.Size = new Size(50, 20);
-            label1.TabIndex = 0;
-            label1.Text = "label1";
+            pictureAvt.BackColor = Color.LavenderBlush;
+            pictureAvt.BorderCapStyle = System.Drawing.Drawing2D.DashCap.Flat;
+            pictureAvt.BorderColor = Color.RoyalBlue;
+            pictureAvt.BorderColor2 = Color.HotPink;
+            pictureAvt.BorderLineStyle = System.Drawing.Drawing2D.DashStyle.Solid;
+            pictureAvt.BorderSize = 5;
+            pictureAvt.GradientAngle = 50F;
+            pictureAvt.Image = Properties.Resources.default_avatar_icon;
+            pictureAvt.Location = new Point(1218, 14);
+            pictureAvt.Name = "pictureAvt";
+            pictureAvt.Size = new Size(128, 128);
+            pictureAvt.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureAvt.TabIndex = 3;
+            pictureAvt.TabStop = false;
+            // 
+            // btnChangAvatar
+            // 
+            btnChangAvatar.BackColor = Color.DarkSlateBlue;
+            btnChangAvatar.BackgroundColor = Color.DarkSlateBlue;
+            btnChangAvatar.BorderColor = Color.PaleVioletRed;
+            btnChangAvatar.BorderRadius = 15;
+            btnChangAvatar.BorderSize = 0;
+            btnChangAvatar.FlatAppearance.BorderSize = 0;
+            btnChangAvatar.FlatStyle = FlatStyle.Flat;
+            btnChangAvatar.ForeColor = Color.White;
+            btnChangAvatar.Location = new Point(979, 103);
+            btnChangAvatar.Name = "btnChangAvatar";
+            btnChangAvatar.Size = new Size(188, 39);
+            btnChangAvatar.TabIndex = 2;
+            btnChangAvatar.Text = "Thay đổi ảnh đại diện";
+            btnChangAvatar.TextColor = Color.White;
+            btnChangAvatar.UseVisualStyleBackColor = false;
+            btnChangAvatar.Visible = false;
+            btnChangAvatar.Click += ChangeAvatar;
+            // 
+            // lblName
+            // 
+            lblName.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            lblName.AutoSize = true;
+            lblName.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblName.Location = new Point(979, 41);
+            lblName.Name = "lblName";
+            lblName.Size = new Size(97, 41);
+            lblName.TabIndex = 0;
+            lblName.Text = "label1";
+            lblName.TextAlign = ContentAlignment.TopRight;
+            lblName.Click += OnNameClick;
             // 
             // panelNavigate
             // 
+            panelNavigate.BackColor = SystemColors.ControlLightLight;
+            panelNavigate.Controls.Add(lblVersion);
             panelNavigate.Controls.Add(btnLGD);
             panelNavigate.Controls.Add(btnLogOut);
             panelNavigate.Controls.Add(btnQLHK);
@@ -72,61 +125,19 @@
             panelNavigate.Size = new Size(351, 605);
             panelNavigate.TabIndex = 1;
             // 
-            // btnLogOut
+            // lblVersion
             // 
-            btnLogOut.BackColor = Color.MediumSlateBlue;
-            btnLogOut.BackgroundColor = Color.MediumSlateBlue;
-            btnLogOut.BorderColor = Color.PaleVioletRed;
-            btnLogOut.BorderRadius = 1;
-            btnLogOut.BorderSize = 0;
-            btnLogOut.Cursor = Cursors.PanEast;
-            btnLogOut.FlatAppearance.BorderSize = 0;
-            btnLogOut.FlatStyle = FlatStyle.Flat;
-            btnLogOut.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnLogOut.ForeColor = Color.White;
-            btnLogOut.Image = Properties.Resources.dooropen_icon;
-            btnLogOut.ImageAlign = ContentAlignment.MiddleLeft;
-            btnLogOut.Location = new Point(0, 347);
-            btnLogOut.Name = "btnLogOut";
-            btnLogOut.Padding = new Padding(12, 0, 12, 0);
-            btnLogOut.Size = new Size(351, 92);
-            btnLogOut.TabIndex = 4;
-            btnLogOut.Text = "ĐĂNG XUẤT";
-            btnLogOut.TextAlign = ContentAlignment.MiddleRight;
-            btnLogOut.TextColor = Color.White;
-            btnLogOut.UseVisualStyleBackColor = false;
-            btnLogOut.MouseClick += OnButtonNavigateClick;
-            // 
-            // btnQLHK
-            // 
-            btnQLHK.BackColor = Color.MediumSlateBlue;
-            btnQLHK.BackgroundColor = Color.MediumSlateBlue;
-            btnQLHK.BorderColor = Color.PaleVioletRed;
-            btnQLHK.BorderRadius = 1;
-            btnQLHK.BorderSize = 0;
-            btnQLHK.Cursor = Cursors.PanEast;
-            btnQLHK.FlatAppearance.BorderSize = 0;
-            btnQLHK.FlatStyle = FlatStyle.Flat;
-            btnQLHK.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnQLHK.ForeColor = Color.White;
-            btnQLHK.Image = Properties.Resources.book_icon;
-            btnQLHK.ImageAlign = ContentAlignment.MiddleLeft;
-            btnQLHK.Location = new Point(0, 178);
-            btnQLHK.Name = "btnQLHK";
-            btnQLHK.Padding = new Padding(6, 0, 12, 0);
-            btnQLHK.Size = new Size(351, 92);
-            btnQLHK.TabIndex = 3;
-            btnQLHK.Text = "QUẢN LÍ HỌC KÌ";
-            btnQLHK.TextAlign = ContentAlignment.MiddleRight;
-            btnQLHK.TextColor = Color.White;
-            btnQLHK.UseVisualStyleBackColor = false;
-            btnQLHK.Click += btnLHK_Click;
-            btnQLHK.MouseClick += OnButtonNavigateClick;
+            lblVersion.AutoSize = true;
+            lblVersion.Location = new Point(114, 559);
+            lblVersion.Name = "lblVersion";
+            lblVersion.Size = new Size(128, 20);
+            lblVersion.TabIndex = 5;
+            lblVersion.Text = "v1.0.1 by Shifu Ma";
             // 
             // btnLGD
             // 
-            btnLGD.BackColor = Color.MediumSlateBlue;
-            btnLGD.BackgroundColor = Color.MediumSlateBlue;
+            btnLGD.BackColor = Color.CornflowerBlue;
+            btnLGD.BackgroundColor = Color.CornflowerBlue;
             btnLGD.BorderColor = Color.PaleVioletRed;
             btnLGD.BorderRadius = 1;
             btnLGD.BorderSize = 0;
@@ -146,12 +157,62 @@
             btnLGD.TextAlign = ContentAlignment.MiddleRight;
             btnLGD.TextColor = Color.White;
             btnLGD.UseVisualStyleBackColor = false;
-            btnLGD.MouseClick += OnButtonNavigateClick;
+            btnLGD.Click += OnButtonNavigateClick;
+            // 
+            // btnLogOut
+            // 
+            btnLogOut.BackColor = Color.CornflowerBlue;
+            btnLogOut.BackgroundColor = Color.CornflowerBlue;
+            btnLogOut.BorderColor = Color.PaleVioletRed;
+            btnLogOut.BorderRadius = 1;
+            btnLogOut.BorderSize = 0;
+            btnLogOut.Cursor = Cursors.PanEast;
+            btnLogOut.FlatAppearance.BorderSize = 0;
+            btnLogOut.FlatStyle = FlatStyle.Flat;
+            btnLogOut.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnLogOut.ForeColor = Color.White;
+            btnLogOut.Image = Properties.Resources.dooropen_icon;
+            btnLogOut.ImageAlign = ContentAlignment.MiddleLeft;
+            btnLogOut.Location = new Point(0, 352);
+            btnLogOut.Name = "btnLogOut";
+            btnLogOut.Padding = new Padding(12, 0, 12, 0);
+            btnLogOut.Size = new Size(351, 92);
+            btnLogOut.TabIndex = 4;
+            btnLogOut.Text = "ĐĂNG XUẤT";
+            btnLogOut.TextAlign = ContentAlignment.MiddleRight;
+            btnLogOut.TextColor = Color.White;
+            btnLogOut.UseVisualStyleBackColor = false;
+            btnLogOut.Click += LogOut;
+            // 
+            // btnQLHK
+            // 
+            btnQLHK.BackColor = Color.CornflowerBlue;
+            btnQLHK.BackgroundColor = Color.CornflowerBlue;
+            btnQLHK.BorderColor = Color.PaleVioletRed;
+            btnQLHK.BorderRadius = 1;
+            btnQLHK.BorderSize = 0;
+            btnQLHK.Cursor = Cursors.PanEast;
+            btnQLHK.FlatAppearance.BorderSize = 0;
+            btnQLHK.FlatStyle = FlatStyle.Flat;
+            btnQLHK.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnQLHK.ForeColor = Color.White;
+            btnQLHK.Image = Properties.Resources.book_icon;
+            btnQLHK.ImageAlign = ContentAlignment.MiddleLeft;
+            btnQLHK.Location = new Point(0, 178);
+            btnQLHK.Name = "btnQLHK";
+            btnQLHK.Padding = new Padding(6, 0, 12, 0);
+            btnQLHK.Size = new Size(351, 92);
+            btnQLHK.TabIndex = 3;
+            btnQLHK.Text = "QUẢN LÍ HỌC KÌ";
+            btnQLHK.TextAlign = ContentAlignment.MiddleRight;
+            btnQLHK.TextColor = Color.White;
+            btnQLHK.UseVisualStyleBackColor = false;
+            btnQLHK.Click += OnButtonNavigateClick;
             // 
             // btnQLTK
             // 
-            btnQLTK.BackColor = Color.MediumSlateBlue;
-            btnQLTK.BackgroundColor = Color.MediumSlateBlue;
+            btnQLTK.BackColor = Color.CornflowerBlue;
+            btnQLTK.BackgroundColor = Color.CornflowerBlue;
             btnQLTK.BorderColor = Color.PaleVioletRed;
             btnQLTK.BorderRadius = 1;
             btnQLTK.BorderSize = 0;
@@ -171,12 +232,12 @@
             btnQLTK.TextAlign = ContentAlignment.MiddleRight;
             btnQLTK.TextColor = Color.White;
             btnQLTK.UseVisualStyleBackColor = false;
-            btnQLTK.MouseClick += OnButtonNavigateClick;
+            btnQLTK.Click += OnButtonNavigateClick;
             // 
             // btnQLLH
             // 
-            btnQLLH.BackColor = Color.MediumSlateBlue;
-            btnQLLH.BackgroundColor = Color.MediumSlateBlue;
+            btnQLLH.BackColor = Color.CornflowerBlue;
+            btnQLLH.BackgroundColor = Color.CornflowerBlue;
             btnQLLH.BorderColor = Color.PaleVioletRed;
             btnQLLH.BorderRadius = 1;
             btnQLLH.BorderSize = 0;
@@ -196,45 +257,92 @@
             btnQLLH.TextAlign = ContentAlignment.MiddleRight;
             btnQLLH.TextColor = Color.White;
             btnQLLH.UseVisualStyleBackColor = false;
-            btnQLLH.MouseClick += OnButtonNavigateClick;
+            btnQLLH.Click += OnButtonNavigateClick;
             // 
             // panelControl
             // 
+            panelControl.BackColor = SystemColors.ControlLightLight;
+            panelControl.Controls.Add(formlgd1);
             panelControl.Location = new Point(353, 157);
             panelControl.Name = "panelControl";
-            panelControl.Size = new Size(1492, 589);
+            panelControl.Size = new Size(1492, 703);
             panelControl.TabIndex = 5;
+            // 
+            // formlgd1
+            // 
+            formlgd1.Location = new Point(209, 486);
+            formlgd1.Name = "formlgd1";
+            formlgd1.Size = new Size(94, 29);
+            formlgd1.TabIndex = 0;
+            // 
+            // ChooseAvtDialog
+            // 
+            ChooseAvtDialog.FileName = "avtFile";
+            // 
+            // customButton1
+            // 
+            customButton1.BackColor = Color.MediumSlateBlue;
+            customButton1.BackgroundColor = Color.MediumSlateBlue;
+            customButton1.BorderColor = Color.PaleVioletRed;
+            customButton1.BorderRadius = 0;
+            customButton1.BorderSize = 0;
+            customButton1.FlatAppearance.BorderSize = 0;
+            customButton1.FlatStyle = FlatStyle.Flat;
+            customButton1.ForeColor = Color.White;
+            customButton1.Location = new Point(80, 41);
+            customButton1.Name = "customButton1";
+            customButton1.Size = new Size(188, 50);
+            customButton1.TabIndex = 6;
+            customButton1.Text = "customButton1";
+            customButton1.TextColor = Color.White;
+            customButton1.UseVisualStyleBackColor = false;
+            customButton1.Click += OnButtonNavigateClick;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1846, 745);
+            BackColor = SystemColors.Window;
+            ClientSize = new Size(1846, 865);
+            Controls.Add(customButton1);
             Controls.Add(panelControl);
             Controls.Add(panelNavigate);
-            Controls.Add(panel1);
+            Controls.Add(panelHeading);
             Name = "MainForm";
+            RightToLeft = RightToLeft.Yes;
             Text = "MainForm";
             WindowState = FormWindowState.Maximized;
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
+            Click += OnFormClick;
+            Leave += MainForm_Leave;
+            panelHeading.ResumeLayout(false);
+            panelHeading.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureAvt).EndInit();
             panelNavigate.ResumeLayout(false);
+            panelNavigate.PerformLayout();
+            panelControl.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
-        private Panel panel1;
-        private Label label1;
+        private Panel panelHeading;
+        private Label lblName;
         private ToolStripButton toolStripButton1;
         private ToolStripComboBox toolStripComboBox1;
         private Panel panelNavigate;
         private Panel panelControl;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
-        private CustomControls.CustomControls.CustomButton btnQLLH;
-        private CustomControls.CustomControls.CustomButton btnLogOut;
-        private CustomControls.CustomControls.CustomButton btnQLHK;
-        private CustomControls.CustomControls.CustomButton btnLGD;
-        private CustomControls.CustomControls.CustomButton btnQLTK;
+        private TeacherManager.CustomControls.CustomButton btnQLLH;
+        private TeacherManager.CustomControls.CustomButton btnLogOut;
+        private TeacherManager.CustomControls.CustomButton btnQLHK;
+        private TeacherManager.CustomControls.CustomButton btnLGD;
+        private TeacherManager.CustomControls.CustomButton btnQLTK;
+        private OpenFileDialog ChooseAvtDialog;
+        private Panel panel1;
+        private Label lblVersion;
+        private TeacherManager.CustomControls.CustomButton btnChangAvatar;
+        private FormLGD formlgd1;
+        private TeacherManager.CustomControls.CustomButton customButton1;
+        private CustomControls.CustomPictureBox pictureAvt;
     }
 }
