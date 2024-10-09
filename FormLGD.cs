@@ -19,6 +19,7 @@ namespace TeacherManager
         IMongoCollection<Class> Classes;
         ICollection<Class> ClassesOnThisSemester;
         //List<List<KeyValuePair<string, DateTime>>> ScheduleOfClasses;
+        List<KeyValuePair<string, List<DateTime>>> ListOfDaysOfClasses;
 
         private Semester Semester;
 
@@ -29,7 +30,7 @@ namespace TeacherManager
             Semesters = Login.Semesters;
             Teachers = Login.Teachers;
             Classes = Login.Classes;
-
+            ListOfDaysOfClasses = new List<KeyValuePair<string, List<DateTime>>>();
             InitializeComponent();
             LoadMonthAndYearLabel();
             LoadComboBoxAndInitFirstSemester();
@@ -72,9 +73,16 @@ namespace TeacherManager
                 LoadMonthAndYearLabel();
                 var filterClasses = Builders<Class>.Filter.Eq(c => c.SemesterId, Semester.SemesterId);
                 ClassesOnThisSemester = Classes.Find(filterClasses).ToList();
-                foreach (var c in ClassesOnThisSemester)
+                if (ClassesOnThisSemester != null)
                 {
-                    GetAllDaysOfClassInSemester(c);
+                    foreach (var c in ClassesOnThisSemester)
+                    {
+                        var classDays = GetAllDaysOfClassInSemester(c);
+                        if (classDays.Count != 0)
+                        {
+                            ListOfDaysOfClasses.Add(new KeyValuePair<string, List<DateTime>>(c.ClassId, classDays));
+                        } 
+                    }
                 }
                 InitializeDataDaysOfMonthView(Semester.StartDate.Month, Semester.StartDate.Year);
             }
@@ -151,9 +159,21 @@ namespace TeacherManager
             {
                 return;
             }
-            string dayToShow = $"{dataViewDaysOfMonth.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString()}/{CurrentMonth}/{CurrentYear}";
-            //if ()
-            MessageBox.Show(dayToShow);
+            //string dayToShow = $"{dataViewDaysOfMonth.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString()}/{CurrentMonth}/{CurrentYear}";
+            //MessageBox.Show(dayToShow);
+            DateTime dayToView = new DateTime(CurrentYear, CurrentMonth, Convert.ToInt32(dataViewDaysOfMonth.Rows[e.RowIndex].Cells[e.ColumnIndex].Value));
+            panelSchedule.Controls.Clear();
+            foreach (var d in ListOfDaysOfClasses)
+            {
+                if (d.Value.Contains(dayToView))
+                {
+                    var filterClassToShowSchedule = Builders<Class>.Filter.Eq(c => c.ClassId, d.Key);
+                    var resultClass = Classes.Find(filterClassToShowSchedule).FirstOrDefault();
+                    panelSchedule.Controls.Add(new ScheduleDisplay(resultClass.Name, resultClass.From, resultClass.To, resultClass.Room));
+                    continue;
+                    //d.Key;
+                }
+            }
                             
         }
 

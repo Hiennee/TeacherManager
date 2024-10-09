@@ -50,18 +50,19 @@ namespace TeacherManager
 
         private void AddClass(object sender, EventArgs e)
         {
-            var ClassIdFilter = Builders<Class>.Filter.Eq(c => c.ClassId, txtBoxClassId.Texts);
-            var ClassIdExist = Classes.Find(ClassIdFilter).Any();
-            if (ClassIdExist)
-            {
-                MessageBox.Show("Số hiệu lớp đã tồn tại", "Thông báo");
-                return;
-            }
             var SemesterIdFilter = Builders<Semester>.Filter.Eq(s => s.SemesterId, txtBoxSemesterId.Texts);
             var SemesterIdExist = Semesters.Find(SemesterIdFilter).Any();
             if (!SemesterIdExist)
             {
                 MessageBox.Show("Mã học kỳ không hợp lệ", "Thông báo");
+                return;
+            }
+            var ClassIdFilter = Builders<Class>.Filter.Eq(c => c.ClassId, txtBoxClassId.Texts) &
+                                Builders<Class>.Filter.Eq(c => c.SemesterId, txtBoxSemesterId.Texts);
+            var ClassIdExist = Classes.Find(ClassIdFilter).Any();
+            if (ClassIdExist)
+            {
+                MessageBox.Show($"Số hiệu lớp đã tồn tại trong học kì {txtBoxSemesterId.Texts}", "Thông báo");
                 return;
             }
             var TeacherIdFilter = Builders<Teacher>.Filter.Eq(t => t.accountId, txtBoxTeacherId.Texts);
@@ -84,14 +85,21 @@ namespace TeacherManager
             int fromMinute = Convert.ToInt32(numericFromMinute.Value);
             int toHour = Convert.ToInt32(numericToHour.Value);
             int toMinute = Convert.ToInt32(numericToMinute.Value);
+            if ((toHour == fromHour && toMinute <= fromMinute) || toHour - fromHour <= 0)
+            {
+                MessageBox.Show("Thời gian không hợp lệ", "Thông báo");
+                return;
+            }
+            string from = GenerateStringHour(fromHour, fromMinute);
+            string to = GenerateStringHour(toHour, toMinute);
             Class c = new Class
             {
                 ClassId = txtBoxClassId.Texts,
                 SemesterId = txtBoxSemesterId.Texts,
                 TeacherId = txtBoxTeacherId.Texts,
                 DayOfWeek = txtBoxDayOfWeek.Texts,
-                From = $"{fromHour.ToString()}:{fromMinute.ToString()}",
-                To = $"{toHour.ToString()}:{toMinute.ToString()}",
+                From = from,
+                To = to,
                 Name = txtBoxClassName.Texts,
                 Room = txtBoxRoom.Texts,
                 Grade01_weight = grade01_weight,
@@ -102,6 +110,12 @@ namespace TeacherManager
             Classes.InsertOne(c);
             MessageBox.Show("Tạo lớp mới thành công", "Thông báo");
             Close();
+        }
+        private string GenerateStringHour(int hour, int minute)
+        {
+            return (hour < 10 ? "0" + hour.ToString() : hour.ToString()) 
+                + ":" +
+                (minute < 10 ? "0" + minute.ToString() : minute.ToString());
         }
     }
 }
