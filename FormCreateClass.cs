@@ -31,11 +31,9 @@ namespace TeacherManager
         }
         public void CheckAddStudentButtonAvailable(object sender, EventArgs e)
         {
-            if (txtBoxClassId.Texts == "" ||
-                txtBoxTeacherId.Texts == "" ||
-                //txtBoxScheduleFrom.Texts == "" ||
-                txtBoxClassName.Texts == "" ||
-                txtBoxRoom.Texts == "")
+            if (txtBoxClassId.Texts == "" || txtBoxSemesterId.Texts == "" ||
+                txtBoxTeacherId.Texts == "" || txtBoxClassName.Texts == "" ||
+                txtBoxDayOfWeek.Texts == "" || txtBoxRoom.Texts == "")
             {
                 btnAddStudent.Enabled = false;
             }
@@ -91,8 +89,9 @@ namespace TeacherManager
                 ClassId = txtBoxClassId.Texts,
                 SemesterId = txtBoxSemesterId.Texts,
                 TeacherId = txtBoxTeacherId.Texts,
-                Schedule = fromHour.ToString() + ":" + fromMinute.ToString() + "-" +
-                           toHour.ToString() + ":" + toMinute.ToString(),
+                DayOfWeek = txtBoxDayOfWeek.Texts,
+                From = $"{fromHour.ToString()}:{fromMinute.ToString()}",
+                To = $"{toHour.ToString()}:{toMinute.ToString()}",
                 Name = txtBoxClassName.Texts,
                 Room = txtBoxRoom.Texts,
                 Grade01_weight = grade01_weight,

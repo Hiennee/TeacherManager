@@ -59,7 +59,7 @@ namespace TeacherManager
             }
             foreach(var c in ClassesToDisplay)
             {
-                panelClasses.Controls.Add(new ClassDisplayControl(c));
+                panelClasses.Controls.Add(new ClassDisplayControl(c, this));
             }
         }
     }

@@ -30,7 +30,6 @@
         {
             panelHeading = new Panel();
             pictureAvt = new CustomControls.CustomPictureBox();
-            btnChangAvatar = new CustomControls.CustomButton();
             lblName = new Label();
             panelNavigate = new Panel();
             lblVersion = new Label();
@@ -40,21 +39,18 @@
             btnQLTK = new CustomControls.CustomButton();
             btnQLLH = new CustomControls.CustomButton();
             panelControl = new Panel();
-            formlgd1 = new FormLGD();
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             ChooseAvtDialog = new OpenFileDialog();
             customButton1 = new CustomControls.CustomButton();
             panelHeading.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureAvt).BeginInit();
             panelNavigate.SuspendLayout();
-            panelControl.SuspendLayout();
             SuspendLayout();
             // 
             // panelHeading
             // 
             panelHeading.BackColor = Color.CornflowerBlue;
             panelHeading.Controls.Add(pictureAvt);
-            panelHeading.Controls.Add(btnChangAvatar);
             panelHeading.Controls.Add(lblName);
             panelHeading.Location = new Point(353, -2);
             panelHeading.Name = "panelHeading";
@@ -77,26 +73,7 @@
             pictureAvt.SizeMode = PictureBoxSizeMode.Zoom;
             pictureAvt.TabIndex = 3;
             pictureAvt.TabStop = false;
-            // 
-            // btnChangAvatar
-            // 
-            btnChangAvatar.BackColor = Color.DarkSlateBlue;
-            btnChangAvatar.BackgroundColor = Color.DarkSlateBlue;
-            btnChangAvatar.BorderColor = Color.PaleVioletRed;
-            btnChangAvatar.BorderRadius = 15;
-            btnChangAvatar.BorderSize = 0;
-            btnChangAvatar.FlatAppearance.BorderSize = 0;
-            btnChangAvatar.FlatStyle = FlatStyle.Flat;
-            btnChangAvatar.ForeColor = Color.White;
-            btnChangAvatar.Location = new Point(979, 103);
-            btnChangAvatar.Name = "btnChangAvatar";
-            btnChangAvatar.Size = new Size(188, 39);
-            btnChangAvatar.TabIndex = 2;
-            btnChangAvatar.Text = "Thay đổi ảnh đại diện";
-            btnChangAvatar.TextColor = Color.White;
-            btnChangAvatar.UseVisualStyleBackColor = false;
-            btnChangAvatar.Visible = false;
-            btnChangAvatar.Click += ChangeAvatar;
+            pictureAvt.Click += ChangeAvatar;
             // 
             // lblName
             // 
@@ -109,7 +86,6 @@
             lblName.TabIndex = 0;
             lblName.Text = "label1";
             lblName.TextAlign = ContentAlignment.TopRight;
-            lblName.Click += OnNameClick;
             // 
             // panelNavigate
             // 
@@ -122,6 +98,7 @@
             panelNavigate.Controls.Add(btnQLLH);
             panelNavigate.Location = new Point(2, 157);
             panelNavigate.Name = "panelNavigate";
+            panelNavigate.RightToLeft = RightToLeft.No;
             panelNavigate.Size = new Size(351, 605);
             panelNavigate.TabIndex = 1;
             // 
@@ -251,6 +228,7 @@
             btnQLLH.Location = new Point(0, 0);
             btnQLLH.Name = "btnQLLH";
             btnQLLH.Padding = new Padding(12, 0, 12, 0);
+            btnQLLH.RightToLeft = RightToLeft.No;
             btnQLLH.Size = new Size(351, 92);
             btnQLLH.TabIndex = 0;
             btnQLLH.Text = "QUẢN LÍ LỚP HỌC";
@@ -262,18 +240,11 @@
             // panelControl
             // 
             panelControl.BackColor = SystemColors.ControlLightLight;
-            panelControl.Controls.Add(formlgd1);
             panelControl.Location = new Point(353, 157);
             panelControl.Name = "panelControl";
+            panelControl.RightToLeft = RightToLeft.No;
             panelControl.Size = new Size(1492, 703);
             panelControl.TabIndex = 5;
-            // 
-            // formlgd1
-            // 
-            formlgd1.Location = new Point(209, 486);
-            formlgd1.Name = "formlgd1";
-            formlgd1.Size = new Size(94, 29);
-            formlgd1.TabIndex = 0;
             // 
             // ChooseAvtDialog
             // 
@@ -309,17 +280,14 @@
             Controls.Add(panelNavigate);
             Controls.Add(panelHeading);
             Name = "MainForm";
-            RightToLeft = RightToLeft.Yes;
             Text = "MainForm";
             WindowState = FormWindowState.Maximized;
-            Click += OnFormClick;
             Leave += MainForm_Leave;
             panelHeading.ResumeLayout(false);
             panelHeading.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureAvt).EndInit();
             panelNavigate.ResumeLayout(false);
             panelNavigate.PerformLayout();
-            panelControl.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -340,7 +308,6 @@
         private OpenFileDialog ChooseAvtDialog;
         private Panel panel1;
         private Label lblVersion;
-        private TeacherManager.CustomControls.CustomButton btnChangAvatar;
         private FormLGD formlgd1;
         private TeacherManager.CustomControls.CustomButton customButton1;
         private CustomControls.CustomPictureBox pictureAvt;

@@ -60,16 +60,16 @@
         private void InitializeComponent()
         {
             lblSemesterId = new Label();
-            txtBoxSemesterId = new TeacherManager.CustomControls.CustomTextBox();
-            btnAddSemester = new TeacherManager.CustomControls.CustomButton();
+            txtBoxSemesterId = new CustomControls.CustomTextBox();
+            btnAddSemester = new CustomControls.CustomButton();
             pictureBox1 = new PictureBox();
             pictureBox2 = new PictureBox();
             lblHeader = new Label();
             lblFromDate = new Label();
-            dateTimePickerTo = new TeacherManager.CustomControls.CustomDateTimePicker();
+            dateTimePickerTo = new CustomControls.CustomDateTimePicker();
             lblScheduleTo = new Label();
             label1 = new Label();
-            dateTimePickerFrom = new TeacherManager.CustomControls.CustomDateTimePicker();
+            dateTimePickerFrom = new CustomControls.CustomDateTimePicker();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             SuspendLayout();
@@ -78,7 +78,7 @@
             // 
             lblSemesterId.AutoSize = true;
             lblSemesterId.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblSemesterId.Location = new Point(209, 81);
+            lblSemesterId.Location = new Point(190, 80);
             lblSemesterId.Name = "lblSemesterId";
             lblSemesterId.Size = new Size(160, 31);
             lblSemesterId.TabIndex = 1;
@@ -93,7 +93,7 @@
             txtBoxSemesterId.BorderSize = 2;
             txtBoxSemesterId.Font = new Font("Segoe UI", 9.5F);
             txtBoxSemesterId.ForeColor = Color.DimGray;
-            txtBoxSemesterId.Location = new Point(209, 115);
+            txtBoxSemesterId.Location = new Point(190, 115);
             txtBoxSemesterId.Margin = new Padding(4);
             txtBoxSemesterId.Multiline = false;
             txtBoxSemesterId.Name = "txtBoxSemesterId";
@@ -101,7 +101,7 @@
             txtBoxSemesterId.PasswordChar = false;
             txtBoxSemesterId.PlaceholderColor = Color.DarkGray;
             txtBoxSemesterId.PlaceholderText = "";
-            txtBoxSemesterId.Size = new Size(281, 36);
+            txtBoxSemesterId.Size = new Size(324, 36);
             txtBoxSemesterId.TabIndex = 4;
             txtBoxSemesterId.Texts = "";
             txtBoxSemesterId.UnderlinedStyle = false;
@@ -161,7 +161,7 @@
             // 
             lblFromDate.AutoSize = true;
             lblFromDate.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblFromDate.Location = new Point(209, 174);
+            lblFromDate.Location = new Point(190, 174);
             lblFromDate.Name = "lblFromDate";
             lblFromDate.Size = new Size(40, 31);
             lblFromDate.TabIndex = 13;
@@ -172,22 +172,23 @@
             dateTimePickerTo.BorderColor = Color.MediumSlateBlue;
             dateTimePickerTo.BorderSize = 2;
             dateTimePickerTo.CalendarTrailingForeColor = Color.Gray;
-            dateTimePickerTo.CustomFormat = "";
+            dateTimePickerTo.CustomFormat = "dd/MM/yyyy";
             dateTimePickerTo.Font = new Font("Segoe UI", 9.5F);
-            dateTimePickerTo.Format = DateTimePickerFormat.Short;
-            dateTimePickerTo.Location = new Point(367, 208);
+            dateTimePickerTo.Format = DateTimePickerFormat.Custom;
+            dateTimePickerTo.Location = new Point(372, 208);
             dateTimePickerTo.MinimumSize = new Size(0, 35);
             dateTimePickerTo.Name = "dateTimePickerTo";
-            dateTimePickerTo.Size = new Size(123, 35);
+            dateTimePickerTo.Size = new Size(142, 35);
             dateTimePickerTo.SkinColor = SystemColors.Window;
             dateTimePickerTo.TabIndex = 16;
             dateTimePickerTo.TextColor = Color.Black;
+            dateTimePickerTo.Value = new DateTime(2025, 1, 4, 0, 0, 0, 0);
             // 
             // lblScheduleTo
             // 
             lblScheduleTo.AutoSize = true;
             lblScheduleTo.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblScheduleTo.Location = new Point(369, 174);
+            lblScheduleTo.Location = new Point(459, 174);
             lblScheduleTo.Name = "lblScheduleTo";
             lblScheduleTo.Size = new Size(55, 31);
             lblScheduleTo.TabIndex = 15;
@@ -197,7 +198,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(338, 204);
+            label1.Location = new Point(341, 204);
             label1.Name = "label1";
             label1.Size = new Size(28, 38);
             label1.TabIndex = 17;
@@ -208,16 +209,17 @@
             dateTimePickerFrom.BorderColor = Color.MediumSlateBlue;
             dateTimePickerFrom.BorderSize = 2;
             dateTimePickerFrom.CalendarTrailingForeColor = Color.Gray;
-            dateTimePickerFrom.CustomFormat = "";
+            dateTimePickerFrom.CustomFormat = "dd/MM/yyyy";
             dateTimePickerFrom.Font = new Font("Segoe UI", 9.5F);
-            dateTimePickerFrom.Format = DateTimePickerFormat.Short;
-            dateTimePickerFrom.Location = new Point(209, 208);
+            dateTimePickerFrom.Format = DateTimePickerFormat.Custom;
+            dateTimePickerFrom.Location = new Point(190, 208);
             dateTimePickerFrom.MinimumSize = new Size(0, 35);
             dateTimePickerFrom.Name = "dateTimePickerFrom";
-            dateTimePickerFrom.Size = new Size(123, 35);
+            dateTimePickerFrom.Size = new Size(142, 35);
             dateTimePickerFrom.SkinColor = SystemColors.Window;
             dateTimePickerFrom.TabIndex = 18;
             dateTimePickerFrom.TextColor = Color.Black;
+            dateTimePickerFrom.ValueChanged += SemesterPickFromDate;
             // 
             // FormCreateSemester
             // 

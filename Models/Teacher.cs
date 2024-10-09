@@ -11,7 +11,7 @@ namespace TeacherManager.Models
     public class Teacher
     {
         public ObjectId Id { get; set; }
-        [BsonElement("AccountId")]
-        public String accountId { get; set; }
+        [BsonElement("MSGV")]
+        public string accountId { get; set; }
     }
 }

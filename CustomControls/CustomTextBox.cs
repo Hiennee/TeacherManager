@@ -333,8 +333,9 @@ namespace TeacherManager.CustomControls
         #region -> TextBox events
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
+
             if (_TextChanged != null)
-                _TextChanged.Invoke(sender, e);
+                _TextChanged.Invoke(this, e);
         }
         private void textBox1_Click(object sender, EventArgs e)
         {

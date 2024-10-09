@@ -20,8 +20,6 @@ namespace TeacherManager
         public static Teacher Teacher;
 
         public MongoClient Client;
-        public PrivateFontCollection PrivateFonts = new PrivateFontCollection();
-        public Font CustomFont;
         public Login()
         {
             InitializeComponent();
@@ -47,7 +45,7 @@ namespace TeacherManager
             var teacherFilter = Builders<Teacher>.Filter.Eq(t => t.accountId, Account.AccountId);
             Teacher = Teachers.Find(teacherFilter).FirstOrDefault();
             //if (result.Role == "teacher")
-            MainForm mainForm = new MainForm();
+            MainForm mainForm = new MainForm(this);
             mainForm.Show();
             this.Hide();
         }

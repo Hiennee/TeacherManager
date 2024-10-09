@@ -33,9 +33,10 @@ namespace TeacherManager
         IMongoCollection<Class> Classes;
         IMongoCollection<Semester> Semesters;
         IMongoCollection<Student_Class_Detail> StudentClasses;
-        public MainForm()
+        public MainForm(Login loginForm)
         {
             this.Account = Login.Account;
+            LoginForm = loginForm;
             Base64Image = Account.Avatar ?? "";
             LoginForm = new Login();
             InitializeComponent();
@@ -175,17 +176,6 @@ namespace TeacherManager
             Close();
             LoginForm.Show();
         }
-
-        private void OnNameClick(object sender, EventArgs e)
-        {
-            btnChangAvatar.Visible = true;
-        }
-
-        private void OnFormClick(object sender, EventArgs e)
-        {
-            btnChangAvatar.Visible = false;
-        }
-
         private void ChangeAvatar(object sender, EventArgs e)
         {
             string avtPath = "";

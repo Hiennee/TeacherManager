@@ -75,28 +75,29 @@
             lblClassName.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblClassName.Location = new Point(17, 273);
             lblClassName.Name = "lblClassName";
-            lblClassName.Size = new Size(70, 28);
+            lblClassName.Size = new Size(82, 28);
             lblClassName.TabIndex = 1;
-            lblClassName.Text = "label1";
+            lblClassName.Text = "Tên lớp";
             // 
             // lblSemester
             // 
             lblSemester.AutoSize = true;
-            lblSemester.Location = new Point(17, 313);
+            lblSemester.Location = new Point(17, 312);
             lblSemester.Name = "lblSemester";
-            lblSemester.Size = new Size(50, 20);
+            lblSemester.Size = new Size(54, 20);
             lblSemester.TabIndex = 2;
-            lblSemester.Text = "label2";
+            lblSemester.Text = "Học kỳ";
             // 
             // pictureClass
             // 
             pictureClass.Image = Properties.Resources.courses_class_whiteboard_1;
-            pictureClass.Location = new Point(-53, -23);
+            pictureClass.Location = new Point(17, 16);
             pictureClass.Name = "pictureClass";
-            pictureClass.Size = new Size(625, 281);
+            pictureClass.Size = new Size(479, 263);
             pictureClass.SizeMode = PictureBoxSizeMode.Zoom;
             pictureClass.TabIndex = 3;
             pictureClass.TabStop = false;
+            pictureClass.Click += ShowClassDescriptionForm;
             // 
             // ClassDisplayControl
             // 
@@ -107,10 +108,13 @@
             Controls.Add(pictureClass);
             Controls.Add(lblSemester);
             Controls.Add(lblClassName);
+            Cursor = Cursors.Hand;
             Margin = new Padding(150, 100, 3, 3);
             Name = "ClassDisplayControl";
             Size = new Size(513, 346);
-            Load += ClassDisplayControl_Load;
+            Click += ShowClassDescriptionForm;
+            MouseEnter += Hover;
+            MouseLeave += EndHover;
             ((System.ComponentModel.ISupportInitialize)pictureClass).EndInit();
             ResumeLayout(false);
             PerformLayout();
