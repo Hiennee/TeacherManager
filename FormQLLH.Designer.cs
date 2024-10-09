@@ -31,8 +31,6 @@
             lblHeader = new Label();
             btnAddClass = new CustomControls.CustomButton();
             panelClasses = new FlowLayoutPanel();
-            panelClassDescription = new Panel();
-            panelClasses.SuspendLayout();
             SuspendLayout();
             // 
             // lblHeader
@@ -69,19 +67,11 @@
             // panelClasses
             // 
             panelClasses.AutoScroll = true;
-            panelClasses.Controls.Add(panelClassDescription);
-            panelClasses.Location = new Point(22, 81);
+            panelClasses.Location = new Point(41, 81);
             panelClasses.Name = "panelClasses";
-            panelClasses.Size = new Size(1470, 598);
-            panelClasses.TabIndex = 3;
-            // 
-            // panelClassDescription
-            // 
-            panelClassDescription.Location = new Point(3, 3);
-            panelClassDescription.Name = "panelClassDescription";
-            panelClassDescription.Size = new Size(1388, 561);
-            panelClassDescription.TabIndex = 0;
-            panelClassDescription.Visible = false;
+            panelClasses.RightToLeft = RightToLeft.No;
+            panelClasses.Size = new Size(1413, 563);
+            panelClasses.TabIndex = 0;
             // 
             // FormQLLH
             // 
@@ -92,7 +82,6 @@
             Controls.Add(lblHeader);
             Name = "FormQLLH";
             Size = new Size(1492, 791);
-            panelClasses.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -102,6 +91,5 @@
         private Label lblHeader;
         private TeacherManager.CustomControls.CustomButton btnAddClass;
         private FlowLayoutPanel panelClasses;
-        private Panel panelClassDescription;
     }
 }

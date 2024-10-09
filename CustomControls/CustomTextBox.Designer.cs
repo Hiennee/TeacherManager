@@ -2,6 +2,7 @@
 {
     partial class CustomTextBox
     {
+
         /// <summary> 
         /// Required designer variable.
         /// </summary>
@@ -35,10 +36,17 @@
             // 
             textBox1.BorderStyle = BorderStyle.None;
             textBox1.Dock = DockStyle.Fill;
-            textBox1.Location = new Point(7, 7);
+            textBox1.Location = new Point(10, 7);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(236, 18);
+            textBox1.Size = new Size(230, 18);
             textBox1.TabIndex = 0;
+            textBox1.Click += textBox1_Click;
+            textBox1.TextChanged += textBox1_TextChanged;
+            textBox1.Enter += textBox1_Enter;
+            textBox1.KeyPress += textBox1_KeyPress;
+            textBox1.Leave += textBox1_Leave;
+            textBox1.MouseEnter += textBox1_MouseEnter;
+            textBox1.MouseLeave += textBox1_MouseLeave;
             // 
             // CustomTextBox
             // 
@@ -46,10 +54,10 @@
             BackColor = SystemColors.Window;
             Controls.Add(textBox1);
             Font = new Font("Microsoft Sans Serif", 9.5F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            ForeColor = Color.DimGray;
+            ForeColor = Color.FromArgb(64, 64, 64);
             Margin = new Padding(4);
             Name = "CustomTextBox";
-            Padding = new Padding(7);
+            Padding = new Padding(10, 7, 10, 7);
             Size = new Size(250, 30);
             ResumeLayout(false);
             PerformLayout();

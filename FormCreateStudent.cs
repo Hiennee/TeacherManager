@@ -49,7 +49,7 @@ namespace TeacherManager
             var IDEmailPhoneFilter = Builders<Account>.Filter.Eq(a => a.AccountId, txtBoxAccountName.Texts) |
                                      Builders<Account>.Filter.Eq(a => a.Email, txtBoxEmail.Texts) |
                                      Builders<Account>.Filter.Eq(a => a.Phone, txtBoxPhone.Texts);
-            var MSSVFilter = Builders<Student>.Filter.Eq(s => s.MSSV, txtBoxMSSV.Texts);
+            var MSSVFilter = Builders<Student>.Filter.Eq(s => s.accountId, txtBoxMSSV.Texts);
             var IDEmailExist = Accounts.Find(IDEmailPhoneFilter).Any();
             var MSSVExist = Students.Find(MSSVFilter).Any();
             if (IDEmailExist || MSSVExist)
@@ -69,7 +69,7 @@ namespace TeacherManager
             };
             Student s = new Student
             {
-                MSSV = txtBoxMSSV.Texts,
+                accountId = txtBoxMSSV.Texts,
             };
             Accounts.InsertOne(a);
             Students.InsertOne(s);

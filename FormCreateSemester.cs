@@ -30,6 +30,21 @@ namespace TeacherManager
 
         private void AddSemester(object sender, EventArgs e)
         {
+            if (dateTimePickerFrom.Value < DateTime.Now)
+            {
+                MessageBox.Show("Không thể tạo học kì trước hôm nay", "Thông báo");
+                return;
+            }
+            if (dateTimePickerTo.Value < dateTimePickerFrom.Value)
+            {
+                MessageBox.Show("Thời gian không hợp lệ", "Thông báo");
+                return;
+            }
+            if (dateTimePickerTo.Value > dateTimePickerFrom.Value.AddMonths(6))
+            {
+                MessageBox.Show("Một học kì chỉ được phép kéo dài tối đa 6 tháng", "Thông báo");
+                return;
+            }
             var SemesterIdFilter = Builders<Semester>.Filter.Eq(s => s.SemesterId, txtBoxSemesterId.Texts);
             var SemesterIdExist = Semesters.Find(SemesterIdFilter).Any();
             if (SemesterIdExist)
@@ -46,6 +61,11 @@ namespace TeacherManager
             Semesters.InsertOne(s);
             MessageBox.Show("Tạo học kì mới thành công", "Thông báo");
             Close();
+        }
+
+        private void SemesterPickFromDate(object sender, EventArgs e)
+        {
+            dateTimePickerTo.Value = dateTimePickerFrom.Value.AddMonths(6);
         }
     }
 }

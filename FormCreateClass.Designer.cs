@@ -90,6 +90,8 @@
             numericGradeWeight4 = new NumericUpDown();
             txtBoxSemesterId = new CustomControls.CustomTextBox();
             lblSemesterId = new Label();
+            lblDayOfWeek = new Label();
+            txtBoxDayOfWeek = new CustomControls.CustomComboBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericFromHour).BeginInit();
@@ -136,7 +138,7 @@
             // 
             lblRoom.AutoSize = true;
             lblRoom.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblRoom.Location = new Point(143, 425);
+            lblRoom.Location = new Point(320, 417);
             lblRoom.Name = "lblRoom";
             lblRoom.Size = new Size(80, 31);
             lblRoom.TabIndex = 3;
@@ -221,7 +223,7 @@
             txtBoxRoom.BorderSize = 2;
             txtBoxRoom.Font = new Font("Segoe UI", 9.5F);
             txtBoxRoom.ForeColor = Color.DimGray;
-            txtBoxRoom.Location = new Point(143, 460);
+            txtBoxRoom.Location = new Point(291, 458);
             txtBoxRoom.Margin = new Padding(4);
             txtBoxRoom.Multiline = false;
             txtBoxRoom.Name = "txtBoxRoom";
@@ -229,8 +231,8 @@
             txtBoxRoom.PasswordChar = false;
             txtBoxRoom.PlaceholderColor = Color.DarkGray;
             txtBoxRoom.PlaceholderText = "";
-            txtBoxRoom.Size = new Size(267, 36);
-            txtBoxRoom.TabIndex = 8;
+            txtBoxRoom.Size = new Size(119, 36);
+            txtBoxRoom.TabIndex = 9;
             txtBoxRoom.Texts = "";
             txtBoxRoom.UnderlinedStyle = false;
             txtBoxRoom._TextChanged += CheckAddStudentButtonAvailable;
@@ -249,7 +251,7 @@
             btnAddStudent.Location = new Point(362, 539);
             btnAddStudent.Name = "btnAddStudent";
             btnAddStudent.Size = new Size(206, 44);
-            btnAddStudent.TabIndex = 17;
+            btnAddStudent.TabIndex = 18;
             btnAddStudent.Text = "Thêm lớp";
             btnAddStudent.TextColor = Color.White;
             btnAddStudent.UseVisualStyleBackColor = false;
@@ -363,7 +365,7 @@
             numericFromHour.Minimum = new decimal(new int[] { 6, 0, 0, 0 });
             numericFromHour.Name = "numericFromHour";
             numericFromHour.Size = new Size(48, 27);
-            numericFromHour.TabIndex = 9;
+            numericFromHour.TabIndex = 10;
             numericFromHour.Value = new decimal(new int[] { 8, 0, 0, 0 });
             // 
             // numericFromMinute
@@ -372,7 +374,7 @@
             numericFromMinute.Maximum = new decimal(new int[] { 60, 0, 0, 0 });
             numericFromMinute.Name = "numericFromMinute";
             numericFromMinute.Size = new Size(48, 27);
-            numericFromMinute.TabIndex = 10;
+            numericFromMinute.TabIndex = 11;
             // 
             // numericToMinute
             // 
@@ -380,7 +382,7 @@
             numericToMinute.Maximum = new decimal(new int[] { 60, 0, 0, 0 });
             numericToMinute.Name = "numericToMinute";
             numericToMinute.Size = new Size(48, 27);
-            numericToMinute.TabIndex = 12;
+            numericToMinute.TabIndex = 13;
             // 
             // numericToHour
             // 
@@ -389,7 +391,7 @@
             numericToHour.Minimum = new decimal(new int[] { 8, 0, 0, 0 });
             numericToHour.Name = "numericToHour";
             numericToHour.Size = new Size(48, 27);
-            numericToHour.TabIndex = 11;
+            numericToHour.TabIndex = 12;
             numericToHour.Value = new decimal(new int[] { 12, 0, 0, 0 });
             // 
             // label1
@@ -417,7 +419,7 @@
             numericGradeWeight1.Maximum = new decimal(new int[] { 80, 0, 0, 0 });
             numericGradeWeight1.Name = "numericGradeWeight1";
             numericGradeWeight1.Size = new Size(78, 27);
-            numericGradeWeight1.TabIndex = 13;
+            numericGradeWeight1.TabIndex = 14;
             // 
             // numericGradeWeight2
             // 
@@ -426,7 +428,7 @@
             numericGradeWeight2.Maximum = new decimal(new int[] { 80, 0, 0, 0 });
             numericGradeWeight2.Name = "numericGradeWeight2";
             numericGradeWeight2.Size = new Size(78, 27);
-            numericGradeWeight2.TabIndex = 14;
+            numericGradeWeight2.TabIndex = 15;
             // 
             // numericGradeWeight3
             // 
@@ -435,7 +437,7 @@
             numericGradeWeight3.Maximum = new decimal(new int[] { 80, 0, 0, 0 });
             numericGradeWeight3.Name = "numericGradeWeight3";
             numericGradeWeight3.Size = new Size(78, 27);
-            numericGradeWeight3.TabIndex = 15;
+            numericGradeWeight3.TabIndex = 16;
             // 
             // numericGradeWeight4
             // 
@@ -444,7 +446,7 @@
             numericGradeWeight4.Maximum = new decimal(new int[] { 80, 0, 0, 0 });
             numericGradeWeight4.Name = "numericGradeWeight4";
             numericGradeWeight4.Size = new Size(78, 27);
-            numericGradeWeight4.TabIndex = 16;
+            numericGradeWeight4.TabIndex = 17;
             // 
             // txtBoxSemesterId
             // 
@@ -467,6 +469,7 @@
             txtBoxSemesterId.TabIndex = 5;
             txtBoxSemesterId.Texts = "";
             txtBoxSemesterId.UnderlinedStyle = false;
+            txtBoxSemesterId._TextChanged += CheckAddStudentButtonAvailable;
             // 
             // lblSemesterId
             // 
@@ -478,12 +481,44 @@
             lblSemesterId.TabIndex = 34;
             lblSemesterId.Text = "Mã học kỳ";
             // 
+            // lblDayOfWeek
+            // 
+            lblDayOfWeek.AutoSize = true;
+            lblDayOfWeek.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblDayOfWeek.Location = new Point(143, 425);
+            lblDayOfWeek.Name = "lblDayOfWeek";
+            lblDayOfWeek.Size = new Size(53, 31);
+            lblDayOfWeek.TabIndex = 35;
+            lblDayOfWeek.Text = "Thứ";
+            // 
+            // txtBoxDayOfWeek
+            // 
+            txtBoxDayOfWeek.BackColor = SystemColors.Window;
+            txtBoxDayOfWeek.BorderColor = Color.MediumSlateBlue;
+            txtBoxDayOfWeek.BorderSize = 2;
+            txtBoxDayOfWeek.DropDownStyle = ComboBoxStyle.DropDown;
+            txtBoxDayOfWeek.Font = new Font("Segoe UI", 10F);
+            txtBoxDayOfWeek.ForeColor = Color.DimGray;
+            txtBoxDayOfWeek.IconColor = Color.MediumSlateBlue;
+            txtBoxDayOfWeek.Items.AddRange(new object[] { "Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu", "Thứ bảy" });
+            txtBoxDayOfWeek.ListBackColor = Color.FromArgb(230, 228, 245);
+            txtBoxDayOfWeek.ListTextColor = Color.DimGray;
+            txtBoxDayOfWeek.Location = new Point(143, 458);
+            txtBoxDayOfWeek.MinimumSize = new Size(100, 30);
+            txtBoxDayOfWeek.Name = "txtBoxDayOfWeek";
+            txtBoxDayOfWeek.Padding = new Padding(2);
+            txtBoxDayOfWeek.Size = new Size(118, 36);
+            txtBoxDayOfWeek.TabIndex = 8;
+            txtBoxDayOfWeek.Texts = "";
+            // 
             // FormCreateClass
             // 
             AcceptButton = btnAddStudent;
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(962, 615);
+            Controls.Add(txtBoxDayOfWeek);
+            Controls.Add(lblDayOfWeek);
             Controls.Add(txtBoxSemesterId);
             Controls.Add(lblSemesterId);
             Controls.Add(numericGradeWeight4);
@@ -569,5 +604,7 @@
         private NumericUpDown numericGradeWeight4;
         private CustomControls.CustomTextBox txtBoxSemesterId;
         private Label lblSemesterId;
+        private Label lblDayOfWeek;
+        private CustomControls.CustomComboBox txtBoxDayOfWeek;
     }
 }
