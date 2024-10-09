@@ -46,7 +46,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(label1);
             Name = "FormQLTK";
-            Size = new Size(1492, 589);
+            Size = new Size(1572, 899);
             ResumeLayout(false);
             PerformLayout();
         }

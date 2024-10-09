@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             lblHeader = new Label();
             lblSemester = new Label();
             txtBoxSemesterId = new CustomControls.CustomComboBox();
@@ -40,6 +40,7 @@
             dataViewDaysOfMonth = new DataGridView();
             btnPrevMonth = new PictureBox();
             bnNextMonth = new PictureBox();
+            panelSchedule = new FlowLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)dataViewDaysOfMonth).BeginInit();
             ((System.ComponentModel.ISupportInitialize)btnPrevMonth).BeginInit();
             ((System.ComponentModel.ISupportInitialize)bnNextMonth).BeginInit();
@@ -90,7 +91,7 @@
             lblHeaderMonth.AutoSize = true;
             lblHeaderMonth.Font = new Font("Segoe UI", 20F, FontStyle.Bold);
             lblHeaderMonth.ForeColor = Color.Coral;
-            lblHeaderMonth.Location = new Point(571, 199);
+            lblHeaderMonth.Location = new Point(461, 206);
             lblHeaderMonth.Name = "lblHeaderMonth";
             lblHeaderMonth.Size = new Size(141, 46);
             lblHeaderMonth.TabIndex = 3;
@@ -101,7 +102,7 @@
             lblMonth.AutoSize = true;
             lblMonth.Font = new Font("Segoe UI", 20F, FontStyle.Bold);
             lblMonth.ForeColor = Color.Coral;
-            lblMonth.Location = new Point(704, 199);
+            lblMonth.Location = new Point(594, 206);
             lblMonth.Name = "lblMonth";
             lblMonth.Size = new Size(60, 46);
             lblMonth.TabIndex = 4;
@@ -112,7 +113,7 @@
             lblSlash.AutoSize = true;
             lblSlash.Font = new Font("Segoe UI", 20F, FontStyle.Bold);
             lblSlash.ForeColor = Color.Coral;
-            lblSlash.Location = new Point(759, 182);
+            lblSlash.Location = new Point(649, 189);
             lblSlash.Name = "lblSlash";
             lblSlash.Size = new Size(34, 46);
             lblSlash.TabIndex = 5;
@@ -123,7 +124,7 @@
             lblYear.AutoSize = true;
             lblYear.Font = new Font("Segoe UI", 20F, FontStyle.Bold);
             lblYear.ForeColor = Color.Coral;
-            lblYear.Location = new Point(789, 199);
+            lblYear.Location = new Point(679, 206);
             lblYear.Name = "lblYear";
             lblYear.Size = new Size(100, 46);
             lblYear.TabIndex = 6;
@@ -139,25 +140,25 @@
             dataViewDaysOfMonth.BorderStyle = BorderStyle.None;
             dataViewDaysOfMonth.CellBorderStyle = DataGridViewCellBorderStyle.None;
             dataViewDaysOfMonth.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
-            dataGridViewCellStyle1.ForeColor = Color.White;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dataViewDaysOfMonth.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = SystemColors.Highlight;
+            dataGridViewCellStyle5.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            dataGridViewCellStyle5.ForeColor = Color.White;
+            dataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
+            dataViewDaysOfMonth.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             dataViewDaysOfMonth.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.Window;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
-            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Window;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dataViewDaysOfMonth.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = SystemColors.Window;
+            dataGridViewCellStyle6.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            dataGridViewCellStyle6.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Window;
+            dataGridViewCellStyle6.SelectionForeColor = SystemColors.Highlight;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.False;
+            dataViewDaysOfMonth.DefaultCellStyle = dataGridViewCellStyle6;
             dataViewDaysOfMonth.EnableHeadersVisualStyles = false;
-            dataViewDaysOfMonth.Location = new Point(246, 298);
+            dataViewDaysOfMonth.Location = new Point(82, 287);
             dataViewDaysOfMonth.MultiSelect = false;
             dataViewDaysOfMonth.Name = "dataViewDaysOfMonth";
             dataViewDaysOfMonth.ReadOnly = true;
@@ -173,7 +174,7 @@
             // btnPrevMonth
             // 
             btnPrevMonth.Image = Properties.Resources.left_icon;
-            btnPrevMonth.Location = new Point(491, 199);
+            btnPrevMonth.Location = new Point(381, 206);
             btnPrevMonth.Name = "btnPrevMonth";
             btnPrevMonth.Size = new Size(60, 55);
             btnPrevMonth.SizeMode = PictureBoxSizeMode.Zoom;
@@ -184,7 +185,7 @@
             // bnNextMonth
             // 
             bnNextMonth.Image = Properties.Resources.right_icon;
-            bnNextMonth.Location = new Point(911, 199);
+            bnNextMonth.Location = new Point(801, 206);
             bnNextMonth.Name = "bnNextMonth";
             bnNextMonth.Size = new Size(60, 55);
             bnNextMonth.SizeMode = PictureBoxSizeMode.Zoom;
@@ -192,10 +193,19 @@
             bnNextMonth.TabStop = false;
             bnNextMonth.Click += ToNextMonth;
             // 
+            // panelSchedule
+            // 
+            panelSchedule.FlowDirection = FlowDirection.TopDown;
+            panelSchedule.Location = new Point(1119, 287);
+            panelSchedule.Name = "panelSchedule";
+            panelSchedule.Size = new Size(437, 440);
+            panelSchedule.TabIndex = 10;
+            // 
             // FormLGD
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(panelSchedule);
             Controls.Add(bnNextMonth);
             Controls.Add(btnPrevMonth);
             Controls.Add(dataViewDaysOfMonth);
@@ -207,7 +217,7 @@
             Controls.Add(lblSemester);
             Controls.Add(lblHeader);
             Name = "FormLGD";
-            Size = new Size(1492, 791);
+            Size = new Size(1572, 899);
             ((System.ComponentModel.ISupportInitialize)dataViewDaysOfMonth).EndInit();
             ((System.ComponentModel.ISupportInitialize)btnPrevMonth).EndInit();
             ((System.ComponentModel.ISupportInitialize)bnNextMonth).EndInit();
@@ -227,5 +237,6 @@
         private DataGridView dataViewDaysOfMonth;
         private PictureBox btnPrevMonth;
         private PictureBox bnNextMonth;
+        private FlowLayoutPanel panelSchedule;
     }
 }

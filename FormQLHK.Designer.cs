@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             label1 = new Label();
-            btnAddSemester = new TeacherManager.CustomControls.CustomButton();
+            btnAddSemester = new CustomControls.CustomButton();
             SuspendLayout();
             // 
             // label1
@@ -69,7 +69,7 @@
             Controls.Add(btnAddSemester);
             Controls.Add(label1);
             Name = "FormQLHK";
-            Size = new Size(1492, 589);
+            Size = new Size(1572, 899);
             ResumeLayout(false);
             PerformLayout();
         }

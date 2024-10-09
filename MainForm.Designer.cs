@@ -54,7 +54,7 @@
             panelHeading.Controls.Add(lblName);
             panelHeading.Location = new Point(353, -2);
             panelHeading.Name = "panelHeading";
-            panelHeading.Size = new Size(1492, 160);
+            panelHeading.Size = new Size(1569, 160);
             panelHeading.TabIndex = 0;
             // 
             // pictureAvt
@@ -80,7 +80,7 @@
             lblName.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             lblName.AutoSize = true;
             lblName.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblName.Location = new Point(979, 41);
+            lblName.Location = new Point(991, 52);
             lblName.Name = "lblName";
             lblName.Size = new Size(97, 41);
             lblName.TabIndex = 0;
@@ -99,13 +99,13 @@
             panelNavigate.Location = new Point(2, 157);
             panelNavigate.Name = "panelNavigate";
             panelNavigate.RightToLeft = RightToLeft.No;
-            panelNavigate.Size = new Size(351, 605);
+            panelNavigate.Size = new Size(351, 899);
             panelNavigate.TabIndex = 1;
             // 
             // lblVersion
             // 
             lblVersion.AutoSize = true;
-            lblVersion.Location = new Point(114, 559);
+            lblVersion.Location = new Point(109, 846);
             lblVersion.Name = "lblVersion";
             lblVersion.Size = new Size(128, 20);
             lblVersion.TabIndex = 5;
@@ -243,7 +243,7 @@
             panelControl.Location = new Point(353, 157);
             panelControl.Name = "panelControl";
             panelControl.RightToLeft = RightToLeft.No;
-            panelControl.Size = new Size(1492, 703);
+            panelControl.Size = new Size(1572, 899);
             panelControl.TabIndex = 5;
             // 
             // ChooseAvtDialog
@@ -274,7 +274,7 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Window;
-            ClientSize = new Size(1846, 865);
+            ClientSize = new Size(1924, 1055);
             Controls.Add(customButton1);
             Controls.Add(panelControl);
             Controls.Add(panelNavigate);

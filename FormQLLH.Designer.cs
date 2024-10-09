@@ -70,7 +70,7 @@
             panelClasses.Location = new Point(41, 81);
             panelClasses.Name = "panelClasses";
             panelClasses.RightToLeft = RightToLeft.No;
-            panelClasses.Size = new Size(1413, 563);
+            panelClasses.Size = new Size(1486, 794);
             panelClasses.TabIndex = 0;
             // 
             // FormQLLH
@@ -81,7 +81,7 @@
             Controls.Add(btnAddClass);
             Controls.Add(lblHeader);
             Name = "FormQLLH";
-            Size = new Size(1492, 791);
+            Size = new Size(1572, 899);
             ResumeLayout(false);
             PerformLayout();
         }
