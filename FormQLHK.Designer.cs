@@ -28,18 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            label1 = new Label();
             btnAddSemester = new CustomControls.CustomButton();
+            lblHeader = new Label();
+            panelSemesters = new FlowLayoutPanel();
             SuspendLayout();
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(719, 197);
-            label1.Name = "label1";
-            label1.Size = new Size(105, 20);
-            label1.TabIndex = 0;
-            label1.Text = "Quản lý học kỳ";
             // 
             // btnAddSemester
             // 
@@ -53,7 +45,7 @@
             btnAddSemester.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnAddSemester.ForeColor = Color.White;
             btnAddSemester.ImageAlign = ContentAlignment.MiddleLeft;
-            btnAddSemester.Location = new Point(1155, 55);
+            btnAddSemester.Location = new Point(1193, 15);
             btnAddSemester.Name = "btnAddSemester";
             btnAddSemester.Size = new Size(201, 43);
             btnAddSemester.TabIndex = 3;
@@ -62,12 +54,32 @@
             btnAddSemester.UseVisualStyleBackColor = false;
             btnAddSemester.Click += ShowAddSemesterForm;
             // 
+            // lblHeader
+            // 
+            lblHeader.AutoSize = true;
+            lblHeader.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblHeader.Location = new Point(22, 15);
+            lblHeader.Name = "lblHeader";
+            lblHeader.Size = new Size(218, 31);
+            lblHeader.TabIndex = 4;
+            lblHeader.Text = "QUẢN LÝ LỚP HỌC";
+            // 
+            // panelSemesters
+            // 
+            panelSemesters.AutoScroll = true;
+            panelSemesters.Location = new Point(41, 81);
+            panelSemesters.Name = "panelSemesters";
+            panelSemesters.RightToLeft = RightToLeft.No;
+            panelSemesters.Size = new Size(1486, 794);
+            panelSemesters.TabIndex = 5;
+            // 
             // FormQLHK
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(panelSemesters);
+            Controls.Add(lblHeader);
             Controls.Add(btnAddSemester);
-            Controls.Add(label1);
             Name = "FormQLHK";
             Size = new Size(1572, 899);
             ResumeLayout(false);
@@ -75,8 +87,8 @@
         }
 
         #endregion
-
-        private Label label1;
         private TeacherManager.CustomControls.CustomButton btnAddSemester;
+        private Label lblHeader;
+        private FlowLayoutPanel panelSemesters;
     }
 }

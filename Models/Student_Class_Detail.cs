@@ -27,6 +27,8 @@ namespace TeacherManager.Models
         public double Grade04 { get; set; }
         [BsonElement("bonus")]
         public double Bonus { get; set; }
+        [BsonElement("minus")]
+        public double Minus { get; set; }
         [BsonElement("grade_total")]
         public double Grade_total { get; set; }
     }

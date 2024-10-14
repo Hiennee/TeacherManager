@@ -60,17 +60,15 @@
         private void InitializeComponent()
         {
             lblStudentName = new Label();
-            lblAccountName = new Label();
             lblEmail = new Label();
             lblPhone = new Label();
-            txtBoxAccountName = new TeacherManager.CustomControls.CustomTextBox();
-            txtBoxStudentName = new TeacherManager.CustomControls.CustomTextBox();
-            txtBoxEmail = new TeacherManager.CustomControls.CustomTextBox();
-            txtBoxPhone = new TeacherManager.CustomControls.CustomTextBox();
-            btnAddStudent = new TeacherManager.CustomControls.CustomButton();
+            txtBoxStudentName = new CustomControls.CustomTextBox();
+            txtBoxEmail = new CustomControls.CustomTextBox();
+            txtBoxPhone = new CustomControls.CustomTextBox();
+            btnAddStudent = new CustomControls.CustomButton();
             pictureBox1 = new PictureBox();
             pictureBox2 = new PictureBox();
-            txtBoxMSSV = new TeacherManager.CustomControls.CustomTextBox();
+            txtBoxMSSV = new CustomControls.CustomTextBox();
             lblMSSV = new Label();
             lblHeader = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -81,27 +79,17 @@
             // 
             lblStudentName.AutoSize = true;
             lblStudentName.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblStudentName.Location = new Point(209, 167);
+            lblStudentName.Location = new Point(202, 99);
             lblStudentName.Name = "lblStudentName";
             lblStudentName.Size = new Size(145, 31);
             lblStudentName.TabIndex = 0;
             lblStudentName.Text = "Tên sinh viên";
             // 
-            // lblAccountName
-            // 
-            lblAccountName.AutoSize = true;
-            lblAccountName.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblAccountName.Location = new Point(209, 81);
-            lblAccountName.Name = "lblAccountName";
-            lblAccountName.Size = new Size(166, 31);
-            lblAccountName.TabIndex = 1;
-            lblAccountName.Text = "Tên đăng nhập";
-            // 
             // lblEmail
             // 
             lblEmail.AutoSize = true;
             lblEmail.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblEmail.Location = new Point(209, 343);
+            lblEmail.Location = new Point(202, 275);
             lblEmail.Name = "lblEmail";
             lblEmail.Size = new Size(79, 31);
             lblEmail.TabIndex = 2;
@@ -111,34 +99,11 @@
             // 
             lblPhone.AutoSize = true;
             lblPhone.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblPhone.Location = new Point(209, 425);
+            lblPhone.Location = new Point(202, 357);
             lblPhone.Name = "lblPhone";
             lblPhone.Size = new Size(148, 31);
             lblPhone.TabIndex = 3;
             lblPhone.Text = "Số điện thoại";
-            // 
-            // txtBoxAccountName
-            // 
-            txtBoxAccountName.BackColor = SystemColors.Window;
-            txtBoxAccountName.BorderColor = Color.MediumSlateBlue;
-            txtBoxAccountName.BorderFocusColor = Color.HotPink;
-            txtBoxAccountName.BorderRadius = 0;
-            txtBoxAccountName.BorderSize = 2;
-            txtBoxAccountName.Font = new Font("Segoe UI", 9.5F);
-            txtBoxAccountName.ForeColor = Color.DimGray;
-            txtBoxAccountName.Location = new Point(209, 115);
-            txtBoxAccountName.Margin = new Padding(4);
-            txtBoxAccountName.Multiline = false;
-            txtBoxAccountName.Name = "txtBoxAccountName";
-            txtBoxAccountName.Padding = new Padding(7);
-            txtBoxAccountName.PasswordChar = false;
-            txtBoxAccountName.PlaceholderColor = Color.DarkGray;
-            txtBoxAccountName.PlaceholderText = "";
-            txtBoxAccountName.Size = new Size(252, 36);
-            txtBoxAccountName.TabIndex = 4;
-            txtBoxAccountName.Texts = "";
-            txtBoxAccountName.UnderlinedStyle = false;
-            txtBoxAccountName._TextChanged += CheckAddStudentButtonAvailable;
             // 
             // txtBoxStudentName
             // 
@@ -149,7 +114,7 @@
             txtBoxStudentName.BorderSize = 2;
             txtBoxStudentName.Font = new Font("Segoe UI", 9.5F);
             txtBoxStudentName.ForeColor = Color.DimGray;
-            txtBoxStudentName.Location = new Point(209, 201);
+            txtBoxStudentName.Location = new Point(202, 133);
             txtBoxStudentName.Margin = new Padding(4);
             txtBoxStudentName.Multiline = false;
             txtBoxStudentName.Name = "txtBoxStudentName";
@@ -172,7 +137,7 @@
             txtBoxEmail.BorderSize = 2;
             txtBoxEmail.Font = new Font("Segoe UI", 9.5F);
             txtBoxEmail.ForeColor = Color.DimGray;
-            txtBoxEmail.Location = new Point(209, 377);
+            txtBoxEmail.Location = new Point(202, 309);
             txtBoxEmail.Margin = new Padding(4);
             txtBoxEmail.Multiline = false;
             txtBoxEmail.Name = "txtBoxEmail";
@@ -195,7 +160,7 @@
             txtBoxPhone.BorderSize = 2;
             txtBoxPhone.Font = new Font("Segoe UI", 9.5F);
             txtBoxPhone.ForeColor = Color.DimGray;
-            txtBoxPhone.Location = new Point(209, 460);
+            txtBoxPhone.Location = new Point(202, 392);
             txtBoxPhone.Margin = new Padding(4);
             txtBoxPhone.Multiline = false;
             txtBoxPhone.Name = "txtBoxPhone";
@@ -220,7 +185,7 @@
             btnAddStudent.FlatStyle = FlatStyle.Flat;
             btnAddStudent.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnAddStudent.ForeColor = Color.White;
-            btnAddStudent.Location = new Point(233, 550);
+            btnAddStudent.Location = new Point(226, 482);
             btnAddStudent.Name = "btnAddStudent";
             btnAddStudent.Size = new Size(206, 44);
             btnAddStudent.TabIndex = 9;
@@ -259,7 +224,7 @@
             txtBoxMSSV.BorderSize = 2;
             txtBoxMSSV.Font = new Font("Segoe UI", 9.5F);
             txtBoxMSSV.ForeColor = Color.DimGray;
-            txtBoxMSSV.Location = new Point(209, 289);
+            txtBoxMSSV.Location = new Point(202, 221);
             txtBoxMSSV.Margin = new Padding(4);
             txtBoxMSSV.Multiline = false;
             txtBoxMSSV.Name = "txtBoxMSSV";
@@ -277,7 +242,7 @@
             // 
             lblMSSV.AutoSize = true;
             lblMSSV.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblMSSV.Location = new Point(209, 255);
+            lblMSSV.Location = new Point(202, 187);
             lblMSSV.Name = "lblMSSV";
             lblMSSV.Size = new Size(172, 31);
             lblMSSV.TabIndex = 11;
@@ -298,7 +263,7 @@
             AcceptButton = btnAddStudent;
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(695, 615);
+            ClientSize = new Size(695, 563);
             Controls.Add(lblHeader);
             Controls.Add(txtBoxMSSV);
             Controls.Add(lblMSSV);
@@ -308,10 +273,8 @@
             Controls.Add(txtBoxPhone);
             Controls.Add(txtBoxEmail);
             Controls.Add(txtBoxStudentName);
-            Controls.Add(txtBoxAccountName);
             Controls.Add(lblPhone);
             Controls.Add(lblEmail);
-            Controls.Add(lblAccountName);
             Controls.Add(lblStudentName);
             FormBorderStyle = FormBorderStyle.None;
             Name = "FormCreateStudent";
@@ -328,10 +291,8 @@
         #endregion
 
         private Label lblStudentName;
-        private Label lblAccountName;
         private Label lblEmail;
         private Label lblPhone;
-        private TeacherManager.CustomControls.CustomTextBox txtBoxAccountName;
         private TeacherManager.CustomControls.CustomTextBox txtBoxStudentName;
         private TeacherManager.CustomControls.CustomTextBox txtBoxEmail;
         private TeacherManager.CustomControls.CustomTextBox txtBoxPhone;

@@ -114,10 +114,14 @@ namespace TeacherManager
                     Grade03 = 0.0,
                     Grade04 = 0.0,
                     Bonus = 0.0,
+                    Minus = 0.0,
                     Grade_total = 0.0,
                 };
                 StudentClasses.InsertOne(sc);
-                MessageBox.Show("Thêm sinh viên vào lớp thành công", "Thông báo");
+                if (MessageBox.Show("Thêm sinh viên vào lớp thành công", "Thông báo") == DialogResult.OK)
+                {
+                    this.DialogResult = DialogResult.OK;
+                }
                 Close();
                 return;
             }

@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel;
 using System.Drawing.Drawing2D;
+using System.Windows.Forms;
 
 namespace TeacherManager
 {
-    partial class FormClassDescription
+    partial class FormAccountsDescription
     {
         private int borderWidth = 5;  // Width of the custom border
         private Color borderColor = Color.MediumSlateBlue;  // Border color
@@ -44,20 +45,20 @@ namespace TeacherManager
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             dividerControl1 = new CustomControls.DividerControl();
-            lblClassName = new Label();
-            lblSemesterId = new Label();
+            lblHeader = new Label();
             pictureBox2 = new PictureBox();
-            dataViewStudents = new DataGridView();
+            dataViewAccounts = new DataGridView();
             btnAddStudentIntoClass = new CustomControls.CustomButton();
             excelIcon = new PictureBox();
+            cbRole = new CustomControls.CustomComboBox();
             mailIcon = new PictureBox();
-            lblStudentNumbers = new Label();
+            lblAccountsNumber = new Label();
             ((ISupportInitialize)pictureBox2).BeginInit();
-            ((ISupportInitialize)dataViewStudents).BeginInit();
+            ((ISupportInitialize)dataViewAccounts).BeginInit();
             ((ISupportInitialize)excelIcon).BeginInit();
             ((ISupportInitialize)mailIcon).BeginInit();
             SuspendLayout();
@@ -66,31 +67,21 @@ namespace TeacherManager
             // 
             dividerControl1.DividerColor = Color.Gray;
             dividerControl1.IsVertical = false;
-            dividerControl1.Location = new Point(42, 110);
+            dividerControl1.Location = new Point(42, 126);
             dividerControl1.Name = "dividerControl1";
-            dividerControl1.Size = new Size(1739, 2);
+            dividerControl1.Size = new Size(1492, 2);
             dividerControl1.TabIndex = 0;
             dividerControl1.Thickness = 2;
             // 
-            // lblClassName
+            // lblHeader
             // 
-            lblClassName.AutoSize = true;
-            lblClassName.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblClassName.Location = new Point(81, 76);
-            lblClassName.Name = "lblClassName";
-            lblClassName.Size = new Size(92, 31);
-            lblClassName.TabIndex = 1;
-            lblClassName.Text = "Tên lớp";
-            // 
-            // lblSemesterId
-            // 
-            lblSemesterId.AutoSize = true;
-            lblSemesterId.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            lblSemesterId.Location = new Point(1598, 76);
-            lblSemesterId.Name = "lblSemesterId";
-            lblSemesterId.Size = new Size(93, 31);
-            lblSemesterId.TabIndex = 2;
-            lblSemesterId.Text = "Học kỳ ";
+            lblHeader.AutoSize = true;
+            lblHeader.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblHeader.Location = new Point(65, 92);
+            lblHeader.Name = "lblHeader";
+            lblHeader.Size = new Size(124, 31);
+            lblHeader.TabIndex = 1;
+            lblHeader.Text = "Danh sách";
             // 
             // pictureBox2
             // 
@@ -103,49 +94,49 @@ namespace TeacherManager
             pictureBox2.TabStop = false;
             pictureBox2.Click += ExitClassDescriptionForm;
             // 
-            // dataViewStudents
+            // dataViewAccounts
             // 
-            dataViewStudents.AllowUserToAddRows = false;
-            dataViewStudents.AllowUserToDeleteRows = false;
-            dataViewStudents.AllowUserToResizeColumns = false;
-            dataViewStudents.AllowUserToResizeRows = false;
-            dataGridViewCellStyle7.BackColor = Color.FromArgb(224, 224, 224);
-            dataGridViewCellStyle7.SelectionBackColor = Color.FromArgb(224, 224, 224);
-            dataViewStudents.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
-            dataViewStudents.BackgroundColor = Color.WhiteSmoke;
-            dataViewStudents.BorderStyle = BorderStyle.None;
-            dataViewStudents.CellBorderStyle = DataGridViewCellBorderStyle.None;
-            dataViewStudents.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = Color.FromArgb(55, 28, 191);
-            dataGridViewCellStyle8.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            dataGridViewCellStyle8.ForeColor = Color.WhiteSmoke;
-            dataGridViewCellStyle8.SelectionBackColor = Color.FromArgb(45, 28, 181);
-            dataGridViewCellStyle8.SelectionForeColor = Color.WhiteSmoke;
-            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.True;
-            dataViewStudents.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
-            dataViewStudents.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle9.BackColor = Color.WhiteSmoke;
-            dataGridViewCellStyle9.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle9.ForeColor = Color.FromArgb(64, 64, 64);
-            dataGridViewCellStyle9.SelectionBackColor = Color.WhiteSmoke;
-            dataGridViewCellStyle9.SelectionForeColor = Color.FromArgb(55, 28, 191);
-            dataGridViewCellStyle9.WrapMode = DataGridViewTriState.False;
-            dataViewStudents.DefaultCellStyle = dataGridViewCellStyle9;
-            dataViewStudents.EditMode = DataGridViewEditMode.EditOnEnter;
-            dataViewStudents.EnableHeadersVisualStyles = false;
-            dataViewStudents.GridColor = Color.WhiteSmoke;
-            dataViewStudents.Location = new Point(42, 211);
-            dataViewStudents.Name = "dataViewStudents";
-            dataViewStudents.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataViewStudents.RowHeadersVisible = false;
-            dataViewStudents.RowHeadersWidth = 51;
-            dataViewStudents.RowTemplate.Height = 40;
-            dataViewStudents.Size = new Size(1749, 635);
-            dataViewStudents.TabIndex = 13;
-            dataViewStudents.CellValueChanged += UpdateStudentGrade;
-            dataViewStudents.CurrentCellDirtyStateChanged += StateChanged;
+            dataViewAccounts.AllowUserToAddRows = false;
+            dataViewAccounts.AllowUserToDeleteRows = false;
+            dataViewAccounts.AllowUserToResizeColumns = false;
+            dataViewAccounts.AllowUserToResizeRows = false;
+            dataGridViewCellStyle1.BackColor = Color.FromArgb(224, 224, 224);
+            dataGridViewCellStyle1.SelectionBackColor = Color.FromArgb(224, 224, 224);
+            dataViewAccounts.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataViewAccounts.BackgroundColor = Color.WhiteSmoke;
+            dataViewAccounts.BorderStyle = BorderStyle.None;
+            dataViewAccounts.CellBorderStyle = DataGridViewCellBorderStyle.None;
+            dataViewAccounts.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = Color.FromArgb(55, 28, 191);
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            dataGridViewCellStyle2.ForeColor = Color.WhiteSmoke;
+            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(45, 28, 181);
+            dataGridViewCellStyle2.SelectionForeColor = Color.WhiteSmoke;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dataViewAccounts.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataViewAccounts.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = Color.WhiteSmoke;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle3.ForeColor = Color.FromArgb(64, 64, 64);
+            dataGridViewCellStyle3.SelectionBackColor = Color.WhiteSmoke;
+            dataGridViewCellStyle3.SelectionForeColor = Color.FromArgb(55, 28, 191);
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
+            dataViewAccounts.DefaultCellStyle = dataGridViewCellStyle3;
+            dataViewAccounts.EditMode = DataGridViewEditMode.EditOnEnter;
+            dataViewAccounts.EnableHeadersVisualStyles = false;
+            dataViewAccounts.GridColor = Color.WhiteSmoke;
+            dataViewAccounts.Location = new Point(42, 211);
+            dataViewAccounts.MultiSelect = false;
+            dataViewAccounts.Name = "dataViewAccounts";
+            dataViewAccounts.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataViewAccounts.RowHeadersVisible = false;
+            dataViewAccounts.RowHeadersWidth = 51;
+            dataViewAccounts.RowTemplate.Height = 40;
+            dataViewAccounts.Size = new Size(1543, 616);
+            dataViewAccounts.TabIndex = 13;
+            dataViewAccounts.CurrentCellDirtyStateChanged += StateChanged;
             // 
             // btnAddStudentIntoClass
             // 
@@ -159,66 +150,85 @@ namespace TeacherManager
             btnAddStudentIntoClass.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnAddStudentIntoClass.ForeColor = Color.White;
             btnAddStudentIntoClass.ImageAlign = ContentAlignment.MiddleLeft;
-            btnAddStudentIntoClass.Location = new Point(1544, 148);
+            btnAddStudentIntoClass.Location = new Point(1287, 147);
             btnAddStudentIntoClass.Name = "btnAddStudentIntoClass";
             btnAddStudentIntoClass.Size = new Size(247, 43);
             btnAddStudentIntoClass.TabIndex = 14;
             btnAddStudentIntoClass.Text = "Thêm học sinh vào lớp";
             btnAddStudentIntoClass.TextColor = Color.White;
             btnAddStudentIntoClass.UseVisualStyleBackColor = false;
-            btnAddStudentIntoClass.Click += AddStudentIntoClass;
             // 
             // excelIcon
             // 
             excelIcon.Image = Properties.Resources.excel_icon;
-            excelIcon.Location = new Point(1456, 148);
+            excelIcon.Location = new Point(1211, 147);
             excelIcon.Name = "excelIcon";
             excelIcon.Size = new Size(52, 43);
             excelIcon.TabIndex = 15;
             excelIcon.TabStop = false;
-            excelIcon.Click += ExportStudentClassesDataToExcel;
+            excelIcon.Click += ExportAccountsDataToExcel;
+            // 
+            // cbRole
+            // 
+            cbRole.BackColor = Color.WhiteSmoke;
+            cbRole.BorderColor = Color.MediumSlateBlue;
+            cbRole.BorderSize = 2;
+            cbRole.DropDownStyle = ComboBoxStyle.DropDown;
+            cbRole.Font = new Font("Segoe UI", 10F);
+            cbRole.ForeColor = Color.DimGray;
+            cbRole.IconColor = Color.MediumSlateBlue;
+            cbRole.ListBackColor = Color.FromArgb(230, 228, 245);
+            cbRole.ListTextColor = Color.DimGray;
+            cbRole.Location = new Point(195, 88);
+            cbRole.MinimumSize = new Size(50, 30);
+            cbRole.Name = "cbRole";
+            cbRole.Padding = new Padding(2);
+            cbRole.Size = new Size(160, 35);
+            cbRole.TabIndex = 16;
+            cbRole.Texts = "";
+            cbRole.OnSelectedIndexChanged += ChangeAccountsRoleData;
             // 
             // mailIcon
             // 
             mailIcon.Image = Properties.Resources.mail_icon;
-            mailIcon.Location = new Point(1360, 148);
+            mailIcon.Location = new Point(1120, 147);
             mailIcon.Name = "mailIcon";
             mailIcon.Size = new Size(52, 43);
-            mailIcon.TabIndex = 19;
+            mailIcon.TabIndex = 18;
             mailIcon.TabStop = false;
             mailIcon.Click += AccountChecked;
             // 
-            // lblStudentNumbers
+            // lblAccountsNumber
             // 
-            lblStudentNumbers.AutoSize = true;
-            lblStudentNumbers.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblStudentNumbers.Location = new Point(42, 160);
-            lblStudentNumbers.Name = "lblStudentNumbers";
-            lblStudentNumbers.Size = new Size(89, 31);
-            lblStudentNumbers.TabIndex = 20;
-            lblStudentNumbers.Text = "Sĩ số: 0";
+            lblAccountsNumber.AutoSize = true;
+            lblAccountsNumber.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            lblAccountsNumber.Location = new Point(42, 159);
+            lblAccountsNumber.Name = "lblAccountsNumber";
+            lblAccountsNumber.Size = new Size(86, 25);
+            lblAccountsNumber.TabIndex = 19;
+            lblAccountsNumber.Text = "0 kết quả";
             // 
-            // FormClassDescription
+            // FormAccountsDescription
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.WhiteSmoke;
-            ClientSize = new Size(1853, 858);
-            Controls.Add(lblStudentNumbers);
+            ClientSize = new Size(1628, 858);
+            Controls.Add(lblAccountsNumber);
             Controls.Add(mailIcon);
+            Controls.Add(cbRole);
             Controls.Add(excelIcon);
             Controls.Add(btnAddStudentIntoClass);
-            Controls.Add(dataViewStudents);
+            Controls.Add(dataViewAccounts);
             Controls.Add(pictureBox2);
-            Controls.Add(lblSemesterId);
-            Controls.Add(lblClassName);
+            Controls.Add(lblHeader);
             Controls.Add(dividerControl1);
             FormBorderStyle = FormBorderStyle.None;
-            Name = "FormClassDescription";
+            Name = "FormAccountsDescription";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "FormClassDescription";
             ((ISupportInitialize)pictureBox2).EndInit();
-            ((ISupportInitialize)dataViewStudents).EndInit();
+            ((ISupportInitialize)dataViewAccounts).EndInit();
             ((ISupportInitialize)excelIcon).EndInit();
             ((ISupportInitialize)mailIcon).EndInit();
             ResumeLayout(false);
@@ -228,10 +238,10 @@ namespace TeacherManager
         #endregion
 
         private CustomControls.DividerControl dividerControl1;
-        private Label lblClassName;
+        private Label lblHeader;
         private Label lblSemesterId;
         private PictureBox pictureBox2;
-        private DataGridView dataViewStudents;
+        private DataGridView dataViewAccounts;
         private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn accountIdDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn nameDataGridViewTextBoxColumn;
@@ -243,7 +253,8 @@ namespace TeacherManager
         private DataGridViewTextBoxColumn phoneDataGridViewTextBoxColumn;
         private CustomControls.CustomButton btnAddStudentIntoClass;
         private PictureBox excelIcon;
+        private CustomControls.CustomComboBox cbRole;
         private PictureBox mailIcon;
-        private Label lblStudentNumbers;
+        private Label lblAccountsNumber;
     }
 }

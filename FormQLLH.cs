@@ -49,17 +49,18 @@ namespace TeacherManager
             if (new FormCreateClass().ShowDialog() == DialogResult.OK)
             {
                 GetClassesOfTeacher();
+                InitializeClasses();
             }
         }
         void InitializeClasses()
         {
-            if (ClassesToDisplay == null)
+            if (ClassesToDisplay.Count <= 0)
             {
                 return;
             }
             foreach(var c in ClassesToDisplay)
             {
-                panelClasses.Controls.Add(new ClassDisplayControl(c, this));
+                panelClasses.Controls.Add(new ClassDisplayControl(c));
             }
         }
     }

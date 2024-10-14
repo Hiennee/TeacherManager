@@ -25,8 +25,7 @@ namespace TeacherManager
         }
         public void CheckAddStudentButtonAvailable(object sender, EventArgs e)
         {
-            if (txtBoxAccountName.Texts == "" ||
-                txtBoxStudentName.Texts == "" ||
+            if (txtBoxStudentName.Texts == "" ||
                 txtBoxMSSV.Texts == "" ||
                 txtBoxEmail.Texts == "" ||
                 txtBoxPhone.Texts == "")
@@ -46,26 +45,26 @@ namespace TeacherManager
 
         private void AddStudent(object sender, EventArgs e)
         {
-            var IDEmailPhoneFilter = Builders<Account>.Filter.Eq(a => a.AccountId, txtBoxAccountName.Texts) |
-                                     Builders<Account>.Filter.Eq(a => a.Email, txtBoxEmail.Texts) |
+            var IDEmailPhoneFilter = Builders<Account>.Filter.Eq(a => a.Email, txtBoxEmail.Texts) |
                                      Builders<Account>.Filter.Eq(a => a.Phone, txtBoxPhone.Texts);
             var MSSVFilter = Builders<Student>.Filter.Eq(s => s.accountId, txtBoxMSSV.Texts);
             var IDEmailExist = Accounts.Find(IDEmailPhoneFilter).Any();
             var MSSVExist = Students.Find(MSSVFilter).Any();
             if (IDEmailExist || MSSVExist)
             {
-                MessageBox.Show("Tên đăng nhập, E-mail hoặc số điện thoại, MSSV đã tồn tại", "Thông báo");
+                MessageBox.Show("E-mail hoặc số điện thoại, MSSV đã tồn tại", "Thông báo");
                 return;
             }
             Account a = new Account
             {
-                AccountId = txtBoxAccountName.Texts,
+                AccountId = txtBoxMSSV.Texts,
                 Name = txtBoxStudentName.Texts,
                 Password = "123",
                 Email = txtBoxEmail.Texts,
                 Role = "Student",
                 Phone = txtBoxPhone.Texts,
-                Avatar = "",
+                Avatar = null,
+                DOB = DateTime.Now.Date,
             };
             Student s = new Student
             {
@@ -73,7 +72,10 @@ namespace TeacherManager
             };
             Accounts.InsertOne(a);
             Students.InsertOne(s);
-            MessageBox.Show("Tạo sinh viên mới thành công", "Thông báo");
+            if (MessageBox.Show("Tạo sinh viên mới thành công", "Thông báo") == DialogResult.OK)
+            {
+                this.DialogResult = DialogResult.OK;
+            }
             Close();
         }
     }

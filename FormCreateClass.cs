@@ -28,6 +28,10 @@ namespace TeacherManager
             Teachers = Login.Teachers;
             Classes = Login.Classes;
             Semesters = Login.Semesters;
+            numericGradeWeight1.Value = 20;
+            numericGradeWeight2.Value = 20;
+            numericGradeWeight3.Value = 20;
+            numericGradeWeight4.Value = 40;
         }
         public void CheckAddStudentButtonAvailable(object sender, EventArgs e)
         {
@@ -108,7 +112,10 @@ namespace TeacherManager
                 Grade04_weight = grade04_weight,
             };
             Classes.InsertOne(c);
-            MessageBox.Show("Tạo lớp mới thành công", "Thông báo");
+            if (MessageBox.Show("Tạo lớp mới thành công", "Thông báo") == DialogResult.OK)
+            {
+                this.DialogResult = DialogResult.OK;
+            }
             Close();
         }
         private string GenerateStringHour(int hour, int minute)

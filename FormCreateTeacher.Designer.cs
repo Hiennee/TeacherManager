@@ -63,7 +63,7 @@
             lblAccountName = new Label();
             lblEmail = new Label();
             lblPhone = new Label();
-            txtBoxAccountName = new CustomControls.CustomTextBox();
+            txtBoxAccountId = new CustomControls.CustomTextBox();
             txtBoxTeacherName = new CustomControls.CustomTextBox();
             txtBoxEmail = new CustomControls.CustomTextBox();
             txtBoxPhone = new CustomControls.CustomTextBox();
@@ -79,7 +79,7 @@
             // 
             lblStudentName.AutoSize = true;
             lblStudentName.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblStudentName.Location = new Point(209, 206);
+            lblStudentName.Location = new Point(209, 109);
             lblStudentName.Name = "lblStudentName";
             lblStudentName.Size = new Size(162, 31);
             lblStudentName.TabIndex = 0;
@@ -89,11 +89,11 @@
             // 
             lblAccountName.AutoSize = true;
             lblAccountName.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblAccountName.Location = new Point(209, 120);
+            lblAccountName.Location = new Point(209, 202);
             lblAccountName.Name = "lblAccountName";
-            lblAccountName.Size = new Size(166, 31);
+            lblAccountName.Size = new Size(189, 31);
             lblAccountName.TabIndex = 1;
-            lblAccountName.Text = "Tên đăng nhập";
+            lblAccountName.Text = "Mã số giảng viên";
             // 
             // lblEmail
             // 
@@ -115,28 +115,28 @@
             lblPhone.TabIndex = 3;
             lblPhone.Text = "Số điện thoại";
             // 
-            // txtBoxAccountName
+            // txtBoxAccountId
             // 
-            txtBoxAccountName.BackColor = SystemColors.Window;
-            txtBoxAccountName.BorderColor = Color.MediumSlateBlue;
-            txtBoxAccountName.BorderFocusColor = Color.HotPink;
-            txtBoxAccountName.BorderRadius = 0;
-            txtBoxAccountName.BorderSize = 2;
-            txtBoxAccountName.Font = new Font("Segoe UI", 9.5F);
-            txtBoxAccountName.ForeColor = Color.DimGray;
-            txtBoxAccountName.Location = new Point(209, 154);
-            txtBoxAccountName.Margin = new Padding(4);
-            txtBoxAccountName.Multiline = false;
-            txtBoxAccountName.Name = "txtBoxAccountName";
-            txtBoxAccountName.Padding = new Padding(7);
-            txtBoxAccountName.PasswordChar = false;
-            txtBoxAccountName.PlaceholderColor = Color.DarkGray;
-            txtBoxAccountName.PlaceholderText = "";
-            txtBoxAccountName.Size = new Size(252, 36);
-            txtBoxAccountName.TabIndex = 1;
-            txtBoxAccountName.Texts = "";
-            txtBoxAccountName.UnderlinedStyle = false;
-            txtBoxAccountName._TextChanged += CheckAddStudentButtonAvailable;
+            txtBoxAccountId.BackColor = SystemColors.Window;
+            txtBoxAccountId.BorderColor = Color.MediumSlateBlue;
+            txtBoxAccountId.BorderFocusColor = Color.HotPink;
+            txtBoxAccountId.BorderRadius = 0;
+            txtBoxAccountId.BorderSize = 2;
+            txtBoxAccountId.Font = new Font("Segoe UI", 9.5F);
+            txtBoxAccountId.ForeColor = Color.DimGray;
+            txtBoxAccountId.Location = new Point(209, 236);
+            txtBoxAccountId.Margin = new Padding(4);
+            txtBoxAccountId.Multiline = false;
+            txtBoxAccountId.Name = "txtBoxAccountId";
+            txtBoxAccountId.Padding = new Padding(7);
+            txtBoxAccountId.PasswordChar = false;
+            txtBoxAccountId.PlaceholderColor = Color.DarkGray;
+            txtBoxAccountId.PlaceholderText = "";
+            txtBoxAccountId.Size = new Size(252, 36);
+            txtBoxAccountId.TabIndex = 2;
+            txtBoxAccountId.Texts = "";
+            txtBoxAccountId.UnderlinedStyle = false;
+            txtBoxAccountId._TextChanged += CheckAddStudentButtonAvailable;
             // 
             // txtBoxTeacherName
             // 
@@ -147,7 +147,7 @@
             txtBoxTeacherName.BorderSize = 2;
             txtBoxTeacherName.Font = new Font("Segoe UI", 9.5F);
             txtBoxTeacherName.ForeColor = Color.DimGray;
-            txtBoxTeacherName.Location = new Point(209, 240);
+            txtBoxTeacherName.Location = new Point(209, 143);
             txtBoxTeacherName.Margin = new Padding(4);
             txtBoxTeacherName.Multiline = false;
             txtBoxTeacherName.Name = "txtBoxTeacherName";
@@ -156,7 +156,7 @@
             txtBoxTeacherName.PlaceholderColor = Color.DarkGray;
             txtBoxTeacherName.PlaceholderText = "";
             txtBoxTeacherName.Size = new Size(252, 36);
-            txtBoxTeacherName.TabIndex = 2;
+            txtBoxTeacherName.TabIndex = 1;
             txtBoxTeacherName.Texts = "";
             txtBoxTeacherName.UnderlinedStyle = false;
             txtBoxTeacherName._TextChanged += CheckAddStudentButtonAvailable;
@@ -271,7 +271,7 @@
             Controls.Add(txtBoxPhone);
             Controls.Add(txtBoxEmail);
             Controls.Add(txtBoxTeacherName);
-            Controls.Add(txtBoxAccountName);
+            Controls.Add(txtBoxAccountId);
             Controls.Add(lblPhone);
             Controls.Add(lblEmail);
             Controls.Add(lblAccountName);
@@ -294,7 +294,7 @@
         private Label lblAccountName;
         private Label lblEmail;
         private Label lblPhone;
-        private TeacherManager.CustomControls.CustomTextBox txtBoxAccountName;
+        private TeacherManager.CustomControls.CustomTextBox txtBoxAccountId;
         private TeacherManager.CustomControls.CustomTextBox txtBoxTeacherName;
         private TeacherManager.CustomControls.CustomTextBox txtBoxEmail;
         private TeacherManager.CustomControls.CustomTextBox txtBoxPhone;

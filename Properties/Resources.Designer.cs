@@ -203,6 +203,16 @@ namespace TeacherManager.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap mail_icon {
+            get {
+                object obj = ResourceManager.GetObject("mail_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap minus_icon {
             get {
                 object obj = ResourceManager.GetObject("minus_icon", resourceCulture);

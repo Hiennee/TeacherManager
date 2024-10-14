@@ -59,7 +59,10 @@ namespace TeacherManager
                 EndDate = dateTimePickerTo.Value,
             };
             Semesters.InsertOne(s);
-            MessageBox.Show("Tạo học kì mới thành công", "Thông báo");
+            if (MessageBox.Show("Tạo học kì mới thành công", "Thông báo") == DialogResult.OK)
+            {
+                this.DialogResult = DialogResult.OK;
+            }
             Close();
         }
 

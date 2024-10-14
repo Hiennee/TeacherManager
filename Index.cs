@@ -42,8 +42,7 @@ namespace TeacherManager
 
         private void CreateStudent(object sender, EventArgs e)
         {
-            FormCreateStudent formCreateStudent = new FormCreateStudent();
-            formCreateStudent.ShowDialog();
+            new FormCreateStudent().ShowDialog();
         }
 
         private void DeleteStudents(object sender, EventArgs e)
