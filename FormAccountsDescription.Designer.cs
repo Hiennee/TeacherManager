@@ -52,15 +52,18 @@ namespace TeacherManager
             lblHeader = new Label();
             pictureBox2 = new PictureBox();
             dataViewAccounts = new DataGridView();
-            btnAddStudentIntoClass = new CustomControls.CustomButton();
             excelIcon = new PictureBox();
             cbRole = new CustomControls.CustomComboBox();
             mailIcon = new PictureBox();
             lblAccountsNumber = new Label();
+            settingsIcon = new PictureBox();
+            trashIcon = new PictureBox();
             ((ISupportInitialize)pictureBox2).BeginInit();
             ((ISupportInitialize)dataViewAccounts).BeginInit();
             ((ISupportInitialize)excelIcon).BeginInit();
             ((ISupportInitialize)mailIcon).BeginInit();
+            ((ISupportInitialize)settingsIcon).BeginInit();
+            ((ISupportInitialize)trashIcon).BeginInit();
             SuspendLayout();
             // 
             // dividerControl1
@@ -134,29 +137,9 @@ namespace TeacherManager
             dataViewAccounts.RowHeadersVisible = false;
             dataViewAccounts.RowHeadersWidth = 51;
             dataViewAccounts.RowTemplate.Height = 40;
-            dataViewAccounts.Size = new Size(1543, 616);
+            dataViewAccounts.Size = new Size(1492, 616);
             dataViewAccounts.TabIndex = 13;
             dataViewAccounts.CurrentCellDirtyStateChanged += StateChanged;
-            // 
-            // btnAddStudentIntoClass
-            // 
-            btnAddStudentIntoClass.BackColor = Color.MediumSlateBlue;
-            btnAddStudentIntoClass.BackgroundColor = Color.MediumSlateBlue;
-            btnAddStudentIntoClass.BorderColor = Color.PaleVioletRed;
-            btnAddStudentIntoClass.BorderRadius = 10;
-            btnAddStudentIntoClass.BorderSize = 0;
-            btnAddStudentIntoClass.FlatAppearance.BorderSize = 0;
-            btnAddStudentIntoClass.FlatStyle = FlatStyle.Flat;
-            btnAddStudentIntoClass.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnAddStudentIntoClass.ForeColor = Color.White;
-            btnAddStudentIntoClass.ImageAlign = ContentAlignment.MiddleLeft;
-            btnAddStudentIntoClass.Location = new Point(1287, 147);
-            btnAddStudentIntoClass.Name = "btnAddStudentIntoClass";
-            btnAddStudentIntoClass.Size = new Size(247, 43);
-            btnAddStudentIntoClass.TabIndex = 14;
-            btnAddStudentIntoClass.Text = "Thêm học sinh vào lớp";
-            btnAddStudentIntoClass.TextColor = Color.White;
-            btnAddStudentIntoClass.UseVisualStyleBackColor = false;
             // 
             // excelIcon
             // 
@@ -196,7 +179,7 @@ namespace TeacherManager
             mailIcon.Size = new Size(52, 43);
             mailIcon.TabIndex = 18;
             mailIcon.TabStop = false;
-            mailIcon.Click += AccountChecked;
+            mailIcon.Click += SendEmail;
             // 
             // lblAccountsNumber
             // 
@@ -208,17 +191,39 @@ namespace TeacherManager
             lblAccountsNumber.TabIndex = 19;
             lblAccountsNumber.Text = "0 kết quả";
             // 
+            // settingsIcon
+            // 
+            settingsIcon.Image = Properties.Resources.settings_icon;
+            settingsIcon.Location = new Point(1391, 147);
+            settingsIcon.Name = "settingsIcon";
+            settingsIcon.Size = new Size(52, 43);
+            settingsIcon.SizeMode = PictureBoxSizeMode.Zoom;
+            settingsIcon.TabIndex = 21;
+            settingsIcon.TabStop = false;
+            settingsIcon.Click += AdjustAccount;
+            // 
+            // trashIcon
+            // 
+            trashIcon.Image = Properties.Resources.trash_icon;
+            trashIcon.Location = new Point(1482, 147);
+            trashIcon.Name = "trashIcon";
+            trashIcon.Size = new Size(52, 43);
+            trashIcon.SizeMode = PictureBoxSizeMode.Zoom;
+            trashIcon.TabIndex = 20;
+            trashIcon.TabStop = false;
+            // 
             // FormAccountsDescription
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.WhiteSmoke;
             ClientSize = new Size(1628, 858);
+            Controls.Add(settingsIcon);
+            Controls.Add(trashIcon);
             Controls.Add(lblAccountsNumber);
             Controls.Add(mailIcon);
             Controls.Add(cbRole);
             Controls.Add(excelIcon);
-            Controls.Add(btnAddStudentIntoClass);
             Controls.Add(dataViewAccounts);
             Controls.Add(pictureBox2);
             Controls.Add(lblHeader);
@@ -231,6 +236,8 @@ namespace TeacherManager
             ((ISupportInitialize)dataViewAccounts).EndInit();
             ((ISupportInitialize)excelIcon).EndInit();
             ((ISupportInitialize)mailIcon).EndInit();
+            ((ISupportInitialize)settingsIcon).EndInit();
+            ((ISupportInitialize)trashIcon).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -251,10 +258,11 @@ namespace TeacherManager
         private DataGridViewTextBoxColumn avatarDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn dOBDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn phoneDataGridViewTextBoxColumn;
-        private CustomControls.CustomButton btnAddStudentIntoClass;
         private PictureBox excelIcon;
         private CustomControls.CustomComboBox cbRole;
         private PictureBox mailIcon;
         private Label lblAccountsNumber;
+        private PictureBox settingsIcon;
+        private PictureBox trashIcon;
     }
 }

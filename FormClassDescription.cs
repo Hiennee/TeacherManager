@@ -313,7 +313,7 @@ namespace TeacherManager
             return dataTable;
         }
 
-        private void AccountChecked(object sender, EventArgs e)
+        private void SendEmail(object sender, EventArgs e)
         {
             List<DataGridViewRow> rowsChose = new List<DataGridViewRow>();
             foreach (DataGridViewRow row in dataViewStudents.Rows)

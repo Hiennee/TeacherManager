@@ -186,7 +186,7 @@ namespace TeacherManager
             mailIcon.Size = new Size(52, 43);
             mailIcon.TabIndex = 19;
             mailIcon.TabStop = false;
-            mailIcon.Click += AccountChecked;
+            mailIcon.Click += SendEmail;
             // 
             // lblStudentNumbers
             // 

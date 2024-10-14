@@ -48,7 +48,6 @@
             btnEditAccount.TabIndex = 2;
             btnEditAccount.Text = "Chỉnh sửa tài khoản";
             btnEditAccount.UseVisualStyleBackColor = false;
-            btnEditAccount.Click += btnEditAccount_Click;
             // 
             // btnAddAccount
             // 
@@ -61,7 +60,6 @@
             btnAddAccount.TabIndex = 3;
             btnAddAccount.Text = "Thêm tài khoản";
             btnAddAccount.UseVisualStyleBackColor = false;
-            btnAddAccount.Click += btnAddAccount_Click;
             // 
             // btnDeleteAccount
             // 
@@ -74,7 +72,6 @@
             btnDeleteAccount.TabIndex = 4;
             btnDeleteAccount.Text = "Xóa tài khoản";
             btnDeleteAccount.UseVisualStyleBackColor = false;
-            btnDeleteAccount.Click += btnDeleteAccount_Click;
             // 
             // lblHeader
             // 

@@ -15,57 +15,87 @@ namespace TeacherManager
     public partial class FormEditAccount : Form
     {
         private IMongoCollection<Account> Accounts;
-        private string AccountId;
+        private Account account;
+        private string Base64Image;
 
-        public FormEditAccount(string accountId)
+        public FormEditAccount(Account account)
         {
             InitializeComponent();
             Accounts = Login.Accounts;
-            AccountId = accountId;
+            this.account = account;
+            Base64Image = account.Avatar ?? "";
+            InitializeComboBoxRoles();
             LoadAccountDetails();
+        }
+        private void InitializeComboBoxRoles()
+        {
+            cbRole.DataSource = new List<string>
+            {
+                "Quản trị viên",
+                "Giảng viên",
+                "Sinh viên",
+            };
+            //cbRole.Texts = "Sinh viên";
         }
         private void LoadAccountDetails()
         {
-            var account = Accounts.Find(Builders<Account>.Filter.Eq(a => a.AccountId, AccountId)).FirstOrDefault();
             if (account != null)
             {
-                txtName.Text = account.Name;
-                txtEmail.Text = account.Email;
-                txtRole.Text = account.Role;
-                txtPhone.Text = account.Phone;
-                pictureBoxAvatar.ImageLocation = account.Avatar; 
+                txtBoxName.Texts = account.Name;
+                txtBoxEmail.Texts = account.Email;
+                cbRole.Texts = account.Role;
+                txtBoxPhone.Texts = account.Phone;
+                pictureAvt.Image = account.Avatar == null ?
+                                   Properties.Resources.default_avatar_icon :
+                                   MainForm.Base64ToImage(account.Avatar);
             }
         }
-        private void SaveChanges_Click(object sender, EventArgs e)
+        private void LoadAvatar()
         {
-            var filter = Builders<Account>.Filter.Eq(a => a.AccountId, AccountId);
+            if (Base64Image == "")
+            {
+                pictureAvt.Image = Properties.Resources.default_avatar_icon;
+                return;
+            }
+            pictureAvt.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureAvt.Image = MainForm.Base64ToImage(Base64Image);
+        }
+        private void SaveChanges(object sender, EventArgs e)
+        {
+            var filterAccountToUpdate = Builders<Account>.Filter.Eq(a => a.AccountId, account.AccountId);
             var update = Builders<Account>.Update
-                .Set(a => a.Name, txtName.Text)
-                .Set(a => a.Email, txtEmail.Text)
-                .Set(a => a.Role, txtRole.Text)
-                .Set(a => a.Phone, txtPhone.Text)
-                .Set(a => a.Avatar, pictureBoxAvatar.ImageLocation); 
+                                          .Set(a => a.Name, txtBoxName.Texts)
+                                          .Set(a => a.Email, txtBoxEmail.Texts)
+                                          .Set(a => a.Role, cbRole.Texts)
+                                          .Set(a => a.Phone, txtBoxPhone.Texts)
+                                          .Set(a => a.Avatar, Base64Image);
 
-            Accounts.UpdateOne(filter, update);
-            MessageBox.Show("Cập nhật tài khoản thành công!");
-            this.Close(); 
-        }
-        private void btnChooseAvatar_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog
+            Accounts.UpdateOne(filterAccountToUpdate, update);
+            if (MessageBox.Show("Cập nhật tài khoản thành công!") == DialogResult.OK)
             {
-                Filter = "Image Files|*.jpg;*.jpeg;*.png"
-            };
-            if (openFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                pictureBoxAvatar.ImageLocation = openFileDialog.FileName; 
+                this.DialogResult = DialogResult.OK;
             }
+            LoadAvatar();
         }
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void ChangeAvatar(object sender, EventArgs e)
+        {
+            string avtPath = "";
+            ChooseAvtDialog.Filter = "Image Files (*.jpeg;*.bmp;*.png;*.jpg)|*.jpeg;*.bmp;*.png;*.jpg";
+            if (ChooseAvtDialog.ShowDialog() == DialogResult.OK)
+            {
+                avtPath = ChooseAvtDialog.FileName;
+                byte[] imageArray = System.IO.File.ReadAllBytes(avtPath);
+                Base64Image = Convert.ToBase64String(imageArray);
+            }
+            var accountToUpdateAvatar = Builders<Account>.Filter.Eq(a => a.AccountId, account.AccountId);
+            var avatarToUpdate = Builders<Account>.Update.Set("avatar", Base64Image);
+            Accounts.UpdateOne(accountToUpdateAvatar, avatarToUpdate);
+            MessageBox.Show("Thay đổi ảnh đại diện thành công", "Thông báo");
+            LoadAvatar();
+        }
+        private void CloseForm(object sender, EventArgs e)
         {
             this.Close();
         }
-
-
     }
 }

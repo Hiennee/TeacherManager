@@ -16,11 +16,13 @@ namespace TeacherManager
     public partial class FormAccountsDescription : Form
     {
         IMongoCollection<Account> Accounts;
+        List<DataGridViewRow> rowsChose;
         private string role = "All";
         public FormAccountsDescription()
         {
             InitializeComponent();
             Accounts = Login.Accounts;
+            rowsChose = new List<DataGridViewRow>();
             InitializeRoleComboBox();
             InitializeDataGridView();
             ShowCheckBoxHeader();
@@ -165,9 +167,20 @@ namespace TeacherManager
             }
             return dataTable;
         }
-        private void AccountChecked(object sender, EventArgs e)
+        //private void GetCheckedRows(object sender, EventArgs e)
+        //{
+        //    foreach (DataGridViewRow row in dataViewAccounts.Rows)
+        //    {
+        //        if (row.Index == -1) continue;
+        //        if (Convert.ToBoolean(dataViewAccounts.Rows[row.Index].Cells["columnCheckBox"].Value) == true)
+        //        {
+        //            rowsChose.Add(row);
+        //        }
+        //    }
+        //}
+        private void SendEmail(object sender, EventArgs e)
         {
-            List<DataGridViewRow> rowsChose = new List<DataGridViewRow>();
+            //List<DataGridViewRow> rowsChose = new List<DataGridViewRow>();
             foreach (DataGridViewRow row in dataViewAccounts.Rows)
             {
                 if (row.Index == -1) continue;
@@ -176,7 +189,34 @@ namespace TeacherManager
                     rowsChose.Add(row);
                 }
             }
-            var a = rowsChose;
+            if (rowsChose.Count == 0)
+            {
+                MessageBox.Show("Chọn ít nhất một sinh viên để gửi mail", "Thông báo");
+                return;
+            }
+            new FormSendEmail(rowsChose).Show();
+        }
+        private void AdjustAccount(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in dataViewAccounts.Rows)
+            {
+                if (row.Index == -1) continue;
+                if (Convert.ToBoolean(dataViewAccounts.Rows[row.Index].Cells["columnCheckBox"].Value) == true)
+                {
+                    rowsChose.Add(row);
+                }
+            }
+            if (rowsChose.Count == 0)
+            {
+                MessageBox.Show("Chọn một sinh viên để chỉnh sửa", "Thông báo");
+                return;
+            }
+            var filterAccount = Builders<Account>.Filter.Eq(a => a.AccountId, rowsChose[0].Cells["columnAccountId"].Value.ToString());
+            var resultAccount = Accounts.Find(filterAccount).FirstOrDefault();
+            if (new FormEditAccount(resultAccount).ShowDialog() == DialogResult.OK)
+            {
+                InitializeAccountsData();
+            }
         }
         private void StateChanged(object sender, EventArgs e)
         {
@@ -193,7 +233,7 @@ namespace TeacherManager
             rect.X = rect.Location.X + (rect.Width / 4);
             CheckBox checkboxHeader = new CheckBox();
             checkboxHeader.Name = "checkboxHeader";
-            
+
             checkboxHeader.Size = new Size(18, 18);
             checkboxHeader.Location = rect.Location;
             checkboxHeader.CheckedChanged += SelectAll;

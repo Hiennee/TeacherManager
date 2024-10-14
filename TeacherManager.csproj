@@ -20,6 +20,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="FormEditAccount.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="FormSendEmail.cs">
       <SubType>Form</SubType>
     </Compile>
