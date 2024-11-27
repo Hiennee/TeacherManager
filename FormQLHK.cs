@@ -17,13 +17,46 @@ namespace TeacherManager
         IMongoCollection<Semester> Semesters;
         IMongoCollection<Class> Classes;
         ICollection<Semester> SemestersToDisplay;
+
+        private Account account;
+
+        bool isDescendingSort = true;
         public FormQLHK()
         {
             Semesters = Login.Semesters;
             Classes = Login.Classes;
+            account = Login.Account;
             InitializeComponent();
+            CheckButtonAddSemesterVisible();
             InitializeSemesters();
+            InitializeComboBoxSort();
             Size = MainForm.PanelControlSize;
+        }
+        private void CheckButtonAddSemesterVisible()
+        {
+            if (!account.Role.Equals("Admin"))
+            {
+                btnAddSemester.Visible = false;
+            }
+        }
+        private void InitializeComboBoxSort()
+        {
+            cbSort.DataSource = new List<string>
+            {
+                "Tăng dần",
+                "Giảm dần",
+            };
+        }
+        private void OnSortChange(object sender, EventArgs e)
+        {
+            if (cbSort.SelectedIndex == 0)
+            {
+                isDescendingSort = false;
+                InitializeSemesters();
+                return;
+            }
+            isDescendingSort = true;
+            InitializeSemesters();
         }
         private void ShowAddSemesterForm(object sender, EventArgs e)
         {
@@ -34,8 +67,14 @@ namespace TeacherManager
         }
         private void InitializeSemesters()
         {
+            panelSemesters.Controls.Clear();
+
+            SortDefinition<Semester> semesterSortFilter;
             var semesterFilter = Builders<Semester>.Filter.Empty;
-            SemestersToDisplay = Semesters.Find(semesterFilter).ToList();
+            semesterSortFilter = isDescendingSort ?
+                                 Builders<Semester>.Sort.Descending(s => s.SemesterId) :
+                                 Builders<Semester>.Sort.Ascending(s => s.SemesterId);
+            SemestersToDisplay = Semesters.Find(semesterFilter).Sort(semesterSortFilter).ToList();
             if (SemestersToDisplay.Count > 0)
             {
                 foreach (Semester s in  SemestersToDisplay)

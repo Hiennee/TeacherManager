@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,36 +19,77 @@ namespace TeacherManager
         IMongoCollection<Teacher> Teachers;
         IMongoCollection<Class> Classes;
         ICollection<Class> ClassesOnThisSemester;
-        //List<List<KeyValuePair<string, DateTime>>> ScheduleOfClasses;
+
         List<KeyValuePair<string, List<DateTime>>> ListOfDaysOfClasses;
 
         private Semester Semester;
-
+        private Account Account;
         private int CurrentMonth;
         private int CurrentYear;
+
+        private string regexTeacherIdName = "";
+        private string currentTeacherId = "";
         public FormLGD()
         {
             Semesters = Login.Semesters;
             Teachers = Login.Teachers;
             Classes = Login.Classes;
+            Account = Login.Account;
             ListOfDaysOfClasses = new List<KeyValuePair<string, List<DateTime>>>();
             InitializeComponent();
+            InitializePanelFindTeacherForAdmin();
             LoadMonthAndYearLabel();
-            LoadComboBoxAndInitFirstSemester();
-            //InitializeDataDaysOfMonthView(SemesterStartMonth, SemesterStartYear);
+            LoadComboBoxAndFirstSemester();
 
             Size = MainForm.PanelControlSize;
+        }
+        private void InitializePanelFindTeacherForAdmin()
+        {
+            if (Account.Role.Equals("Admin"))
+            {
+                panelFindTeacher.Visible = true;
+            }
+        }
+        private void FindTeacherByNameOrMSGV(object sender, EventArgs e)
+        {
+            FilterDefinition<Account> filterAccount;
+            filterAccount = regexTeacherIdName.All(char.IsDigit) ?
+                            Builders<Account>.Filter
+                            .Regex(t => t.AccountId, new BsonRegularExpression($".*{regexTeacherIdName}.*", "i")) :
+                            Builders<Account>.Filter
+                            .Regex(t => t.Name, new BsonRegularExpression($".*{regexTeacherIdName}.*", "i"));
+            var resultAccount = Login.Accounts.Find(filterAccount).ToList();
+            List<string> foundTeachers = new List<string>();
+            foreach (var account in resultAccount)
+            {
+                var filterTeacher = Builders<Teacher>.Filter.Eq(t => t.AccountId, account.AccountId);
+                var resultTeacher = Teachers.Find(filterTeacher).FirstOrDefault();
+                if (resultTeacher != null)
+                {
+                    foundTeachers.Add($"{resultTeacher.AccountId} - {account.Name}");
+                }
+            }
+            cbTeacherResult.DataSource = foundTeachers;
+        }
+        private void OnChooseTeacherToViewSchedule(object sender, EventArgs e)
+        {
+            currentTeacherId = cbTeacherResult.Texts.Split(" - ")[0];
+            LoadSemesterInfo(sender, e);
         }
         private void LoadMonthAndYearLabel()
         {
             lblMonth.Text = CurrentMonth.ToString();
             lblYear.Text = CurrentYear.ToString();
         }
-        private void LoadComboBoxAndInitFirstSemester()
+        private void ReloadSemesters(object sender, EventArgs e)
+        {
+            LoadComboBoxAndFirstSemester();
+        }
+        private void LoadComboBoxAndFirstSemester()
         {
             var filterSemester = Builders<Semester>.Filter.Empty;
             var resultSemester = Semesters.Find(filterSemester).ToList();
-            if (resultSemester != null)
+            if (resultSemester.Count > 0)
             {
                 txtBoxSemesterId.DataSource = resultSemester;
                 txtBoxSemesterId.DisplayMember = "SemesterId";
@@ -62,7 +104,6 @@ namespace TeacherManager
         }
         private void LoadSemesterInfo(object sender, EventArgs e)
         {
-            //var sem = ((Semester)txtBoxSemesterId.SelectedItem).SemesterId;
             var filterSemester = Builders<Semester>.Filter.Eq(s => s.SemesterId, ((Semester)txtBoxSemesterId.SelectedItem).SemesterId);
             var resultSemester = Semesters.Find(filterSemester).FirstOrDefault();
             if (resultSemester != null)
@@ -71,17 +112,26 @@ namespace TeacherManager
                 CurrentMonth = Semester.StartDate.Month;
                 CurrentYear = Semester.StartDate.Year;
                 LoadMonthAndYearLabel();
-                var filterClasses = Builders<Class>.Filter.Eq(c => c.SemesterId, Semester.SemesterId);
+
+                FilterDefinition<Class> filterClasses;
+                filterClasses = Account.Role.Equals("Admin")                                        ?
+                                cbTeacherResult.Texts.Equals("")                                    ?
+                                Builders<Class>.Filter.Eq(c => c.SemesterId, Semester.SemesterId)   :
+                                Builders<Class>.Filter.Eq(c => c.SemesterId, Semester.SemesterId)   &
+                                Builders<Class>.Filter.Eq(c => c.TeacherId, currentTeacherId)       :
+                                Builders<Class>.Filter.Eq(c => c.SemesterId, Semester.SemesterId)   &
+                                Builders<Class>.Filter.Eq(c => c.TeacherId, Account.AccountId);
                 ClassesOnThisSemester = Classes.Find(filterClasses).ToList();
                 if (ClassesOnThisSemester != null)
                 {
+                    ListOfDaysOfClasses = new List<KeyValuePair<string, List<DateTime>>>();
                     foreach (var c in ClassesOnThisSemester)
                     {
                         var classDays = GetAllDaysOfClassInSemester(c);
                         if (classDays.Count != 0)
                         {
                             ListOfDaysOfClasses.Add(new KeyValuePair<string, List<DateTime>>(c.ClassId, classDays));
-                        } 
+                        }
                     }
                 }
                 InitializeDataDaysOfMonthView(Semester.StartDate.Month, Semester.StartDate.Year);
@@ -118,8 +168,20 @@ namespace TeacherManager
                 {
                     if (GetAllDaysOfClassInSemester(c).Contains(dayToShow))
                     {
-                        //MessageBox.Show(dayToShow.ToShortDateString());
-                        dataViewDaysOfMonth.Rows[rowIndex].Cells[columnIndex].Style.ForeColor = Color.Coral;
+                        Color color = new Color();
+                        if (columnIndex == 0 || columnIndex == 3)
+                        {
+                            color = Color.Coral;
+                        }
+                        else if (columnIndex == 1 || columnIndex == 4)
+                        {
+                            color = ColorTranslator.FromHtml("#D32F2F");
+                        }
+                        else if (columnIndex == 2 || columnIndex == 5)
+                        {
+                            color = ColorTranslator.FromHtml("#228B22");
+                        }
+                        dataViewDaysOfMonth.Rows[rowIndex].Cells[columnIndex].Style.ForeColor = color;
                     }
                 }
                 dataViewDaysOfMonth.Rows[rowIndex].Cells[columnIndex].Value = i.ToString();
@@ -171,10 +233,9 @@ namespace TeacherManager
                     var resultClass = Classes.Find(filterClassToShowSchedule).FirstOrDefault();
                     panelSchedule.Controls.Add(new ScheduleDisplay(resultClass.Name, resultClass.From, resultClass.To, resultClass.Room));
                     continue;
-                    //d.Key;
                 }
             }
-                            
+
         }
 
         private void ToNextMonth(object sender, EventArgs e)
@@ -201,7 +262,7 @@ namespace TeacherManager
             {
                 CurrentMonth = 12;
                 CurrentYear--;
-                
+
                 LoadMonthAndYearLabel();
                 InitializeDataDaysOfMonthView(CurrentMonth, CurrentYear);
                 return;
@@ -217,34 +278,52 @@ namespace TeacherManager
         private List<DateTime> GetAllDaysOfClassInSemester(Class c)
         {
             List<DateTime> days = new List<DateTime>();
+            if (Semester.Type.Equals("sub"))
+            {
+                List<DayOfWeek> classSchedules = new List<DayOfWeek>();
+                foreach (string dow in c.DayOfWeek.Split(", "))
+                {
+                    classSchedules.Add(TranslateDayOfWeek(dow));
+                }
+                for (DateTime from = Semester.StartDate; from <= Semester.EndDate; from = from.AddDays(1))
+                {
+                    if (classSchedules.Contains(from.DayOfWeek))
+                    {
+                        var d = new DateTime(from.Year, from.Month, from.Day);
+                        days.Add(d);
+                    }
+                }
+                return days;
+            }
+
             DayOfWeek classSchedule = TranslateDayOfWeek(c.DayOfWeek);
             for (DateTime from = Semester.StartDate; from <= Semester.EndDate; from = from.AddDays(1))
             {
                 if (from.DayOfWeek == classSchedule)
                 {
-                    var a = new DateTime(from.Year, from.Month, from.Day);
-                    days.Add(a);
+                    var d = new DateTime(from.Year, from.Month, from.Day);
+                    days.Add(d);
                 }
             }
             return days;
         }
-        private static DayOfWeek TranslateDayOfWeek(string dayOfWeek)
+        public static DayOfWeek TranslateDayOfWeek(string dayOfWeek)
         {
             switch (dayOfWeek)
             {
-                case "Thứ hai":
+                case "Mon":
                     return DayOfWeek.Monday;
-                case "Thứ ba":
+                case "Tue":
                     return DayOfWeek.Tuesday;
-                case "Thứ tư":
+                case "Wed":
                     return DayOfWeek.Wednesday;
-                case "Thứ năm":
+                case "Thu":
                     return DayOfWeek.Thursday;
-                case "Thứ sáu":
+                case "Fri":
                     return DayOfWeek.Friday;
-                case "Thứ bảy":
+                case "Sat":
                     return DayOfWeek.Saturday;
-                case "Chủ nhật":
+                case "Sun":
                     return DayOfWeek.Sunday;
                 default:
                     return DayOfWeek.Sunday;

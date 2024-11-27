@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Driver;
+using MongoDB.Driver.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,11 +18,38 @@ namespace TeacherManager
     {
         IMongoCollection<Account> Accounts;
         IMongoCollection<Semester> Semesters;
+        private int semesterType = 1; // 0: phụ, 1: chính
         public FormCreateSemester()
         {
             InitializeComponent();
+            InitializeComboBoxSemesterType();
+            InitializeFirstDateFromValue();
             Accounts = Login.Accounts;
             Semesters = Login.Semesters;
+        }
+        private void InitializeComboBoxSemesterType()
+        {
+            List<string> cbItems = new List<string>
+            {
+                "Học kỳ chính",
+                "Học kỳ phụ"
+            };
+            cbSemesterType.DataSource = cbItems;
+        }
+        private void InitializeFirstDateFromValue()
+        {
+            dateTimePickerFrom.Value = DateTime.Now.AddDays(1);
+        }
+        private void SelectSemesterType(object sender, EventArgs e)
+        {
+            if (cbSemesterType.Texts.Equals("Học kỳ chính"))
+            {
+                semesterType = 1;
+                GenerateDateTimeToValue();
+                return;
+            }
+            semesterType = 0;
+            GenerateDateTimeToValue();
         }
         private void CloseForm(object sender, EventArgs e)
         {
@@ -30,19 +58,19 @@ namespace TeacherManager
 
         private void AddSemester(object sender, EventArgs e)
         {
+            if (txtBoxSemesterId.Texts.Equals(""))
+            {
+                MessageBox.Show("Số hiệu học kỳ không được để trống", "Thông báo");
+                return;
+            }
             if (dateTimePickerFrom.Value < DateTime.Now)
             {
                 MessageBox.Show("Không thể tạo học kì trước hôm nay", "Thông báo");
                 return;
             }
-            if (dateTimePickerTo.Value < dateTimePickerFrom.Value)
+            if (cbSemesterType.Texts.Equals(""))
             {
-                MessageBox.Show("Thời gian không hợp lệ", "Thông báo");
-                return;
-            }
-            if (dateTimePickerTo.Value > dateTimePickerFrom.Value.AddMonths(6))
-            {
-                MessageBox.Show("Một học kì chỉ được phép kéo dài tối đa 6 tháng", "Thông báo");
+                MessageBox.Show("Vui lòng chọn loại học kỳ", "Thông báo");
                 return;
             }
             var SemesterIdFilter = Builders<Semester>.Filter.Eq(s => s.SemesterId, txtBoxSemesterId.Texts);
@@ -55,20 +83,27 @@ namespace TeacherManager
             Semester s = new Semester
             {
                 SemesterId = txtBoxSemesterId.Texts,
+                Type = semesterType == 0 ? "sub" : "main",
                 StartDate = dateTimePickerFrom.Value,
                 EndDate = dateTimePickerTo.Value,
             };
             Semesters.InsertOne(s);
-            if (MessageBox.Show("Tạo học kì mới thành công", "Thông báo") == DialogResult.OK)
-            {
-                this.DialogResult = DialogResult.OK;
-            }
+            this.DialogResult = DialogResult.OK;
             Close();
         }
 
         private void SemesterPickFromDate(object sender, EventArgs e)
         {
-            dateTimePickerTo.Value = dateTimePickerFrom.Value.AddMonths(6);
+            GenerateDateTimeToValue();
+        }
+        private void GenerateDateTimeToValue()
+        {
+            if (semesterType == 0)
+            {
+                dateTimePickerTo.Value = dateTimePickerFrom.Value.AddDays(7 * 5);
+                return;
+            }
+            dateTimePickerTo.Value = dateTimePickerFrom.Value.AddDays(7 * 15);
         }
     }
 }

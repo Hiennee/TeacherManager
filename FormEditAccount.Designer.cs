@@ -73,9 +73,12 @@
             ChooseAvtDialog = new OpenFileDialog();
             pictureAvt = new CustomControls.CustomPictureBox();
             cbRole = new CustomControls.CustomComboBox();
+            cbStatus = new CustomControls.CustomComboBox();
+            genderIcon = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureAvt).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)genderIcon).BeginInit();
             SuspendLayout();
             // 
             // lblName
@@ -112,7 +115,7 @@
             // 
             lblPhone.AutoSize = true;
             lblPhone.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblPhone.Location = new Point(345, 388);
+            lblPhone.Location = new Point(345, 406);
             lblPhone.Name = "lblPhone";
             lblPhone.Size = new Size(148, 31);
             lblPhone.TabIndex = 3;
@@ -171,7 +174,7 @@
             txtBoxPhone.BorderSize = 2;
             txtBoxPhone.Font = new Font("Segoe UI", 9.5F);
             txtBoxPhone.ForeColor = Color.DimGray;
-            txtBoxPhone.Location = new Point(345, 423);
+            txtBoxPhone.Location = new Point(345, 441);
             txtBoxPhone.Margin = new Padding(4);
             txtBoxPhone.Multiline = false;
             txtBoxPhone.Name = "txtBoxPhone";
@@ -180,7 +183,7 @@
             txtBoxPhone.PlaceholderColor = Color.DarkGray;
             txtBoxPhone.PlaceholderText = "";
             txtBoxPhone.Size = new Size(252, 36);
-            txtBoxPhone.TabIndex = 4;
+            txtBoxPhone.TabIndex = 5;
             txtBoxPhone.Texts = "";
             txtBoxPhone.UnderlinedStyle = false;
             // 
@@ -191,14 +194,15 @@
             btnSaveChanges.BorderColor = Color.PaleVioletRed;
             btnSaveChanges.BorderRadius = 20;
             btnSaveChanges.BorderSize = 0;
+            btnSaveChanges.Cursor = Cursors.Hand;
             btnSaveChanges.FlatAppearance.BorderSize = 0;
             btnSaveChanges.FlatStyle = FlatStyle.Flat;
             btnSaveChanges.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnSaveChanges.ForeColor = Color.White;
-            btnSaveChanges.Location = new Point(50, 415);
+            btnSaveChanges.Location = new Point(50, 433);
             btnSaveChanges.Name = "btnSaveChanges";
             btnSaveChanges.Size = new Size(215, 44);
-            btnSaveChanges.TabIndex = 5;
+            btnSaveChanges.TabIndex = 6;
             btnSaveChanges.Text = "Lưu thay đổi";
             btnSaveChanges.TextColor = Color.White;
             btnSaveChanges.UseVisualStyleBackColor = false;
@@ -271,8 +275,38 @@
             cbRole.Name = "cbRole";
             cbRole.Padding = new Padding(2);
             cbRole.Size = new Size(252, 38);
-            cbRole.TabIndex = 14;
+            cbRole.TabIndex = 4;
             cbRole.Texts = "";
+            // 
+            // cbStatus
+            // 
+            cbStatus.BackColor = Color.WhiteSmoke;
+            cbStatus.BorderColor = Color.MediumSlateBlue;
+            cbStatus.BorderSize = 2;
+            cbStatus.DropDownStyle = ComboBoxStyle.DropDown;
+            cbStatus.Font = new Font("Segoe UI", 10F);
+            cbStatus.ForeColor = Color.DimGray;
+            cbStatus.IconColor = Color.MediumSlateBlue;
+            cbStatus.ListBackColor = Color.FromArgb(230, 228, 245);
+            cbStatus.ListTextColor = Color.DimGray;
+            cbStatus.Location = new Point(50, 347);
+            cbStatus.MinimumSize = new Size(50, 30);
+            cbStatus.Name = "cbStatus";
+            cbStatus.Padding = new Padding(2);
+            cbStatus.Size = new Size(215, 38);
+            cbStatus.TabIndex = 3;
+            cbStatus.Texts = "";
+            // 
+            // genderIcon
+            // 
+            genderIcon.Image = Properties.Resources.male_icon;
+            genderIcon.Location = new Point(227, 118);
+            genderIcon.Name = "genderIcon";
+            genderIcon.Size = new Size(38, 38);
+            genderIcon.SizeMode = PictureBoxSizeMode.Zoom;
+            genderIcon.TabIndex = 40;
+            genderIcon.TabStop = false;
+            genderIcon.Click += OnGenderChange;
             // 
             // FormEditAccount
             // 
@@ -280,6 +314,8 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(839, 575);
+            Controls.Add(genderIcon);
+            Controls.Add(cbStatus);
             Controls.Add(cbRole);
             Controls.Add(pictureAvt);
             Controls.Add(lblHeader);
@@ -298,10 +334,11 @@
             ShowIcon = false;
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "FormCreateStudent";
+            Text = "Chỉnh sửa tài khoản";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureAvt).EndInit();
+            ((System.ComponentModel.ISupportInitialize)genderIcon).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -322,5 +359,7 @@
         private OpenFileDialog ChooseAvtDialog;
         private CustomControls.CustomPictureBox pictureAvt;
         private CustomControls.CustomComboBox cbRole;
+        private CustomControls.CustomComboBox cbStatus;
+        private PictureBox genderIcon;
     }
 }

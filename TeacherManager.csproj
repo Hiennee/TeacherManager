@@ -23,6 +23,12 @@
     <Compile Update="FormEditAccount.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="FormChangeGradeEmailTemplate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FormWeekOfClassDescription.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="FormSendEmail.cs">
       <SubType>Form</SubType>
     </Compile>

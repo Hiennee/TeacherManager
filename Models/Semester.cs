@@ -13,6 +13,8 @@ namespace TeacherManager.Models
         public ObjectId Id { get; set; }
         [BsonElement("semesterId")]
         public string SemesterId { get; set; }
+        [BsonElement("type")]
+        public string Type { get; set; }
         [BsonElement("startDate")]
         public DateTime StartDate { get; set; }
         [BsonElement("endDate")]

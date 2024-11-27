@@ -19,25 +19,48 @@ namespace TeacherManager
         IMongoCollection<Student> Students;
         IMongoCollection<Teacher> Teachers;
         IMongoCollection<Class> Classes;
-        IMongoCollection<Semester> Semesters;
-        public FormCreateClass()
+        Semester semester;
+
+        private string semesterType;
+        public FormCreateClass(Semester s)
         {
             InitializeComponent();
             Accounts = Login.Accounts;
             Students = Login.Students;
             Teachers = Login.Teachers;
             Classes = Login.Classes;
-            Semesters = Login.Semesters;
+            semester = s;
+            semesterType = s.Type;
             numericGradeWeight1.Value = 20;
             numericGradeWeight2.Value = 20;
             numericGradeWeight3.Value = 20;
             numericGradeWeight4.Value = 40;
+            txtBoxSemesterId.Texts = semester.SemesterId;
+            LoadDayOfWeeksComboBox();
+        }
+        private void LoadDayOfWeeksComboBox()
+        {
+            cbDayOfWeek.DataSource = semesterType.Equals("main") ?
+                                     new List<string>()
+                                     {
+                                         "Thứ hai",
+                                         "Thứ ba",
+                                         "Thứ tư",
+                                         "Thứ năm",
+                                         "Thứ sáu",
+                                         "Thứ bảy",
+                                     } :
+                                     new List<string>()
+                                     {
+                                         "2, 4, 6",
+                                         "3, 5, 7",
+                                     };
         }
         public void CheckAddStudentButtonAvailable(object sender, EventArgs e)
         {
             if (txtBoxClassId.Texts == "" || txtBoxSemesterId.Texts == "" ||
                 txtBoxTeacherId.Texts == "" || txtBoxClassName.Texts == "" ||
-                txtBoxDayOfWeek.Texts == "" || txtBoxRoom.Texts == "")
+                cbDayOfWeek.Texts == "" || txtBoxRoom.Texts == "")
             {
                 btnAddStudent.Enabled = false;
             }
@@ -54,22 +77,30 @@ namespace TeacherManager
 
         private void AddClass(object sender, EventArgs e)
         {
-            var SemesterIdFilter = Builders<Semester>.Filter.Eq(s => s.SemesterId, txtBoxSemesterId.Texts);
-            var SemesterIdExist = Semesters.Find(SemesterIdFilter).Any();
-            if (!SemesterIdExist)
+            if (txtBoxClassId.Texts == "")
             {
-                MessageBox.Show("Mã học kỳ không hợp lệ", "Thông báo");
+                MessageBox.Show("Mã học phần không được để trống", "Thông báo");
+                return;
+            }
+            if (txtBoxClassName.Texts == "")
+            {
+                MessageBox.Show("Tên học phần không được để trống", "Thông báo");
+                return;
+            }
+            if (txtBoxRoom.Texts == "")
+            {
+                MessageBox.Show("Số phòng không được để trống", "Thông báo");
                 return;
             }
             var ClassIdFilter = Builders<Class>.Filter.Eq(c => c.ClassId, txtBoxClassId.Texts) &
-                                Builders<Class>.Filter.Eq(c => c.SemesterId, txtBoxSemesterId.Texts);
+                                Builders<Class>.Filter.Eq(c => c.SemesterId, semester.SemesterId);
             var ClassIdExist = Classes.Find(ClassIdFilter).Any();
             if (ClassIdExist)
             {
-                MessageBox.Show($"Số hiệu lớp đã tồn tại trong học kì {txtBoxSemesterId.Texts}", "Thông báo");
+                MessageBox.Show($"Số hiệu lớp đã tồn tại trong học kì {semester.SemesterId}", "Thông báo");
                 return;
             }
-            var TeacherIdFilter = Builders<Teacher>.Filter.Eq(t => t.accountId, txtBoxTeacherId.Texts);
+            var TeacherIdFilter = Builders<Teacher>.Filter.Eq(t => t.AccountId, txtBoxTeacherId.Texts);
             var TeacherIdExist = Teachers.Find(TeacherIdFilter).Any();
             if (!TeacherIdExist)
             {
@@ -99,9 +130,14 @@ namespace TeacherManager
             Class c = new Class
             {
                 ClassId = txtBoxClassId.Texts,
-                SemesterId = txtBoxSemesterId.Texts,
+                SemesterId = semester.SemesterId,
                 TeacherId = txtBoxTeacherId.Texts,
-                DayOfWeek = txtBoxDayOfWeek.Texts,
+                DayOfWeek = cbDayOfWeek.Texts.Replace("Thứ hai", "Mon").Replace("2", "Mon")
+                                             .Replace("Thứ ba", "Tue").Replace("3", "Tue")
+                                             .Replace("Thứ tư", "Wed").Replace("4", "Wed")
+                                             .Replace("Thứ năm", "Thu").Replace("5", "Thu")
+                                             .Replace("Thứ sáu", "Fri").Replace("6", "Fri")
+                                             .Replace("Thứ bảy", "Sat").Replace("7", "Sat"),
                 From = from,
                 To = to,
                 Name = txtBoxClassName.Texts,
@@ -112,10 +148,7 @@ namespace TeacherManager
                 Grade04_weight = grade04_weight,
             };
             Classes.InsertOne(c);
-            if (MessageBox.Show("Tạo lớp mới thành công", "Thông báo") == DialogResult.OK)
-            {
-                this.DialogResult = DialogResult.OK;
-            }
+            this.DialogResult = DialogResult.OK;
             Close();
         }
         private string GenerateStringHour(int hour, int minute)

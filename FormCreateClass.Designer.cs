@@ -91,7 +91,7 @@
             txtBoxSemesterId = new CustomControls.CustomTextBox();
             lblSemesterId = new Label();
             lblDayOfWeek = new Label();
-            txtBoxDayOfWeek = new CustomControls.CustomComboBox();
+            cbDayOfWeek = new CustomControls.CustomComboBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericFromHour).BeginInit();
@@ -244,6 +244,7 @@
             btnAddStudent.BorderColor = Color.PaleVioletRed;
             btnAddStudent.BorderRadius = 20;
             btnAddStudent.BorderSize = 0;
+            btnAddStudent.Cursor = Cursors.Hand;
             btnAddStudent.FlatAppearance.BorderSize = 0;
             btnAddStudent.FlatStyle = FlatStyle.Flat;
             btnAddStudent.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -455,6 +456,7 @@
             txtBoxSemesterId.BorderFocusColor = Color.HotPink;
             txtBoxSemesterId.BorderRadius = 0;
             txtBoxSemesterId.BorderSize = 2;
+            txtBoxSemesterId.Enabled = false;
             txtBoxSemesterId.Font = new Font("Segoe UI", 9.5F);
             txtBoxSemesterId.ForeColor = Color.DimGray;
             txtBoxSemesterId.Location = new Point(143, 202);
@@ -491,25 +493,25 @@
             lblDayOfWeek.TabIndex = 35;
             lblDayOfWeek.Text = "Thứ";
             // 
-            // txtBoxDayOfWeek
+            // cbDayOfWeek
             // 
-            txtBoxDayOfWeek.BackColor = SystemColors.Window;
-            txtBoxDayOfWeek.BorderColor = Color.MediumSlateBlue;
-            txtBoxDayOfWeek.BorderSize = 2;
-            txtBoxDayOfWeek.DropDownStyle = ComboBoxStyle.DropDown;
-            txtBoxDayOfWeek.Font = new Font("Segoe UI", 10F);
-            txtBoxDayOfWeek.ForeColor = Color.DimGray;
-            txtBoxDayOfWeek.IconColor = Color.MediumSlateBlue;
-            txtBoxDayOfWeek.Items.AddRange(new object[] { "Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu", "Thứ bảy" });
-            txtBoxDayOfWeek.ListBackColor = Color.FromArgb(230, 228, 245);
-            txtBoxDayOfWeek.ListTextColor = Color.DimGray;
-            txtBoxDayOfWeek.Location = new Point(143, 458);
-            txtBoxDayOfWeek.MinimumSize = new Size(100, 30);
-            txtBoxDayOfWeek.Name = "txtBoxDayOfWeek";
-            txtBoxDayOfWeek.Padding = new Padding(2);
-            txtBoxDayOfWeek.Size = new Size(118, 36);
-            txtBoxDayOfWeek.TabIndex = 8;
-            txtBoxDayOfWeek.Texts = "";
+            cbDayOfWeek.BackColor = SystemColors.Window;
+            cbDayOfWeek.BorderColor = Color.MediumSlateBlue;
+            cbDayOfWeek.BorderSize = 2;
+            cbDayOfWeek.DropDownStyle = ComboBoxStyle.DropDown;
+            cbDayOfWeek.Font = new Font("Segoe UI", 10F);
+            cbDayOfWeek.ForeColor = Color.DimGray;
+            cbDayOfWeek.IconColor = Color.MediumSlateBlue;
+            cbDayOfWeek.Items.AddRange(new object[] { "Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu", "Thứ bảy" });
+            cbDayOfWeek.ListBackColor = Color.FromArgb(230, 228, 245);
+            cbDayOfWeek.ListTextColor = Color.DimGray;
+            cbDayOfWeek.Location = new Point(143, 458);
+            cbDayOfWeek.MinimumSize = new Size(100, 30);
+            cbDayOfWeek.Name = "cbDayOfWeek";
+            cbDayOfWeek.Padding = new Padding(2);
+            cbDayOfWeek.Size = new Size(118, 36);
+            cbDayOfWeek.TabIndex = 8;
+            cbDayOfWeek.Texts = "";
             // 
             // FormCreateClass
             // 
@@ -517,7 +519,7 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(962, 615);
-            Controls.Add(txtBoxDayOfWeek);
+            Controls.Add(cbDayOfWeek);
             Controls.Add(lblDayOfWeek);
             Controls.Add(txtBoxSemesterId);
             Controls.Add(lblSemesterId);
@@ -555,7 +557,7 @@
             ShowIcon = false;
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "FormCreateStudent";
+            Text = "Tạo lớp học mới";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ((System.ComponentModel.ISupportInitialize)numericFromHour).EndInit();
@@ -605,6 +607,6 @@
         private CustomControls.CustomTextBox txtBoxSemesterId;
         private Label lblSemesterId;
         private Label lblDayOfWeek;
-        private CustomControls.CustomComboBox txtBoxDayOfWeek;
+        private CustomControls.CustomComboBox cbDayOfWeek;
     }
 }

@@ -125,6 +125,7 @@
             btnAddStudent.BorderColor = Color.PaleVioletRed;
             btnAddStudent.BorderRadius = 20;
             btnAddStudent.BorderSize = 0;
+            btnAddStudent.Cursor = Cursors.Hand;
             btnAddStudent.FlatAppearance.BorderSize = 0;
             btnAddStudent.FlatStyle = FlatStyle.Flat;
             btnAddStudent.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -214,7 +215,7 @@
             ShowIcon = false;
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "FormCreateStudent";
+            Text = "Thêm sinh viên vào lớp";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ResumeLayout(false);

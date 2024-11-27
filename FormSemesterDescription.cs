@@ -16,57 +16,70 @@ namespace TeacherManager
     public partial class FormSemesterDescription : Form
     {
         private Semester semester;
+        private Account account;
         private IMongoCollection<Class> Classes;
         private IMongoCollection<Teacher> Teachers;
         private IMongoCollection<Account> Accounts;
         private IMongoCollection<Student_Class_Detail> StudentClasses;
+
         public FormSemesterDescription(Semester s)
         {
             semester = s;
+            account = Login.Account;
             Classes = Login.Classes;
             Accounts = Login.Accounts;
             Teachers = Login.Teachers;
             StudentClasses = Login.StudentClasses;
             InitializeComponent();
+            InitializeLabels();
+            CheckButtonAddClassVisible();
             InitializeDataGridView();
             InitializeSemestersData();
         }
-
+        private void InitializeLabels()
+        {
+            lblSemester.Text = "Học kỳ " + semester.SemesterId;
+        }
+        private void CheckButtonAddClassVisible()
+        {
+            if (!account.Role.Equals("Admin"))
+            {
+                btnAddClass.Visible = false;
+            }
+        }
         private void ExitSemesterDescriptionForm(object sender, EventArgs e)
         {
             Close();
         }
         private void InitializeDataGridView()
         {
-            dataViewSemester.Columns.Clear();
-
             dataViewSemester.Columns.Add("columnClassId", "Mã HP");
-            dataViewSemester.Columns.Add("columnClassName", "Tên HP");
+            dataViewSemester.Columns.Add("columnClassName", "Tên học phần");
             dataViewSemester.Columns.Add("columnTeacherName", "Giảng viên");
             dataViewSemester.Columns.Add("columnStudentNumber", "Sĩ số");
             dataViewSemester.Columns.Add("columnDayOfWeek", "TKB");
             dataViewSemester.Columns.Add("columnRoom", "Phòng");
 
-            //dataViewSemester.Columns["columnAvt"].ReadOnly = true;
-            //dataViewSemester.Columns["columnMSSV"].ReadOnly = true;
-            //dataViewSemester.Columns["columnFullName"].ReadOnly = true;
-            //dataViewSemester.Columns["columnEmail"].ReadOnly = true;
-            //dataViewSemester.Columns["columnGrade_total"].ReadOnly = true;
-            //dataViewSemester.Columns["columnGrade01"].ReadOnly = false;
-            //dataViewSemester.Columns["columnGrade02"].ReadOnly = false;
-            //dataViewSemester.Columns["columnGrade03"].ReadOnly = false;
-            //dataViewSemester.Columns["columnGrade04"].ReadOnly = false;
+            dataViewSemester.Columns["columnClassId"].Width += 50;
+            dataViewSemester.Columns["columnClassName"].Width += 150;
+            dataViewSemester.Columns["columnTeacherName"].Width += 70;
+            dataViewSemester.Columns["columnDayOfWeek"].Width += 50;
 
-            //dataViewSemester.Columns["columnFullName"].Width += 50;
-            //dataViewSemester.Columns["columnEmail"].Width += 50;
-            //dataViewSemester.Columns["columnBonus"].Width += 20;
-            //dataViewSemester.Columns["columnGrade_total"].Width += 20;
+            foreach (DataGridViewColumn column in dataViewSemester.Columns)
+            {
+                column.SortMode = DataGridViewColumnSortMode.NotSortable;
+            }
         }
         private void InitializeSemestersData()
         {
             dataViewSemester.Rows.Clear();
 
-            var filterClassesInSemester = Builders<Class>.Filter.Eq(c => c.SemesterId, semester.SemesterId);
+            FilterDefinition<Class> filterClassesInSemester;
+            filterClassesInSemester = Builders<Class>.Filter.Eq(c => c.SemesterId, semester.SemesterId);
+            //filterClassesInSemester = account.Role.Equals("Admin") ?
+            //                          Builders<Class>.Filter.Eq(c => c.SemesterId, semester.SemesterId) :
+            //                          Builders<Class>.Filter.Eq(c => c.SemesterId, semester.SemesterId) &
+            //                          Builders<Class>.Filter.Eq(c => c.TeacherId, account.AccountId);
             var resultClassesInSemester = Classes.Find(filterClassesInSemester).ToList();
             if (resultClassesInSemester.Any())
             {
@@ -74,6 +87,9 @@ namespace TeacherManager
                 {
                     int rowIndex = dataViewSemester.Rows.Add();
                     var filterTeacherName = Builders<Account>.Filter.Eq(a => a.AccountId, c.TeacherId);
+                    //var filterTeacherName = account.Role.Equals("Admin") ? 
+                    //                        Builders<Account>.Filter.Eq(a => a.AccountId, c.TeacherId) :
+                    //                        Builders<Account>.Filter.Empty;
                     var resultTeacher = Accounts.Find(filterTeacherName).FirstOrDefault();
                     var filterStudentsInClass = Builders<Student_Class_Detail>.Filter.Eq(scd => scd.ClassId, c.ClassId);
                     int resultStudentsInClass = StudentClasses.Find(filterStudentsInClass).ToList().Count;
@@ -83,7 +99,16 @@ namespace TeacherManager
                         dataViewSemester.Rows[rowIndex].Cells["columnClassName"].Value = c.Name;
                         dataViewSemester.Rows[rowIndex].Cells["columnTeacherName"].Value = resultTeacher.Name;
                         dataViewSemester.Rows[rowIndex].Cells["columnStudentNumber"].Value = resultStudentsInClass;
-                        dataViewSemester.Rows[rowIndex].Cells["columnDayOfWeek"].Value = c.DayOfWeek;
+                        dataViewSemester.Rows[rowIndex].Cells["columnDayOfWeek"].Value = c.DayOfWeek
+                                                                                         .Replace("Mon, Wed, Fri", "Thứ 2, Thứ 4, Thứ 6")
+                                                                                         .Replace("Tue, Thu, Sat", "Thứ 3, Thứ 5, Thứ 7")
+                                                                                         .Replace("Mon", "Thứ hai")
+                                                                                         .Replace("Tue", "Thứ ba")
+                                                                                         .Replace("Wed", "Thứ tư")
+                                                                                         .Replace("Thu", "Thứ năm")
+                                                                                         .Replace("Fri", "Thứ sáu")
+                                                                                         .Replace("Sat", "Thứ bảy")
+                                                                                         .Replace("Sun", "Chủ nhật");
                         dataViewSemester.Rows[rowIndex].Cells["columnRoom"].Value = c.Room;
                     }
                 }
@@ -137,6 +162,14 @@ namespace TeacherManager
                 }
             }
             return dataTable;
+        }
+
+        private void ShowAddClassForm(object sender, EventArgs e)
+        {
+            if (new FormCreateClass(semester).ShowDialog() == DialogResult.OK)
+            {
+                InitializeSemestersData();
+            }
         }
     }
 }

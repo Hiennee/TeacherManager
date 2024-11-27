@@ -27,16 +27,18 @@ namespace TeacherManager
         Account Account;
         Teacher? Teacher;
         Login LoginForm;
+        FormQLTK FormQLTK;
 
         IMongoCollection<Teacher> Teachers;
         IMongoCollection<Account> Accounts;
         IMongoCollection<Class> Classes;
         IMongoCollection<Semester> Semesters;
         IMongoCollection<Student_Class_Detail> StudentClasses;
-        public MainForm(Login loginForm)
+        public MainForm(Login loginForm, FormQLTK formQLTK)
         {
             this.Account = Login.Account;
             LoginForm = loginForm;
+            FormQLTK = formQLTK;
             Base64Image = Account.Avatar ?? "";
             LoginForm = new Login();
             InitializeComponent();
@@ -77,9 +79,10 @@ namespace TeacherManager
             {
                 new Index(),
                 new FormQLLH(),
-                new FormQLTK(),
+                FormQLTK,
                 new FormQLHK(),
                 new FormLGD(),
+                new FormTestingGround(), // test here
             };
             Navigator = new Navigator(UserControls, panelControl);
             Navigator.Display(0);
@@ -108,12 +111,12 @@ namespace TeacherManager
 
             switch (btn.Name)
             {
-                case "customButton1":
-                    CheckNavigateButton(btn);
+                case "btnIndex":
+                    //CheckNavigateButton(btn);
                     Navigator.Display(0);
                     foreach (CustomButton customButton in NavigateButtons)
                     {
-                        if (customButton.Name == "customButton1")
+                        if (customButton.Name == "btnIndex")
                             continue;
                         UncheckNavigateButton(customButton);
                     }
@@ -167,6 +170,9 @@ namespace TeacherManager
                         UncheckNavigateButton(customButton);
                     }
                     break;
+                case "button1": // test here
+                    Navigator.Display(5);
+                    break;
                 default:
                     break;
             }
@@ -185,15 +191,22 @@ namespace TeacherManager
                 avtPath = ChooseAvtDialog.FileName;
                 byte[] imageArray = System.IO.File.ReadAllBytes(avtPath);
                 Base64Image = Convert.ToBase64String(imageArray);
+                var accountToUpdateAvatar = Builders<Account>.Filter.Eq(a => a.AccountId, Account.AccountId);
+                var avatarToUpdate = Builders<Account>.Update.Set("avatar", Base64Image);
+                Accounts.UpdateOne(accountToUpdateAvatar, avatarToUpdate);
+
+                MessageBox.Show("Thay đổi ảnh đại diện thành công", "Thông báo");
+                LoadAvatar();
+                FormQLTK.LoadAvatar();
+                return;
             }
-            var accountToUpdateAvatar = Builders<Account>.Filter.Eq(a => a.AccountId, Account.AccountId);
-            var avatarToUpdate = Builders<Account>.Update.Set("avatar", Base64Image);
-            Accounts.UpdateOne(accountToUpdateAvatar, avatarToUpdate);
-            MessageBox.Show("Thay đổi ảnh đại diện thành công", "Thông báo");
-            LoadAvatar();
         }
         public static Image Base64ToImage(string base64String)
         {
+            if (base64String.Equals(""))
+            {
+                return Properties.Resources.default_avatar_icon;
+            }
             byte[] imageBytes = Convert.FromBase64String(base64String);
             using (var ms = new MemoryStream(imageBytes, 0, imageBytes.Length))
             {
@@ -204,6 +217,11 @@ namespace TeacherManager
         private void MainForm_Leave(object sender, EventArgs e)
         {
             LoginForm.Close();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }

@@ -28,116 +28,61 @@
         /// </summary>
         private void InitializeComponent()
         {
-            textBox1 = new TextBox();
-            btnAddClass = new CustomControls.CustomButton();
-            textBox2 = new TextBox();
-            btnAddStudent = new CustomControls.CustomButton();
-            customButton1 = new CustomControls.CustomButton();
+            pictureSchool = new PictureBox();
+            lblHeader = new Label();
+            lblHeader1 = new Label();
+            ((System.ComponentModel.ISupportInitialize)pictureSchool).BeginInit();
             SuspendLayout();
             // 
-            // textBox1
+            // pictureSchool
             // 
-            textBox1.Location = new Point(372, 206);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(125, 27);
-            textBox1.TabIndex = 0;
-            textBox1.Text = "Trang chủ";
+            pictureSchool.Image = Properties.Resources.school;
+            pictureSchool.InitialImage = Properties.Resources.school;
+            pictureSchool.Location = new Point(177, 257);
+            pictureSchool.Name = "pictureSchool";
+            pictureSchool.Size = new Size(1077, 583);
+            pictureSchool.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureSchool.TabIndex = 0;
+            pictureSchool.TabStop = false;
             // 
-            // btnAddClass
+            // lblHeader
             // 
-            btnAddClass.BackColor = Color.MediumSlateBlue;
-            btnAddClass.BackgroundColor = Color.MediumSlateBlue;
-            btnAddClass.BorderColor = Color.PaleVioletRed;
-            btnAddClass.BorderRadius = 10;
-            btnAddClass.BorderSize = 0;
-            btnAddClass.FlatAppearance.BorderSize = 0;
-            btnAddClass.FlatStyle = FlatStyle.Flat;
-            btnAddClass.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnAddClass.ForeColor = Color.White;
-            btnAddClass.ImageAlign = ContentAlignment.MiddleLeft;
-            btnAddClass.Location = new Point(1204, 32);
-            btnAddClass.Name = "btnAddClass";
-            btnAddClass.Size = new Size(201, 43);
-            btnAddClass.TabIndex = 1;
-            btnAddClass.Text = "Thêm giảng viên";
-            btnAddClass.TextColor = Color.White;
-            btnAddClass.UseVisualStyleBackColor = false;
-            btnAddClass.Click += CreateTeacher;
-            btnAddClass.MouseLeave += BtnAddClass_MouseLeave;
-            btnAddClass.MouseHover += BtnAddClass_MouseHover;
+            lblHeader.AutoSize = true;
+            lblHeader.Font = new Font("Segoe UI", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblHeader.Location = new Point(203, 143);
+            lblHeader.Name = "lblHeader";
+            lblHeader.Size = new Size(1100, 50);
+            lblHeader.TabIndex = 1;
+            lblHeader.Text = "Chào mừng quý giảng viên đến với ứng dụng quản lý lớp học!";
             // 
-            // textBox2
+            // lblHeader1
             // 
-            textBox2.Location = new Point(734, 100);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(125, 27);
-            textBox2.TabIndex = 2;
-            textBox2.Text = "Trang chủ";
-            // 
-            // btnAddStudent
-            // 
-            btnAddStudent.BackColor = Color.MediumSlateBlue;
-            btnAddStudent.BackgroundColor = Color.MediumSlateBlue;
-            btnAddStudent.BorderColor = Color.PaleVioletRed;
-            btnAddStudent.BorderRadius = 10;
-            btnAddStudent.BorderSize = 0;
-            btnAddStudent.FlatAppearance.BorderSize = 0;
-            btnAddStudent.FlatStyle = FlatStyle.Flat;
-            btnAddStudent.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnAddStudent.ForeColor = Color.White;
-            btnAddStudent.ImageAlign = ContentAlignment.MiddleLeft;
-            btnAddStudent.Location = new Point(1204, 89);
-            btnAddStudent.Name = "btnAddStudent";
-            btnAddStudent.Size = new Size(201, 43);
-            btnAddStudent.TabIndex = 3;
-            btnAddStudent.Text = "Thêm sinh viên";
-            btnAddStudent.TextColor = Color.White;
-            btnAddStudent.UseVisualStyleBackColor = false;
-            btnAddStudent.Click += CreateStudent;
-            // 
-            // customButton1
-            // 
-            customButton1.BackColor = Color.MediumSlateBlue;
-            customButton1.BackgroundColor = Color.MediumSlateBlue;
-            customButton1.BorderColor = Color.PaleVioletRed;
-            customButton1.BorderRadius = 10;
-            customButton1.BorderSize = 0;
-            customButton1.FlatAppearance.BorderSize = 0;
-            customButton1.FlatStyle = FlatStyle.Flat;
-            customButton1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            customButton1.ForeColor = Color.White;
-            customButton1.ImageAlign = ContentAlignment.MiddleLeft;
-            customButton1.Location = new Point(1204, 190);
-            customButton1.Name = "customButton1";
-            customButton1.Size = new Size(201, 43);
-            customButton1.TabIndex = 4;
-            customButton1.Text = "Xóa tất cả SV";
-            customButton1.TextColor = Color.White;
-            customButton1.UseVisualStyleBackColor = false;
-            customButton1.Click += DeleteStudents;
+            lblHeader1.AutoSize = true;
+            lblHeader1.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblHeader1.Location = new Point(327, 205);
+            lblHeader1.Name = "lblHeader1";
+            lblHeader1.Size = new Size(737, 38);
+            lblHeader1.TabIndex = 2;
+            lblHeader1.Text = "Nếu gặp bất cứ vấn đề gì vui lòng liên hệ với phòng CNTT";
             // 
             // Index
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(customButton1);
-            Controls.Add(btnAddStudent);
-            Controls.Add(textBox2);
-            Controls.Add(btnAddClass);
-            Controls.Add(textBox1);
+            Controls.Add(lblHeader1);
+            Controls.Add(lblHeader);
+            Controls.Add(pictureSchool);
             Name = "Index";
-            Size = new Size(1492, 589);
-            Click += DeleteStudents;
+            Size = new Size(1572, 899);
+            ((System.ComponentModel.ISupportInitialize)pictureSchool).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private TextBox textBox1;
-        private TeacherManager.CustomControls.CustomButton btnAddClass;
-        private TextBox textBox2;
-        private TeacherManager.CustomControls.CustomButton btnAddStudent;
-        private TeacherManager.CustomControls.CustomButton customButton1;
+        private PictureBox pictureSchool;
+        private Label lblHeader;
+        private Label lblHeader1;
     }
 }

@@ -38,7 +38,7 @@ namespace TeacherManager
                 txtBoxTo.Texts += email + ", ";
             }
         }
-        private void ExitClassDescriptionForm(object sender, EventArgs e)
+        private void ExitSendEmailForm(object sender, EventArgs e)
         {
             Close();
         }
@@ -52,11 +52,19 @@ namespace TeacherManager
                     Body = txtBoxBody.Texts
                 })
                 {
+                    if (txtBoxSubject.Texts == "")
+                    {
+                        MessageBox.Show("Vui lòng nhập nội dung để gửi");
+                        break;
+                    }
                     smtpClient.Send(message);
                 }
             }
-            MessageBox.Show("Gửi email thành công", "Thông báo");
-            Close();
+            if (MessageBox.Show("Gửi email thành công", "Thông báo") == DialogResult.OK)
+            {
+                Close();
+            }
+            return;
         }
     }
 }

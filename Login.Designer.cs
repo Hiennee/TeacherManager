@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
-            pictureBox1 = new PictureBox();
             chkBoxShowPassword = new CheckBox();
             btnLogin = new Button();
             txbPassword = new TextBox();
@@ -39,12 +38,10 @@
             lblHeader = new Label();
             lblHeader_2 = new Label();
             panel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // panel1
             // 
-            panel1.Controls.Add(pictureBox1);
             panel1.Controls.Add(chkBoxShowPassword);
             panel1.Controls.Add(btnLogin);
             panel1.Controls.Add(txbPassword);
@@ -55,16 +52,6 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(481, 205);
             panel1.TabIndex = 1;
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.BackgroundImage = Properties.Resources.account_icon;
-            pictureBox1.Location = new Point(3, 18);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(53, 53);
-            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox1.TabIndex = 5;
-            pictureBox1.TabStop = false;
             // 
             // chkBoxShowPassword
             // 
@@ -104,7 +91,7 @@
             // 
             txbID.Location = new Point(235, 25);
             txbID.Name = "txbID";
-            txbID.PlaceholderText = "User ID...";
+            txbID.PlaceholderText = "Email nhân viên...";
             txbID.Size = new Size(182, 27);
             txbID.TabIndex = 2;
             // 
@@ -159,9 +146,9 @@
             Controls.Add(lblHeader);
             Controls.Add(panel1);
             Name = "Login";
+            Text = "Đăng nhập";
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -176,6 +163,5 @@
         private Label lblHeader;
         private Label lblHeader_2;
         private CheckBox chkBoxShowPassword;
-        private PictureBox pictureBox1;
     }
 }

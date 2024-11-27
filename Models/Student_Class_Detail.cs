@@ -15,8 +15,8 @@ namespace TeacherManager.Models
         public string StudentId { get; set; }
         [BsonElement("classId")]
         public string ClassId { get; set; }
-        [BsonElement("absences")]
-        public int Absences { get; set; }
+        [BsonElement("checkin")]
+        public string CheckedIn { get; set; }
         [BsonElement("grade01")]
         public double Grade01 { get; set; }
         [BsonElement("grade02")]

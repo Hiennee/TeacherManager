@@ -70,6 +70,8 @@
             lblScheduleTo = new Label();
             label1 = new Label();
             dateTimePickerFrom = new CustomControls.CustomDateTimePicker();
+            lblSemesterType = new Label();
+            cbSemesterType = new CustomControls.CustomComboBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             SuspendLayout();
@@ -102,7 +104,7 @@
             txtBoxSemesterId.PlaceholderColor = Color.DarkGray;
             txtBoxSemesterId.PlaceholderText = "";
             txtBoxSemesterId.Size = new Size(324, 36);
-            txtBoxSemesterId.TabIndex = 4;
+            txtBoxSemesterId.TabIndex = 1;
             txtBoxSemesterId.Texts = "";
             txtBoxSemesterId.UnderlinedStyle = false;
             // 
@@ -113,11 +115,12 @@
             btnAddSemester.BorderColor = Color.PaleVioletRed;
             btnAddSemester.BorderRadius = 20;
             btnAddSemester.BorderSize = 0;
+            btnAddSemester.Cursor = Cursors.Hand;
             btnAddSemester.FlatAppearance.BorderSize = 0;
             btnAddSemester.FlatStyle = FlatStyle.Flat;
             btnAddSemester.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnAddSemester.ForeColor = Color.White;
-            btnAddSemester.Location = new Point(230, 321);
+            btnAddSemester.Location = new Point(230, 365);
             btnAddSemester.Name = "btnAddSemester";
             btnAddSemester.Size = new Size(206, 44);
             btnAddSemester.TabIndex = 9;
@@ -161,7 +164,7 @@
             // 
             lblFromDate.AutoSize = true;
             lblFromDate.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblFromDate.Location = new Point(190, 174);
+            lblFromDate.Location = new Point(190, 261);
             lblFromDate.Name = "lblFromDate";
             lblFromDate.Size = new Size(40, 31);
             lblFromDate.TabIndex = 13;
@@ -173,14 +176,15 @@
             dateTimePickerTo.BorderSize = 2;
             dateTimePickerTo.CalendarTrailingForeColor = Color.Gray;
             dateTimePickerTo.CustomFormat = "dd/MM/yyyy";
+            dateTimePickerTo.Enabled = false;
             dateTimePickerTo.Font = new Font("Segoe UI", 9.5F);
             dateTimePickerTo.Format = DateTimePickerFormat.Custom;
-            dateTimePickerTo.Location = new Point(372, 208);
+            dateTimePickerTo.Location = new Point(372, 295);
             dateTimePickerTo.MinimumSize = new Size(0, 35);
             dateTimePickerTo.Name = "dateTimePickerTo";
             dateTimePickerTo.Size = new Size(142, 35);
             dateTimePickerTo.SkinColor = SystemColors.Window;
-            dateTimePickerTo.TabIndex = 16;
+            dateTimePickerTo.TabIndex = 4;
             dateTimePickerTo.TextColor = Color.Black;
             dateTimePickerTo.Value = new DateTime(2025, 1, 4, 0, 0, 0, 0);
             // 
@@ -188,7 +192,7 @@
             // 
             lblScheduleTo.AutoSize = true;
             lblScheduleTo.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblScheduleTo.Location = new Point(459, 174);
+            lblScheduleTo.Location = new Point(459, 261);
             lblScheduleTo.Name = "lblScheduleTo";
             lblScheduleTo.Size = new Size(55, 31);
             lblScheduleTo.TabIndex = 15;
@@ -198,7 +202,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(341, 204);
+            label1.Location = new Point(341, 291);
             label1.Name = "label1";
             label1.Size = new Size(28, 38);
             label1.TabIndex = 17;
@@ -212,14 +216,44 @@
             dateTimePickerFrom.CustomFormat = "dd/MM/yyyy";
             dateTimePickerFrom.Font = new Font("Segoe UI", 9.5F);
             dateTimePickerFrom.Format = DateTimePickerFormat.Custom;
-            dateTimePickerFrom.Location = new Point(190, 208);
+            dateTimePickerFrom.Location = new Point(190, 295);
             dateTimePickerFrom.MinimumSize = new Size(0, 35);
             dateTimePickerFrom.Name = "dateTimePickerFrom";
             dateTimePickerFrom.Size = new Size(142, 35);
             dateTimePickerFrom.SkinColor = SystemColors.Window;
-            dateTimePickerFrom.TabIndex = 18;
+            dateTimePickerFrom.TabIndex = 3;
             dateTimePickerFrom.TextColor = Color.Black;
             dateTimePickerFrom.ValueChanged += SemesterPickFromDate;
+            // 
+            // lblSemesterType
+            // 
+            lblSemesterType.AutoSize = true;
+            lblSemesterType.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblSemesterType.Location = new Point(190, 173);
+            lblSemesterType.Name = "lblSemesterType";
+            lblSemesterType.Size = new Size(127, 31);
+            lblSemesterType.TabIndex = 19;
+            lblSemesterType.Text = "Loại học kỳ";
+            // 
+            // cbSemesterType
+            // 
+            cbSemesterType.BackColor = Color.WhiteSmoke;
+            cbSemesterType.BorderColor = Color.MediumSlateBlue;
+            cbSemesterType.BorderSize = 2;
+            cbSemesterType.DropDownStyle = ComboBoxStyle.DropDown;
+            cbSemesterType.Font = new Font("Segoe UI", 10F);
+            cbSemesterType.ForeColor = Color.DimGray;
+            cbSemesterType.IconColor = Color.MediumSlateBlue;
+            cbSemesterType.ListBackColor = Color.FromArgb(230, 228, 245);
+            cbSemesterType.ListTextColor = Color.DimGray;
+            cbSemesterType.Location = new Point(190, 207);
+            cbSemesterType.MinimumSize = new Size(50, 30);
+            cbSemesterType.Name = "cbSemesterType";
+            cbSemesterType.Padding = new Padding(2);
+            cbSemesterType.Size = new Size(324, 38);
+            cbSemesterType.TabIndex = 2;
+            cbSemesterType.Texts = "";
+            cbSemesterType.OnSelectedIndexChanged += SelectSemesterType;
             // 
             // FormCreateSemester
             // 
@@ -227,6 +261,8 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(695, 439);
+            Controls.Add(cbSemesterType);
+            Controls.Add(lblSemesterType);
             Controls.Add(dateTimePickerFrom);
             Controls.Add(label1);
             Controls.Add(dateTimePickerTo);
@@ -243,7 +279,7 @@
             ShowIcon = false;
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "FormCreateStudent";
+            Text = "Tạo học kỳ mới";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ResumeLayout(false);
@@ -262,5 +298,7 @@
         private Label lblScheduleTo;
         private Label label1;
         private TeacherManager.CustomControls.CustomDateTimePicker dateTimePickerFrom;
+        private Label lblSemesterType;
+        private CustomControls.CustomComboBox cbSemesterType;
     }
 }

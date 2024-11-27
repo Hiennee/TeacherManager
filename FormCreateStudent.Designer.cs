@@ -71,6 +71,12 @@
             txtBoxMSSV = new CustomControls.CustomTextBox();
             lblMSSV = new Label();
             lblHeader = new Label();
+            lblGender = new Label();
+            cbGender = new CustomControls.CustomComboBox();
+            lblBirthWarning = new Label();
+            dtpBirth = new CustomControls.CustomDateTimePicker();
+            lblBirthDate = new Label();
+            lblPhoneWarning = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             SuspendLayout();
@@ -89,7 +95,7 @@
             // 
             lblEmail.AutoSize = true;
             lblEmail.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblEmail.Location = new Point(202, 275);
+            lblEmail.Location = new Point(551, 187);
             lblEmail.Name = "lblEmail";
             lblEmail.Size = new Size(79, 31);
             lblEmail.TabIndex = 2;
@@ -99,7 +105,7 @@
             // 
             lblPhone.AutoSize = true;
             lblPhone.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblPhone.Location = new Point(202, 357);
+            lblPhone.Location = new Point(551, 269);
             lblPhone.Name = "lblPhone";
             lblPhone.Size = new Size(148, 31);
             lblPhone.TabIndex = 3;
@@ -122,8 +128,8 @@
             txtBoxStudentName.PasswordChar = false;
             txtBoxStudentName.PlaceholderColor = Color.DarkGray;
             txtBoxStudentName.PlaceholderText = "";
-            txtBoxStudentName.Size = new Size(252, 36);
-            txtBoxStudentName.TabIndex = 5;
+            txtBoxStudentName.Size = new Size(297, 36);
+            txtBoxStudentName.TabIndex = 1;
             txtBoxStudentName.Texts = "";
             txtBoxStudentName.UnderlinedStyle = false;
             txtBoxStudentName._TextChanged += CheckAddStudentButtonAvailable;
@@ -135,9 +141,10 @@
             txtBoxEmail.BorderFocusColor = Color.HotPink;
             txtBoxEmail.BorderRadius = 0;
             txtBoxEmail.BorderSize = 2;
+            txtBoxEmail.Enabled = false;
             txtBoxEmail.Font = new Font("Segoe UI", 9.5F);
             txtBoxEmail.ForeColor = Color.DimGray;
-            txtBoxEmail.Location = new Point(202, 309);
+            txtBoxEmail.Location = new Point(551, 221);
             txtBoxEmail.Margin = new Padding(4);
             txtBoxEmail.Multiline = false;
             txtBoxEmail.Name = "txtBoxEmail";
@@ -145,11 +152,10 @@
             txtBoxEmail.PasswordChar = false;
             txtBoxEmail.PlaceholderColor = Color.DarkGray;
             txtBoxEmail.PlaceholderText = "";
-            txtBoxEmail.Size = new Size(252, 36);
-            txtBoxEmail.TabIndex = 7;
+            txtBoxEmail.Size = new Size(297, 36);
+            txtBoxEmail.TabIndex = 4;
             txtBoxEmail.Texts = "";
             txtBoxEmail.UnderlinedStyle = false;
-            txtBoxEmail._TextChanged += CheckAddStudentButtonAvailable;
             // 
             // txtBoxPhone
             // 
@@ -160,7 +166,7 @@
             txtBoxPhone.BorderSize = 2;
             txtBoxPhone.Font = new Font("Segoe UI", 9.5F);
             txtBoxPhone.ForeColor = Color.DimGray;
-            txtBoxPhone.Location = new Point(202, 392);
+            txtBoxPhone.Location = new Point(551, 305);
             txtBoxPhone.Margin = new Padding(4);
             txtBoxPhone.Multiline = false;
             txtBoxPhone.Name = "txtBoxPhone";
@@ -168,11 +174,11 @@
             txtBoxPhone.PasswordChar = false;
             txtBoxPhone.PlaceholderColor = Color.DarkGray;
             txtBoxPhone.PlaceholderText = "";
-            txtBoxPhone.Size = new Size(252, 36);
-            txtBoxPhone.TabIndex = 8;
+            txtBoxPhone.Size = new Size(297, 36);
+            txtBoxPhone.TabIndex = 5;
             txtBoxPhone.Texts = "";
             txtBoxPhone.UnderlinedStyle = false;
-            txtBoxPhone._TextChanged += CheckAddStudentButtonAvailable;
+            txtBoxPhone._TextChanged += OnPhoneNumberChanged;
             // 
             // btnAddStudent
             // 
@@ -181,14 +187,14 @@
             btnAddStudent.BorderColor = Color.PaleVioletRed;
             btnAddStudent.BorderRadius = 20;
             btnAddStudent.BorderSize = 0;
-            btnAddStudent.FlatAppearance.BorderSize = 0;
+            btnAddStudent.Cursor = Cursors.Hand;
             btnAddStudent.FlatStyle = FlatStyle.Flat;
             btnAddStudent.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnAddStudent.ForeColor = Color.White;
-            btnAddStudent.Location = new Point(226, 482);
+            btnAddStudent.Location = new Point(403, 406);
             btnAddStudent.Name = "btnAddStudent";
-            btnAddStudent.Size = new Size(206, 44);
-            btnAddStudent.TabIndex = 9;
+            btnAddStudent.Size = new Size(227, 48);
+            btnAddStudent.TabIndex = 6;
             btnAddStudent.Text = "Thêm sinh viên";
             btnAddStudent.TextColor = Color.White;
             btnAddStudent.UseVisualStyleBackColor = false;
@@ -197,7 +203,7 @@
             // pictureBox1
             // 
             pictureBox1.Image = Properties.Resources.minus_icon;
-            pictureBox1.Location = new Point(524, 12);
+            pictureBox1.Location = new Point(904, 12);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(77, 44);
             pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
@@ -207,7 +213,7 @@
             // pictureBox2
             // 
             pictureBox2.Image = Properties.Resources.x_icon;
-            pictureBox2.Location = new Point(607, 12);
+            pictureBox2.Location = new Point(987, 12);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(73, 44);
             pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
@@ -232,11 +238,11 @@
             txtBoxMSSV.PasswordChar = false;
             txtBoxMSSV.PlaceholderColor = Color.DarkGray;
             txtBoxMSSV.PlaceholderText = "";
-            txtBoxMSSV.Size = new Size(252, 36);
-            txtBoxMSSV.TabIndex = 6;
+            txtBoxMSSV.Size = new Size(297, 36);
+            txtBoxMSSV.TabIndex = 2;
             txtBoxMSSV.Texts = "";
             txtBoxMSSV.UnderlinedStyle = false;
-            txtBoxMSSV._TextChanged += CheckAddStudentButtonAvailable;
+            txtBoxMSSV._TextChanged += GenerateEmailBasedOnMSSV;
             // 
             // lblMSSV
             // 
@@ -258,12 +264,97 @@
             lblHeader.TabIndex = 12;
             lblHeader.Text = "THÊM SINH VIÊN";
             // 
+            // lblGender
+            // 
+            lblGender.AutoSize = true;
+            lblGender.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblGender.Location = new Point(202, 271);
+            lblGender.Name = "lblGender";
+            lblGender.Size = new Size(102, 31);
+            lblGender.TabIndex = 14;
+            lblGender.Text = "Giới tính";
+            // 
+            // cbGender
+            // 
+            cbGender.BackColor = Color.White;
+            cbGender.BorderColor = Color.MediumSlateBlue;
+            cbGender.BorderSize = 2;
+            cbGender.DropDownStyle = ComboBoxStyle.DropDown;
+            cbGender.Font = new Font("Segoe UI", 10F);
+            cbGender.ForeColor = Color.DimGray;
+            cbGender.IconColor = Color.MediumSlateBlue;
+            cbGender.ListBackColor = Color.FromArgb(230, 228, 245);
+            cbGender.ListTextColor = Color.DimGray;
+            cbGender.Location = new Point(202, 305);
+            cbGender.MinimumSize = new Size(50, 30);
+            cbGender.Name = "cbGender";
+            cbGender.Padding = new Padding(2);
+            cbGender.Size = new Size(297, 38);
+            cbGender.TabIndex = 3;
+            cbGender.Texts = "";
+            // 
+            // lblBirthWarning
+            // 
+            lblBirthWarning.AutoSize = true;
+            lblBirthWarning.Font = new Font("Segoe UI", 10F, FontStyle.Italic);
+            lblBirthWarning.ForeColor = Color.Red;
+            lblBirthWarning.Location = new Point(665, 171);
+            lblBirthWarning.Name = "lblBirthWarning";
+            lblBirthWarning.Size = new Size(183, 23);
+            lblBirthWarning.TabIndex = 42;
+            lblBirthWarning.Text = "Ngày sinh không hợp lệ";
+            lblBirthWarning.Visible = false;
+            // 
+            // dtpBirth
+            // 
+            dtpBirth.BorderColor = Color.MediumSlateBlue;
+            dtpBirth.BorderSize = 2;
+            dtpBirth.CustomFormat = "dd/MM/yyyy";
+            dtpBirth.Font = new Font("Segoe UI", 9.5F);
+            dtpBirth.Format = DateTimePickerFormat.Custom;
+            dtpBirth.Location = new Point(551, 133);
+            dtpBirth.MinimumSize = new Size(0, 35);
+            dtpBirth.Name = "dtpBirth";
+            dtpBirth.Size = new Size(297, 35);
+            dtpBirth.SkinColor = Color.White;
+            dtpBirth.TabIndex = 41;
+            dtpBirth.TextColor = Color.DimGray;
+            dtpBirth.ValueChanged += ValidateBirthDate;
+            // 
+            // lblBirthDate
+            // 
+            lblBirthDate.AutoSize = true;
+            lblBirthDate.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblBirthDate.Location = new Point(551, 99);
+            lblBirthDate.Name = "lblBirthDate";
+            lblBirthDate.Size = new Size(116, 31);
+            lblBirthDate.TabIndex = 40;
+            lblBirthDate.Text = "Ngày sinh";
+            // 
+            // lblPhoneWarning
+            // 
+            lblPhoneWarning.AutoSize = true;
+            lblPhoneWarning.Font = new Font("Segoe UI", 10F, FontStyle.Italic);
+            lblPhoneWarning.ForeColor = Color.Red;
+            lblPhoneWarning.Location = new Point(644, 345);
+            lblPhoneWarning.Name = "lblPhoneWarning";
+            lblPhoneWarning.Size = new Size(204, 23);
+            lblPhoneWarning.TabIndex = 43;
+            lblPhoneWarning.Text = "Số điện thoại không hợp lệ";
+            lblPhoneWarning.Visible = false;
+            // 
             // FormCreateStudent
             // 
             AcceptButton = btnAddStudent;
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(695, 563);
+            ClientSize = new Size(1092, 514);
+            Controls.Add(lblPhoneWarning);
+            Controls.Add(lblBirthWarning);
+            Controls.Add(dtpBirth);
+            Controls.Add(lblBirthDate);
+            Controls.Add(cbGender);
+            Controls.Add(lblGender);
             Controls.Add(lblHeader);
             Controls.Add(txtBoxMSSV);
             Controls.Add(lblMSSV);
@@ -281,7 +372,7 @@
             ShowIcon = false;
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "FormCreateStudent";
+            Text = "Thêm sinh viên mới";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ResumeLayout(false);
@@ -302,5 +393,11 @@
         private TeacherManager.CustomControls.CustomTextBox txtBoxMSSV;
         private Label lblMSSV;
         private Label lblHeader;
+        private Label lblGender;
+        private CustomControls.CustomComboBox cbGender;
+        private Label lblBirthWarning;
+        private CustomControls.CustomDateTimePicker dtpBirth;
+        private Label lblBirthDate;
+        private Label lblPhoneWarning;
     }
 }

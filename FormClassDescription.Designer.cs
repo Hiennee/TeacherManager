@@ -44,9 +44,13 @@ namespace TeacherManager
         /// </summary>
         private void InitializeComponent()
         {
+            components = new Container();
             DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle11 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle12 = new DataGridViewCellStyle();
             dividerControl1 = new CustomControls.DividerControl();
             lblClassName = new Label();
             lblSemesterId = new Label();
@@ -55,11 +59,29 @@ namespace TeacherManager
             btnAddStudentIntoClass = new CustomControls.CustomButton();
             excelIcon = new PictureBox();
             mailIcon = new PictureBox();
+            lblStudNo = new Label();
+            mailGradeIcon = new PictureBox();
+            lblSwitchView = new LinkLabel();
+            panelButtons = new Panel();
+            dataViewWeeks = new DataGridView();
             lblStudentNumbers = new Label();
+            panelStudentNo = new Panel();
+            ttSendGrade = new ToolTip(components);
+            ttSendEmail = new ToolTip(components);
+            ttExportExcel = new ToolTip(components);
+            lblFind = new Label();
+            txtBoxNameToFind = new CustomControls.CustomTextBox();
+            panelFindName = new Panel();
+            timerNameTyped = new System.Windows.Forms.Timer(components);
             ((ISupportInitialize)pictureBox2).BeginInit();
             ((ISupportInitialize)dataViewStudents).BeginInit();
             ((ISupportInitialize)excelIcon).BeginInit();
             ((ISupportInitialize)mailIcon).BeginInit();
+            ((ISupportInitialize)mailGradeIcon).BeginInit();
+            panelButtons.SuspendLayout();
+            ((ISupportInitialize)dataViewWeeks).BeginInit();
+            panelStudentNo.SuspendLayout();
+            panelFindName.SuspendLayout();
             SuspendLayout();
             // 
             // dividerControl1
@@ -94,6 +116,7 @@ namespace TeacherManager
             // 
             // pictureBox2
             // 
+            pictureBox2.Cursor = Cursors.Hand;
             pictureBox2.Image = Properties.Resources.back_icon;
             pictureBox2.Location = new Point(29, 23);
             pictureBox2.Name = "pictureBox2";
@@ -154,24 +177,26 @@ namespace TeacherManager
             btnAddStudentIntoClass.BorderColor = Color.PaleVioletRed;
             btnAddStudentIntoClass.BorderRadius = 10;
             btnAddStudentIntoClass.BorderSize = 0;
+            btnAddStudentIntoClass.Cursor = Cursors.Hand;
             btnAddStudentIntoClass.FlatAppearance.BorderSize = 0;
             btnAddStudentIntoClass.FlatStyle = FlatStyle.Flat;
             btnAddStudentIntoClass.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnAddStudentIntoClass.ForeColor = Color.White;
             btnAddStudentIntoClass.ImageAlign = ContentAlignment.MiddleLeft;
-            btnAddStudentIntoClass.Location = new Point(1544, 148);
+            btnAddStudentIntoClass.Location = new Point(443, 12);
             btnAddStudentIntoClass.Name = "btnAddStudentIntoClass";
             btnAddStudentIntoClass.Size = new Size(247, 43);
             btnAddStudentIntoClass.TabIndex = 14;
-            btnAddStudentIntoClass.Text = "Thêm học sinh vào lớp";
+            btnAddStudentIntoClass.Text = "Thêm sinh viên vào lớp";
             btnAddStudentIntoClass.TextColor = Color.White;
             btnAddStudentIntoClass.UseVisualStyleBackColor = false;
             btnAddStudentIntoClass.Click += AddStudentIntoClass;
             // 
             // excelIcon
             // 
+            excelIcon.Cursor = Cursors.Hand;
             excelIcon.Image = Properties.Resources.excel_icon;
-            excelIcon.Location = new Point(1456, 148);
+            excelIcon.Location = new Point(352, 12);
             excelIcon.Name = "excelIcon";
             excelIcon.Size = new Size(52, 43);
             excelIcon.TabIndex = 15;
@@ -180,34 +205,181 @@ namespace TeacherManager
             // 
             // mailIcon
             // 
+            mailIcon.Cursor = Cursors.Hand;
             mailIcon.Image = Properties.Resources.mail_icon;
-            mailIcon.Location = new Point(1360, 148);
+            mailIcon.Location = new Point(260, 12);
             mailIcon.Name = "mailIcon";
             mailIcon.Size = new Size(52, 43);
             mailIcon.TabIndex = 19;
             mailIcon.TabStop = false;
             mailIcon.Click += SendEmail;
             // 
+            // lblStudNo
+            // 
+            lblStudNo.AutoSize = true;
+            lblStudNo.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblStudNo.Location = new Point(15, 12);
+            lblStudNo.Name = "lblStudNo";
+            lblStudNo.Size = new Size(70, 31);
+            lblStudNo.TabIndex = 20;
+            lblStudNo.Text = "Sĩ số:";
+            // 
+            // mailGradeIcon
+            // 
+            mailGradeIcon.Cursor = Cursors.Hand;
+            mailGradeIcon.Image = Properties.Resources.mail_2_icon;
+            mailGradeIcon.Location = new Point(129, -5);
+            mailGradeIcon.Name = "mailGradeIcon";
+            mailGradeIcon.Size = new Size(89, 75);
+            mailGradeIcon.SizeMode = PictureBoxSizeMode.Zoom;
+            mailGradeIcon.TabIndex = 21;
+            mailGradeIcon.TabStop = false;
+            mailGradeIcon.Click += SendGradeEmail;
+            // 
+            // lblSwitchView
+            // 
+            lblSwitchView.AutoSize = true;
+            lblSwitchView.Cursor = Cursors.Hand;
+            lblSwitchView.Font = new Font("Segoe UI", 10.2F, FontStyle.Italic, GraphicsUnit.Point, 0);
+            lblSwitchView.Location = new Point(42, 118);
+            lblSwitchView.Name = "lblSwitchView";
+            lblSwitchView.Size = new Size(202, 23);
+            lblSwitchView.TabIndex = 22;
+            lblSwitchView.TabStop = true;
+            lblSwitchView.Text = "Chuyển sang biểu đồ tuần";
+            lblSwitchView.LinkClicked += SwitchBetweenGradeOrWeekView;
+            // 
+            // panelButtons
+            // 
+            panelButtons.Controls.Add(btnAddStudentIntoClass);
+            panelButtons.Controls.Add(excelIcon);
+            panelButtons.Controls.Add(mailGradeIcon);
+            panelButtons.Controls.Add(mailIcon);
+            panelButtons.Location = new Point(1063, 118);
+            panelButtons.Name = "panelButtons";
+            panelButtons.Size = new Size(718, 73);
+            panelButtons.TabIndex = 23;
+            // 
+            // dataViewWeeks
+            // 
+            dataViewWeeks.AllowUserToAddRows = false;
+            dataViewWeeks.AllowUserToDeleteRows = false;
+            dataViewWeeks.AllowUserToResizeColumns = false;
+            dataViewWeeks.AllowUserToResizeRows = false;
+            dataGridViewCellStyle10.BackColor = Color.FromArgb(224, 224, 224);
+            dataGridViewCellStyle10.SelectionBackColor = Color.FromArgb(224, 224, 224);
+            dataViewWeeks.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle10;
+            dataViewWeeks.BackgroundColor = Color.WhiteSmoke;
+            dataViewWeeks.BorderStyle = BorderStyle.None;
+            dataViewWeeks.CellBorderStyle = DataGridViewCellBorderStyle.None;
+            dataViewWeeks.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle11.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = Color.FromArgb(55, 28, 191);
+            dataGridViewCellStyle11.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            dataGridViewCellStyle11.ForeColor = Color.WhiteSmoke;
+            dataGridViewCellStyle11.SelectionBackColor = Color.FromArgb(45, 28, 181);
+            dataGridViewCellStyle11.SelectionForeColor = Color.WhiteSmoke;
+            dataGridViewCellStyle11.WrapMode = DataGridViewTriState.True;
+            dataViewWeeks.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle11;
+            dataViewWeeks.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle12.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle12.BackColor = Color.WhiteSmoke;
+            dataGridViewCellStyle12.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle12.ForeColor = Color.FromArgb(64, 64, 64);
+            dataGridViewCellStyle12.SelectionBackColor = Color.WhiteSmoke;
+            dataGridViewCellStyle12.SelectionForeColor = Color.FromArgb(55, 28, 191);
+            dataGridViewCellStyle12.WrapMode = DataGridViewTriState.False;
+            dataViewWeeks.DefaultCellStyle = dataGridViewCellStyle12;
+            dataViewWeeks.EditMode = DataGridViewEditMode.EditOnEnter;
+            dataViewWeeks.EnableHeadersVisualStyles = false;
+            dataViewWeeks.GridColor = Color.WhiteSmoke;
+            dataViewWeeks.Location = new Point(42, 211);
+            dataViewWeeks.Name = "dataViewWeeks";
+            dataViewWeeks.ReadOnly = true;
+            dataViewWeeks.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataViewWeeks.RowHeadersVisible = false;
+            dataViewWeeks.RowHeadersWidth = 51;
+            dataViewWeeks.RowTemplate.Height = 40;
+            dataViewWeeks.Size = new Size(1623, 623);
+            dataViewWeeks.TabIndex = 24;
+            dataViewWeeks.CellClick += ShowWeekCheckInDescriptionForm;
+            // 
             // lblStudentNumbers
             // 
             lblStudentNumbers.AutoSize = true;
             lblStudentNumbers.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblStudentNumbers.Location = new Point(42, 160);
+            lblStudentNumbers.Location = new Point(91, 12);
             lblStudentNumbers.Name = "lblStudentNumbers";
-            lblStudentNumbers.Size = new Size(89, 31);
-            lblStudentNumbers.TabIndex = 20;
-            lblStudentNumbers.Text = "Sĩ số: 0";
+            lblStudentNumbers.Size = new Size(27, 31);
+            lblStudentNumbers.TabIndex = 25;
+            lblStudentNumbers.Text = "0";
+            // 
+            // panelStudentNo
+            // 
+            panelStudentNo.Controls.Add(lblStudNo);
+            panelStudentNo.Controls.Add(lblStudentNumbers);
+            panelStudentNo.Location = new Point(42, 861);
+            panelStudentNo.Name = "panelStudentNo";
+            panelStudentNo.Size = new Size(250, 47);
+            panelStudentNo.TabIndex = 26;
+            // 
+            // lblFind
+            // 
+            lblFind.AutoSize = true;
+            lblFind.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblFind.Location = new Point(3, 13);
+            lblFind.Name = "lblFind";
+            lblFind.Size = new Size(151, 31);
+            lblFind.TabIndex = 28;
+            lblFind.Text = "Tìm theo tên";
+            // 
+            // txtBoxNameToFind
+            // 
+            txtBoxNameToFind.BackColor = SystemColors.Window;
+            txtBoxNameToFind.BorderColor = Color.MediumSlateBlue;
+            txtBoxNameToFind.BorderFocusColor = Color.HotPink;
+            txtBoxNameToFind.BorderRadius = 0;
+            txtBoxNameToFind.BorderSize = 2;
+            txtBoxNameToFind.Font = new Font("Microsoft Sans Serif", 9.5F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtBoxNameToFind.ForeColor = Color.FromArgb(64, 64, 64);
+            txtBoxNameToFind.Location = new Point(161, 9);
+            txtBoxNameToFind.Margin = new Padding(4);
+            txtBoxNameToFind.Multiline = false;
+            txtBoxNameToFind.Name = "txtBoxNameToFind";
+            txtBoxNameToFind.Padding = new Padding(10, 7, 10, 7);
+            txtBoxNameToFind.PasswordChar = false;
+            txtBoxNameToFind.PlaceholderColor = Color.DarkGray;
+            txtBoxNameToFind.PlaceholderText = "";
+            txtBoxNameToFind.Size = new Size(312, 35);
+            txtBoxNameToFind.TabIndex = 27;
+            txtBoxNameToFind.Texts = "";
+            txtBoxNameToFind.UnderlinedStyle = false;
+            txtBoxNameToFind._TextChanged += CheckTimerTyping;
+            // 
+            // panelFindName
+            // 
+            panelFindName.Controls.Add(lblFind);
+            panelFindName.Controls.Add(txtBoxNameToFind);
+            panelFindName.Location = new Point(42, 144);
+            panelFindName.Name = "panelFindName";
+            panelFindName.Size = new Size(513, 61);
+            panelFindName.TabIndex = 29;
+            // 
+            // timerNameTyped
+            // 
+            timerNameTyped.Tick += TypingTimer_Tick;
             // 
             // FormClassDescription
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.WhiteSmoke;
-            ClientSize = new Size(1853, 858);
-            Controls.Add(lblStudentNumbers);
-            Controls.Add(mailIcon);
-            Controls.Add(excelIcon);
-            Controls.Add(btnAddStudentIntoClass);
+            ClientSize = new Size(1853, 939);
+            Controls.Add(panelFindName);
+            Controls.Add(panelStudentNo);
+            Controls.Add(dataViewWeeks);
+            Controls.Add(panelButtons);
+            Controls.Add(lblSwitchView);
             Controls.Add(dataViewStudents);
             Controls.Add(pictureBox2);
             Controls.Add(lblSemesterId);
@@ -216,11 +388,18 @@ namespace TeacherManager
             FormBorderStyle = FormBorderStyle.None;
             Name = "FormClassDescription";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "FormClassDescription";
+            Text = "Danh sách lớp";
             ((ISupportInitialize)pictureBox2).EndInit();
             ((ISupportInitialize)dataViewStudents).EndInit();
             ((ISupportInitialize)excelIcon).EndInit();
             ((ISupportInitialize)mailIcon).EndInit();
+            ((ISupportInitialize)mailGradeIcon).EndInit();
+            panelButtons.ResumeLayout(false);
+            ((ISupportInitialize)dataViewWeeks).EndInit();
+            panelStudentNo.ResumeLayout(false);
+            panelStudentNo.PerformLayout();
+            panelFindName.ResumeLayout(false);
+            panelFindName.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -244,6 +423,19 @@ namespace TeacherManager
         private CustomControls.CustomButton btnAddStudentIntoClass;
         private PictureBox excelIcon;
         private PictureBox mailIcon;
+        private Label lblStudNo;
+        private PictureBox mailGradeIcon;
+        private LinkLabel lblSwitchView;
+        private Panel panelButtons;
+        private DataGridView dataViewWeeks;
         private Label lblStudentNumbers;
+        private Panel panelStudentNo;
+        private ToolTip ttSendGrade;
+        private ToolTip ttSendEmail;
+        private ToolTip ttExportExcel;
+        private Label lblFind;
+        private CustomControls.CustomTextBox txtBoxNameToFind;
+        private Panel panelFindName;
+        private System.Windows.Forms.Timer timerNameTyped;
     }
 }

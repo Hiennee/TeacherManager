@@ -60,6 +60,7 @@ namespace TeacherManager
             // 
             // pictureBox2
             // 
+            pictureBox2.Cursor = Cursors.Hand;
             pictureBox2.Image = Properties.Resources.back_icon;
             pictureBox2.Location = new Point(29, 23);
             pictureBox2.Name = "pictureBox2";
@@ -67,7 +68,7 @@ namespace TeacherManager
             pictureBox2.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox2.TabIndex = 12;
             pictureBox2.TabStop = false;
-            pictureBox2.Click += ExitClassDescriptionForm;
+            pictureBox2.Click += ExitSendEmailForm;
             // 
             // dividerControl1
             // 
@@ -193,6 +194,7 @@ namespace TeacherManager
             btnSendEmail.BorderColor = Color.PaleVioletRed;
             btnSendEmail.BorderRadius = 10;
             btnSendEmail.BorderSize = 0;
+            btnSendEmail.Cursor = Cursors.Hand;
             btnSendEmail.FlatAppearance.BorderSize = 0;
             btnSendEmail.FlatStyle = FlatStyle.Flat;
             btnSendEmail.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -205,6 +207,7 @@ namespace TeacherManager
             btnSendEmail.Text = "Gửi";
             btnSendEmail.TextColor = Color.White;
             btnSendEmail.UseVisualStyleBackColor = false;
+            btnSendEmail.Click += SendEmail;
             // 
             // FormSendEmail
             // 
@@ -225,8 +228,7 @@ namespace TeacherManager
             FormBorderStyle = FormBorderStyle.None;
             Name = "FormSendEmail";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "FormClassDescription";
-            Click += SendEmail;
+            Text = "Gửi E-mail";
             ((ISupportInitialize)pictureBox2).EndInit();
             ResumeLayout(false);
             PerformLayout();

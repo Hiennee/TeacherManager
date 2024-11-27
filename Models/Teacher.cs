@@ -12,6 +12,8 @@ namespace TeacherManager.Models
     {
         public ObjectId Id { get; set; }
         [BsonElement("MSGV")]
-        public string accountId { get; set; }
+        public string AccountId { get; set; }
+        [BsonElement("mailTemplate")]
+        public string MailTemplate { get; set; }
     }
 }

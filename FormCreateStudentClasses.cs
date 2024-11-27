@@ -72,7 +72,11 @@ namespace TeacherManager
             cbItems = new List<string>();
             // filter các MSSV gần giống với input
             // .* = % (LIKE operator)
-            var filter = Builders<Account>.Filter.Regex(a => a.Name, new BsonRegularExpression($".*{txtBoxStudentName.Texts}.*"));
+            FilterDefinition<Account> filter;
+            filter = txtBoxStudentName.Texts.All(char.IsDigit) ?
+                     Builders<Account>.Filter.Regex(a => a.AccountId, new BsonRegularExpression($".*{txtBoxStudentName.Texts}.*")):
+                     Builders<Account>.Filter.Regex(a => a.Name, new BsonRegularExpression($".*{txtBoxStudentName.Texts}.*", "i"));
+            //var filter = Builders<Account>.Filter.Regex(a => a.Name, new BsonRegularExpression($".*{txtBoxStudentName.Texts}.*", "i"));
             var result = Accounts.Find(filter);
             if (result.Any())
             {
@@ -82,7 +86,8 @@ namespace TeacherManager
                     var resultMSSV = Students.Find(filterMSSV).FirstOrDefault();
                     if (resultMSSV != null)
                     {
-                        cbItems.Add(resultMSSV.accountId);
+                        cbItems.Add($"{resultMSSV.accountId} - {r.Name}");
+                        txtBoxAccountId.DataSource = null;
                         txtBoxAccountId.DataSource = cbItems;
                     }
                 }
@@ -100,7 +105,7 @@ namespace TeacherManager
             {
                 return;
             }
-            var studentFilter = Builders<Student>.Filter.Eq(s => s.accountId, txtBoxAccountId.Texts);
+            var studentFilter = Builders<Student>.Filter.Eq(s => s.accountId, txtBoxAccountId.Texts.Split(" - ")[0]);
             var student = Students.Find(studentFilter).FirstOrDefault();
             if (student != null && !studentIdInClass.Contains(student.accountId))
             {
@@ -108,7 +113,7 @@ namespace TeacherManager
                 {
                     StudentId = student.accountId,
                     ClassId = Class.ClassId,
-                    Absences = 0,
+                    CheckedIn = "null, null, null, null, null, null, null, null, null, null, null, null, null, null, null",
                     Grade01 = 0.0,
                     Grade02 = 0.0,
                     Grade03 = 0.0,

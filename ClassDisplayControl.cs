@@ -20,6 +20,7 @@ namespace TeacherManager
             InitializeComponent();
             lblClassName.Text = Class.Name;
             lblSemester.Text = Class.SemesterId;
+            lblClassId.Text = Class.ClassId;
         }
         private void ClassDisplayControl_Load(object sender, EventArgs e)
         {

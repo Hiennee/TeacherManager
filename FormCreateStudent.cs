@@ -20,15 +20,51 @@ namespace TeacherManager
         public FormCreateStudent()
         {
             InitializeComponent();
+            InitializeBirthDateFirstValue();
+            InitializeComboBoxGender();
             Accounts = Login.Accounts;
             Students = Login.Students;
         }
-        public void CheckAddStudentButtonAvailable(object sender, EventArgs e)
+        private void InitializeComboBoxGender()
         {
-            if (txtBoxStudentName.Texts == "" ||
-                txtBoxMSSV.Texts == "" ||
-                txtBoxEmail.Texts == "" ||
-                txtBoxPhone.Texts == "")
+            cbGender.DataSource = new List<string>
+            {
+                "Nam",
+                "Nữ"
+            };
+        }
+        private void InitializeBirthDateFirstValue()
+        {
+            dtpBirth.Value = new DateTime(DateTime.Now.Year - 18, DateTime.Now.Month, DateTime.Now.Day);
+        }
+        private void OnPhoneNumberChanged(object sender, EventArgs e)
+        {
+            CheckAddStudentButtonAvailable(sender, e);
+            if (FormQLTK.ValidatePhoneNumber(txtBoxPhone.Texts))
+            {
+                lblPhoneWarning.Visible = false;
+                return;
+            }
+            lblPhoneWarning.Visible = true;
+        }
+        private void ValidateBirthDate(object sender, EventArgs e)
+        {
+            CheckAddStudentButtonAvailable(sender, e);
+            if (FormQLTK.ValidateBirthDate(dtpBirth.Value))
+            {
+                lblBirthWarning.Visible = false;
+                return;
+            }
+            lblBirthWarning.Visible = true;
+        }
+        private void CheckAddStudentButtonAvailable(object sender, EventArgs e)
+        {
+            if (txtBoxStudentName.Texts.Equals("") ||
+                txtBoxMSSV.Texts.Equals("")        ||
+                cbGender.Texts.Equals("")          ||
+                txtBoxEmail.Texts.Equals("")       ||
+                lblPhoneWarning.Visible == true    ||
+                lblBirthWarning.Visible == true)
             {
                 btnAddStudent.Enabled = false;
             }
@@ -37,46 +73,87 @@ namespace TeacherManager
                 btnAddStudent.Enabled = true;
             }
         }
-
+        private void GenerateEmailBasedOnMSSV(object sender, EventArgs e)
+        {
+            CheckAddStudentButtonAvailable(sender, e);
+            if (txtBoxMSSV.Texts.Equals(""))
+            {
+                txtBoxEmail.Texts = "";
+                return;
+            }
+            txtBoxEmail.Texts = txtBoxMSSV.Texts + "@sinhvien.safumi.edu.vn";
+        }
         private void CloseForm(object sender, EventArgs e)
         {
             Close();
         }
-
         private void AddStudent(object sender, EventArgs e)
         {
-            var IDEmailPhoneFilter = Builders<Account>.Filter.Eq(a => a.Email, txtBoxEmail.Texts) |
-                                     Builders<Account>.Filter.Eq(a => a.Phone, txtBoxPhone.Texts);
-            var MSSVFilter = Builders<Student>.Filter.Eq(s => s.accountId, txtBoxMSSV.Texts);
-            var IDEmailExist = Accounts.Find(IDEmailPhoneFilter).Any();
-            var MSSVExist = Students.Find(MSSVFilter).Any();
-            if (IDEmailExist || MSSVExist)
-            {
-                MessageBox.Show("E-mail hoặc số điện thoại, MSSV đã tồn tại", "Thông báo");
-                return;
-            }
-            Account a = new Account
+            if (CheckAvailableAndAddStudent(new Account
             {
                 AccountId = txtBoxMSSV.Texts,
                 Name = txtBoxStudentName.Texts,
-                Password = "123",
+                Password = "123456",
                 Email = txtBoxEmail.Texts,
+                Gender = cbGender.Texts.Equals("Nam") ? "M" : "F",
                 Role = "Student",
                 Phone = txtBoxPhone.Texts,
                 Avatar = null,
-                DOB = DateTime.Now.Date,
+                DOB = dtpBirth.Value,
+                Status = "Active",
+            }))
+            {
+                this.DialogResult = DialogResult.OK;
+                Close();
+            }
+            MessageBox.Show("E-mail hoặc số điện thoại, MSSV đã tồn tại", "Thông báo");
+        }
+        public static bool CheckAvailableAndAddStudent(Account studentAccount)
+        {
+            IMongoCollection<Account> Accounts = Login.Database.GetCollection<Account>("Account");
+            IMongoCollection<Student> Students = Login.Database.GetCollection<Student>("Student");
+            var IDEmailPhoneFilter = Builders<Account>.Filter.Eq(a => a.Email, studentAccount.Email) |
+                                     Builders<Account>.Filter.Eq(a => a.Phone, studentAccount.Phone) |
+                                     Builders<Account>.Filter.Eq(a => a.AccountId, studentAccount.AccountId);
+            var MSSVFilter = Builders<Student>.Filter.Eq(s => s.accountId, studentAccount.AccountId);
+            bool IDEmailPhoneExist = Accounts.Find(IDEmailPhoneFilter).Any();
+            bool MSSVExist = Students.Find(MSSVFilter).Any();
+            if (IDEmailPhoneExist)
+            {
+                throw new Exception("001");
+            }
+            if (MSSVExist)
+            {
+                throw new Exception("002");
+            }
+
+            Account a = new Account
+            {
+                AccountId = studentAccount.AccountId,
+                Name = studentAccount.Name,
+                Password = "123456",
+                Email = studentAccount.Email,
+                Gender = studentAccount.Gender,
+                Role = "Student",
+                Phone = studentAccount.Phone,
+                Avatar = null,
+                DOB = studentAccount.DOB,
+                Status = "Active",
             };
             Student s = new Student
             {
-                accountId = txtBoxMSSV.Texts,
+                accountId = studentAccount.AccountId,
             };
-            Accounts.InsertOne(a);
-            Students.InsertOne(s);
-            if (MessageBox.Show("Tạo sinh viên mới thành công", "Thông báo") == DialogResult.OK)
+            try
             {
-                this.DialogResult = DialogResult.OK;
+                Accounts.InsertOne(a);
+                Students.InsertOne(s);
             }
-            Close();
+            catch
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

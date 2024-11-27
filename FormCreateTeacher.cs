@@ -20,16 +20,32 @@ namespace TeacherManager
         public FormCreateTeacher()
         {
             InitializeComponent();
+            InitializeComboBoxGender();
+            InitializeBirthDateFirstValue();
             Accounts = Login.Accounts;
             Teachers = Login.Teachers;
         }
-        public void CheckAddStudentButtonAvailable(object sender, EventArgs e)
+        private void InitializeComboBoxGender()
         {
-            if (txtBoxAccountId.Texts == "" ||
-                txtBoxTeacherName.Texts == "" ||
-                //txtBoxMSGV.Texts == "" ||
-                txtBoxEmail.Texts == "" ||
-                txtBoxPhone.Texts == "")
+            cbGender.DataSource = new List<string>
+            {
+                "Nam",
+                "Nữ"
+            };
+        }
+        private void InitializeBirthDateFirstValue()
+        {
+            dtpBirth.Value = new DateTime(DateTime.Now.Year - 18, DateTime.Now.Month, DateTime.Now.Day);
+        }
+        private void CheckAddTeacherButtonAvailable(object sender, EventArgs e)
+        {
+            if (txtBoxMSGV.Texts.Equals("")        ||
+                txtBoxTeacherName.Texts.Equals("") ||
+                txtBoxEmail.Texts.Equals("")       ||
+                cbGender.Texts.Equals("")          ||
+                lblPhoneWarning.Visible == true    ||
+                lblBirthWarning.Visible == true)      
+                 
             {
                 btnAddTeacher.Enabled = false;
             }
@@ -38,7 +54,36 @@ namespace TeacherManager
                 btnAddTeacher.Enabled = true;
             }
         }
-
+        private void OnPhoneNumberChanged(object sender, EventArgs e)
+        {
+            CheckAddTeacherButtonAvailable(sender, e);
+            if (FormQLTK.ValidatePhoneNumber(txtBoxPhone.Texts))
+            {
+                lblPhoneWarning.Visible = false;
+                return;
+            }
+            lblPhoneWarning.Visible = true;
+        }
+        private void ValidateBirthDate(object sender, EventArgs e)
+        {
+            CheckAddTeacherButtonAvailable(sender, e);
+            if (FormQLTK.ValidateBirthDate(dtpBirth.Value))
+            {
+                lblBirthWarning.Visible = false;
+                return;
+            }
+            lblBirthWarning.Visible = true;
+        }
+        private void GenerateEmailBasedOnMSGV(object sender, EventArgs e)
+        {
+            CheckAddTeacherButtonAvailable(sender, e);
+            if (txtBoxMSGV.Texts.Equals(""))
+            {
+                txtBoxEmail.Texts = "";
+                return;
+            }
+            txtBoxEmail.Texts = txtBoxMSGV.Texts + "@safumi.edu.vn";
+        }
         private void CloseForm(object sender, EventArgs e)
         {
             Close();
@@ -46,10 +91,10 @@ namespace TeacherManager
 
         private void AddTeacher(object sender, EventArgs e)
         {
-            var IDEmailPhoneFilter = Builders<Account>.Filter.Eq(a => a.AccountId, txtBoxAccountId.Texts) |
+            var IDEmailPhoneFilter = Builders<Account>.Filter.Eq(a => a.AccountId, txtBoxMSGV.Texts) |
                                      Builders<Account>.Filter.Eq(a => a.Email, txtBoxEmail.Texts) |
                                      Builders<Account>.Filter.Eq(a => a.Phone, txtBoxPhone.Texts);
-            //var MSNVFilter = Builders<Teacher>.Filter.Eq(t => t.accountId, txtBoxMSGV.Texts);
+            //var MSNVFilter = Builders<Teacher>.Filter.Eq(t => t.AccountId, txtBoxMSGV.Texts);
             var IDEmailExist = Accounts.Find(IDEmailPhoneFilter).Any();
             //var MSSVExist = Teachers.Find(MSNVFilter).Any();
             if (IDEmailExist)
@@ -59,25 +104,25 @@ namespace TeacherManager
             }
             Account a = new Account
             {
-                AccountId = txtBoxAccountId.Texts,
-                Name = txtBoxTeacherName.Texts,
+                AccountId = txtBoxMSGV.Texts.Trim(),
+                Name = txtBoxTeacherName.Texts.Trim(),
                 Password = "123",
                 Avatar = null,
-                Email = txtBoxEmail.Texts,
-                Phone = txtBoxPhone.Texts,
+                Email = txtBoxEmail.Texts.Trim(),
+                Gender = cbGender.Texts.Equals("Nam") ? "M" : "F",
+                Phone = txtBoxPhone.Texts.Trim(),
                 Role = "Teacher",
-                DOB = DateTime.Now.Date,
+                DOB = dtpBirth.Value,
+                Status = "Active",
             };
             Teacher s = new Teacher
             {
-                accountId = txtBoxAccountId.Texts,
+                AccountId = txtBoxMSGV.Texts,
+                MailTemplate = "Default",
             };
             Accounts.InsertOne(a);
             Teachers.InsertOne(s);
-            if (MessageBox.Show("Tạo giảng viên mới thành công", "Thông báo") == DialogResult.OK)
-            {
-                this.DialogResult = DialogResult.OK;
-            }
+            this.DialogResult = DialogResult.OK;
             Close();
         }
     }

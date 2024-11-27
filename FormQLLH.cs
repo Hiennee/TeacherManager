@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,7 +23,9 @@ namespace TeacherManager
         Account Account;
         Teacher Teacher;
         Navigator Navigator;
-        
+
+        private bool isDescendingSort = true;
+        private string classesToFind = "";
         public FormQLLH()
         {
             Size = MainForm.PanelControlSize;
@@ -33,32 +36,62 @@ namespace TeacherManager
             Account = Login.Account;
             Teacher = Login.Teacher;
             InitializeComponent();
-            GetClassesOfTeacher();
+            InitializeComboBoxSort();
             InitializeClasses();
         }
-        private void GetClassesOfTeacher()
+        private void InitializeComboBoxSort()
         {
-            var filter = Account.Role == "Admin" ?
-                         Builders<Class>.Filter.Empty : 
-                         Builders<Class>.Filter.Eq(c => c.TeacherId, Teacher.accountId);
-            var result = Classes.Find(filter);
+            cbSort.DataSource = new List<string>
+            {
+                "Từ Aa-Zz",
+                "Từ Zz-Aa",
+            };
+        }
+        private void OnSortChange(object sender, EventArgs e)
+        {
+            if (cbSort.SelectedIndex == 0)
+            {
+                isDescendingSort = false;
+                InitializeClasses();
+                return;
+            }
+            isDescendingSort = true;
+            InitializeClasses();
+        }
+        private void UpdateNameClassesToFind(object sender, EventArgs e)
+        {
+            classesToFind = txtBoxClassNameToFind.Texts;
+            InitializeClasses();
+        }
+        private void GetClassesToDisplay()
+        {
+            SortDefinition<Class> sortClass;
+            var filterClass = Account.Role == "Admin" ?
+                              Builders<Class>.Filter.Empty :
+                              Builders<Class>.Filter.Eq(c => c.TeacherId, Teacher.AccountId);
+            var filterClassWithName = txtBoxClassNameToFind.Texts.Equals("") ?
+                                      Builders<Class>.Filter.Empty :
+                                      Builders<Class>.Filter.Regex(c => c.Name, new BsonRegularExpression($".*{classesToFind}.*", "i")) |
+                                      Builders<Class>.Filter.Regex(c => c.ClassId, new BsonRegularExpression($".*{classesToFind}.*", "i"));
+            sortClass = isDescendingSort ?
+                        Builders<Class>.Sort.Descending(c => c.Name) :
+                        Builders<Class>.Sort.Ascending(c => c.Name);
+            var result = Classes.Find(filterClass & filterClassWithName).Sort(sortClass);
             ClassesToDisplay = result.ToList();
         }
-        private void ShowAddClassForm(object sender, EventArgs e)
+        private void ReloadClasses(object sender, EventArgs e)
         {
-            if (new FormCreateClass().ShowDialog() == DialogResult.OK)
-            {
-                GetClassesOfTeacher();
-                InitializeClasses();
-            }
+            InitializeClasses();
         }
         void InitializeClasses()
         {
+            GetClassesToDisplay();
+            panelClasses.Controls.Clear();
             if (ClassesToDisplay.Count <= 0)
             {
                 return;
             }
-            foreach(var c in ClassesToDisplay)
+            foreach (var c in ClassesToDisplay)
             {
                 panelClasses.Controls.Add(new ClassDisplayControl(c));
             }

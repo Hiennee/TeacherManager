@@ -41,10 +41,12 @@
             panelControl = new Panel();
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             ChooseAvtDialog = new OpenFileDialog();
-            customButton1 = new CustomControls.CustomButton();
+            btnIndex = new PictureBox();
+            button1 = new Button();
             panelHeading.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureAvt).BeginInit();
             panelNavigate.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)btnIndex).BeginInit();
             SuspendLayout();
             // 
             // panelHeading
@@ -65,6 +67,7 @@
             pictureAvt.BorderColor2 = Color.HotPink;
             pictureAvt.BorderLineStyle = System.Drawing.Drawing2D.DashStyle.Solid;
             pictureAvt.BorderSize = 5;
+            pictureAvt.Cursor = Cursors.Hand;
             pictureAvt.GradientAngle = 50F;
             pictureAvt.Image = Properties.Resources.default_avatar_icon;
             pictureAvt.Location = new Point(1218, 14);
@@ -82,14 +85,15 @@
             lblName.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
             lblName.Location = new Point(991, 52);
             lblName.Name = "lblName";
-            lblName.Size = new Size(97, 41);
+            lblName.Size = new Size(194, 41);
             lblName.TabIndex = 0;
-            lblName.Text = "label1";
+            lblName.Text = "Tên tài khoản";
             lblName.TextAlign = ContentAlignment.TopRight;
             // 
             // panelNavigate
             // 
             panelNavigate.BackColor = SystemColors.ControlLightLight;
+            panelNavigate.Controls.Add(button1);
             panelNavigate.Controls.Add(lblVersion);
             panelNavigate.Controls.Add(btnLGD);
             panelNavigate.Controls.Add(btnLogOut);
@@ -118,7 +122,7 @@
             btnLGD.BorderColor = Color.PaleVioletRed;
             btnLGD.BorderRadius = 1;
             btnLGD.BorderSize = 0;
-            btnLGD.Cursor = Cursors.PanEast;
+            btnLGD.Cursor = Cursors.Hand;
             btnLGD.FlatAppearance.BorderSize = 0;
             btnLGD.FlatStyle = FlatStyle.Flat;
             btnLGD.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -168,7 +172,7 @@
             btnQLHK.BorderColor = Color.PaleVioletRed;
             btnQLHK.BorderRadius = 1;
             btnQLHK.BorderSize = 0;
-            btnQLHK.Cursor = Cursors.PanEast;
+            btnQLHK.Cursor = Cursors.Hand;
             btnQLHK.FlatAppearance.BorderSize = 0;
             btnQLHK.FlatStyle = FlatStyle.Flat;
             btnQLHK.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -193,7 +197,7 @@
             btnQLTK.BorderColor = Color.PaleVioletRed;
             btnQLTK.BorderRadius = 1;
             btnQLTK.BorderSize = 0;
-            btnQLTK.Cursor = Cursors.PanEast;
+            btnQLTK.Cursor = Cursors.Hand;
             btnQLTK.FlatAppearance.BorderSize = 0;
             btnQLTK.FlatStyle = FlatStyle.Flat;
             btnQLTK.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -218,7 +222,7 @@
             btnQLLH.BorderColor = Color.PaleVioletRed;
             btnQLLH.BorderRadius = 1;
             btnQLLH.BorderSize = 0;
-            btnQLLH.Cursor = Cursors.PanEast;
+            btnQLLH.Cursor = Cursors.Hand;
             btnQLLH.FlatAppearance.BorderSize = 0;
             btnQLLH.FlatStyle = FlatStyle.Flat;
             btnQLLH.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -250,24 +254,27 @@
             // 
             ChooseAvtDialog.FileName = "avtFile";
             // 
-            // customButton1
+            // btnIndex
             // 
-            customButton1.BackColor = Color.MediumSlateBlue;
-            customButton1.BackgroundColor = Color.MediumSlateBlue;
-            customButton1.BorderColor = Color.PaleVioletRed;
-            customButton1.BorderRadius = 0;
-            customButton1.BorderSize = 0;
-            customButton1.FlatAppearance.BorderSize = 0;
-            customButton1.FlatStyle = FlatStyle.Flat;
-            customButton1.ForeColor = Color.White;
-            customButton1.Location = new Point(80, 41);
-            customButton1.Name = "customButton1";
-            customButton1.Size = new Size(188, 50);
-            customButton1.TabIndex = 6;
-            customButton1.Text = "customButton1";
-            customButton1.TextColor = Color.White;
-            customButton1.UseVisualStyleBackColor = false;
-            customButton1.Click += OnButtonNavigateClick;
+            btnIndex.Cursor = Cursors.Hand;
+            btnIndex.Image = Properties.Resources.logo;
+            btnIndex.Location = new Point(2, -41);
+            btnIndex.Name = "btnIndex";
+            btnIndex.Size = new Size(351, 199);
+            btnIndex.SizeMode = PictureBoxSizeMode.Zoom;
+            btnIndex.TabIndex = 6;
+            btnIndex.TabStop = false;
+            btnIndex.Click += OnButtonNavigateClick;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(176, 483);
+            button1.Name = "button1";
+            button1.Size = new Size(94, 29);
+            button1.TabIndex = 6;
+            button1.Text = "demo";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // MainForm
             // 
@@ -275,12 +282,12 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Window;
             ClientSize = new Size(1924, 1055);
-            Controls.Add(customButton1);
+            Controls.Add(btnIndex);
             Controls.Add(panelControl);
             Controls.Add(panelNavigate);
             Controls.Add(panelHeading);
             Name = "MainForm";
-            Text = "MainForm";
+            Text = "Trang chủ";
             WindowState = FormWindowState.Maximized;
             Leave += MainForm_Leave;
             panelHeading.ResumeLayout(false);
@@ -288,6 +295,7 @@
             ((System.ComponentModel.ISupportInitialize)pictureAvt).EndInit();
             panelNavigate.ResumeLayout(false);
             panelNavigate.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)btnIndex).EndInit();
             ResumeLayout(false);
         }
 
@@ -309,7 +317,9 @@
         private Panel panel1;
         private Label lblVersion;
         private FormLGD formlgd1;
-        private TeacherManager.CustomControls.CustomButton customButton1;
         private CustomControls.CustomPictureBox pictureAvt;
+        private PictureBox btnIndex;
+        private Button btnTest;
+        private Button button1;
     }
 }

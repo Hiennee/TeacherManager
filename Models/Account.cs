@@ -15,6 +15,8 @@ namespace TeacherManager.Models
         public string AccountId { get; set; }
         [BsonElement("name")]
         public string Name { get; set; }
+        [BsonElement("gender")]
+        public string Gender { get; set; }
         [BsonElement("email")]
         public string Email { get; set; }
         [BsonElement("password")]
@@ -24,8 +26,10 @@ namespace TeacherManager.Models
         [BsonElement("avatar")]
         public string Avatar { get; set; }
         [BsonElement("dob")]
-        public DateTime? DOB { get; set; }
+        public DateTime DOB { get; set; }
         [BsonElement("phone")]
         public string Phone { get; set; }
+        [BsonElement("status")]
+        public string Status { get; set; }
     }
 }

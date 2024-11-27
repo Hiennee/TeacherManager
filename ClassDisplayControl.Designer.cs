@@ -66,6 +66,7 @@
             lblClassName = new Label();
             lblSemester = new Label();
             pictureClass = new PictureBox();
+            lblClassId = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureClass).BeginInit();
             SuspendLayout();
             // 
@@ -99,12 +100,23 @@
             pictureClass.TabStop = false;
             pictureClass.Click += ShowClassDescriptionForm;
             // 
+            // lblClassId
+            // 
+            lblClassId.AutoSize = true;
+            lblClassId.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblClassId.Location = new Point(414, 273);
+            lblClassId.Name = "lblClassId";
+            lblClassId.Size = new Size(82, 28);
+            lblClassId.TabIndex = 4;
+            lblClassId.Text = "Tên lớp";
+            // 
             // ClassDisplayControl
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Window;
             BorderStyle = BorderStyle.Fixed3D;
+            Controls.Add(lblClassId);
             Controls.Add(pictureClass);
             Controls.Add(lblSemester);
             Controls.Add(lblClassName);
@@ -124,5 +136,6 @@
         private Label lblClassName;
         private Label lblSemester;
         private PictureBox pictureClass;
+        private Label lblClassId;
     }
 }

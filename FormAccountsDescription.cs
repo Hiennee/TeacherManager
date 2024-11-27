@@ -1,4 +1,6 @@
 ﻿using ClosedXML.Excel;
+using DocumentFormat.OpenXml.Spreadsheet;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
@@ -16,18 +18,38 @@ namespace TeacherManager
     public partial class FormAccountsDescription : Form
     {
         IMongoCollection<Account> Accounts;
-        List<DataGridViewRow> rowsChose;
         private string role = "All";
+        private string nameToFind = "";
         public FormAccountsDescription()
         {
             InitializeComponent();
             Accounts = Login.Accounts;
-            rowsChose = new List<DataGridViewRow>();
+
+            InitializeToolTips();
             InitializeRoleComboBox();
-            InitializeDataGridView();
+            //InitializeStudentsDataGridView();
             ShowCheckBoxHeader();
             InitializeAccountsData();
-            //dataViewStudents.DataSource = src.ToList();
+        }
+        private void InitializeToolTips()
+        {
+            ttEmail.SetToolTip(mailIcon, "Gửi e-mail cho sinh viên");
+            ttExportExcel.SetToolTip(excelIcon, "Xuất dữ liệu bảng ra file Excel");
+            ttEdit.SetToolTip(settingsIcon, "Chỉnh sửa một tài khoản");
+
+            ttEmail.InitialDelay = 100;
+            ttExportExcel.InitialDelay = 100;
+            ttEdit.InitialDelay = 100;
+        }
+        private void CheckTimerTyping(object sender, EventArgs e)
+        {
+            timerNameTyped.Stop();
+            timerNameTyped.Start();
+        }
+        private void TypingTimer_Tick(object sender, EventArgs e)
+        {
+            timerNameTyped.Stop();
+            ChangeNameToFind();
         }
         private void InitializeRoleComboBox()
         {
@@ -61,10 +83,13 @@ namespace TeacherManager
             InitializeDataGridView();
             InitializeAccountsData();
         }
-        private void ExitClassDescriptionForm(object sender, EventArgs e)
+        private void ChangeNameToFind()
         {
-            Close();
+            nameToFind = txtBoxNameToFind.Texts;
+            InitializeDataGridView();
+            InitializeAccountsData();
         }
+
         private void InitializeDataGridView()
         {
             dataViewAccounts.Columns.Clear();
@@ -84,25 +109,46 @@ namespace TeacherManager
             dataViewAccounts.Columns.Add(avtColumn);
             dataViewAccounts.Columns.Add("columnAccountId", "Mã tài khoản");
             dataViewAccounts.Columns.Add("columnName", "Tên");
+            dataViewAccounts.Columns.Add("columnGender", "Giới tính");
             dataViewAccounts.Columns.Add("columnEmail", "Email");
             dataViewAccounts.Columns.Add("columnRole", "Vai trò");
             dataViewAccounts.Columns.Add("columnPhone", "Số điện thoại");
             dataViewAccounts.Columns.Add("columnDOB", "Ngày Sinh");
+            dataViewAccounts.Columns.Add("columnStatus", "Tình trạng");
 
             dataViewAccounts.Columns["columnAccountId"].ReadOnly = true;
             dataViewAccounts.Columns["columnName"].ReadOnly = true;
+            dataViewAccounts.Columns["columnGender"].ReadOnly = true;
             dataViewAccounts.Columns["columnEmail"].ReadOnly = true;
             dataViewAccounts.Columns["columnRole"].ReadOnly = true;
             dataViewAccounts.Columns["columnPhone"].ReadOnly = true;
             dataViewAccounts.Columns["columnDOB"].ReadOnly = true;
+            dataViewAccounts.Columns["columnStatus"].ReadOnly = true;
+
+            dataViewAccounts.Columns["columnCheckBox"].Width -= 50;
+            dataViewAccounts.Columns["columnAccountId"].Width += 70;
+            dataViewAccounts.Columns["columnEmail"].Width += 130;
+            dataViewAccounts.Columns["columnPhone"].Width += 40;
+            dataViewAccounts.Columns["columnDOB"].Width += 20;
+            dataViewAccounts.Columns["columnStatus"].Width += 70;
+
+            foreach (DataGridViewColumn column in dataViewAccounts.Columns)
+            {
+                column.SortMode = DataGridViewColumnSortMode.NotSortable;
+            }
         }
         private void InitializeAccountsData()
         {
-            FilterDefinition<Account> filterAccounts;
-            filterAccounts = role == "All" ?
-                             filterAccounts = Builders<Account>.Filter.Empty :
-                             filterAccounts = Builders<Account>.Filter.Eq(a => a.Role, role);
-            var accountList = Accounts.Find(filterAccounts).ToList();
+            FilterDefinition<Account> filterRoles, filterName;
+            filterRoles = role.Equals("All") ?
+                          filterRoles = Builders<Account>.Filter.Empty :
+                          filterRoles = Builders<Account>.Filter.Eq(a => a.Role, role);
+            filterName = nameToFind.Equals("") ?
+                         filterName = Builders<Account>.Filter.Empty :
+                         filterName = Builders<Account>.Filter.Regex(a => a.Name, new BsonRegularExpression($".*{nameToFind}.*", "i")) |
+                                      Builders<Account>.Filter.Regex(a => a.AccountId, new BsonRegularExpression($".*{nameToFind}.*", "i"));
+            var accountList = Accounts.Find(filterRoles & filterName).ToList();
+
             dataViewAccounts.Rows.Clear();
 
             lblAccountsNumber.Text = $"{accountList.Count.ToString()} kết quả";
@@ -116,10 +162,19 @@ namespace TeacherManager
                                                                                   MainForm.Base64ToImage(account.Avatar);
                 dataViewAccounts.Rows[rowIndex].Cells["columnAccountId"].Value = account.AccountId;
                 dataViewAccounts.Rows[rowIndex].Cells["columnName"].Value = account.Name;
+                dataViewAccounts.Rows[rowIndex].Cells["columnGender"].Value = account.Gender.Equals("M") ?
+                                                                              "Nam" : "Nữ";
                 dataViewAccounts.Rows[rowIndex].Cells["columnEmail"].Value = account.Email;
                 dataViewAccounts.Rows[rowIndex].Cells["columnPhone"].Value = account.Phone;
-                dataViewAccounts.Rows[rowIndex].Cells["columnRole"].Value = account.Role;
-                dataViewAccounts.Rows[rowIndex].Cells["columnDOB"].Value = account.DOB.Value.ToShortDateString();
+                dataViewAccounts.Rows[rowIndex].Cells["columnRole"].Value = account.Role.Equals("Admin") ?
+                                                                            "Ban quản trị" :
+                                                                            account.Role.Equals("Teacher") ?
+                                                                            "Giảng viên" :
+                                                                            "Sinh viên";
+                dataViewAccounts.Rows[rowIndex].Cells["columnDOB"].Value = account.DOB.ToShortDateString();
+                dataViewAccounts.Rows[rowIndex].Cells["columnStatus"].Value = account.Status.Equals("Active") ?
+                                                                              "Đang hoạt động" :
+                                                                              "Ngừng hoạt động";
             }
         }
         private void ExportAccountsDataToExcel(object sender, EventArgs e)
@@ -131,9 +186,7 @@ namespace TeacherManager
             }
             XLWorkbook workbook = new XLWorkbook();
             var dataTable = DataGridViewToDataTable(dataViewAccounts);
-            var asd = dataViewAccounts;
             workbook.Worksheets.Add(dataTable, "Sheet1");
-
 
             SaveFileDialog saveFileDialog = new SaveFileDialog
             {
@@ -180,7 +233,7 @@ namespace TeacherManager
         //}
         private void SendEmail(object sender, EventArgs e)
         {
-            //List<DataGridViewRow> rowsChose = new List<DataGridViewRow>();
+            List<DataGridViewRow> rowsChose = new List<DataGridViewRow>();
             foreach (DataGridViewRow row in dataViewAccounts.Rows)
             {
                 if (row.Index == -1) continue;
@@ -198,6 +251,7 @@ namespace TeacherManager
         }
         private void AdjustAccount(object sender, EventArgs e)
         {
+            List<DataGridViewRow> rowsChose = new List<DataGridViewRow>();
             foreach (DataGridViewRow row in dataViewAccounts.Rows)
             {
                 if (row.Index == -1) continue;
@@ -208,7 +262,7 @@ namespace TeacherManager
             }
             if (rowsChose.Count == 0)
             {
-                MessageBox.Show("Chọn một sinh viên để chỉnh sửa", "Thông báo");
+                MessageBox.Show("Chọn một tài khoản để chỉnh sửa", "Thông báo");
                 return;
             }
             var filterAccount = Builders<Account>.Filter.Eq(a => a.AccountId, rowsChose[0].Cells["columnAccountId"].Value.ToString());
@@ -252,7 +306,92 @@ namespace TeacherManager
                 dataViewAccounts.EndEdit();
                 dataViewAccounts.Rows[i].Cells[0].Value = headerBox.Checked;
             }
-            dataViewAccounts.Refresh();
+        }
+        private void CreateStudent(object sender, EventArgs e)
+        {
+            if (new FormCreateStudent().ShowDialog() == DialogResult.OK)
+            {
+                InitializeAccountsData();
+            }
+        }
+        private void AddStudentsFromExcel(object sender, EventArgs e)
+        {
+            OpenFileDialog file = new OpenFileDialog()
+            {
+                Filter = "Excels file | *.xlsx",
+                Title = "Thêm sinh viên từ file Excel"
+            };
+            if (file.ShowDialog() == DialogResult.OK)
+            {
+                var Accounts = Login.Accounts;
+                var Students = Login.Students;
+
+                try
+                {
+                    XLWorkbook workBook = new XLWorkbook(file.FileName);
+                    IXLWorksheet workSheet = workBook.Worksheet(1);
+                    int maxRows = workSheet.LastRowUsed().RowNumber();
+                    for (int i = 2; i <= maxRows; i++)
+                    {
+                        var rowData = workSheet.Row(i);
+                        if (!rowData.IsEmpty())
+                        {
+                            try
+                            {
+                                var dob = rowData.Cell("F").GetValue<string>().Split("-");
+                                FormCreateStudent.CheckAvailableAndAddStudent(new Account
+                                {
+                                    AccountId = rowData.Cell("A").GetValue<string>(),
+                                    Name = rowData.Cell("B").GetValue<string>(),
+                                    Password = "123456",
+                                    Email = rowData.Cell("C").GetValue<string>(),
+                                    Gender = rowData.Cell("D").GetValue<string>().Equals("Nam") ? "M" : "F",
+                                    Role = "Student",
+                                    Phone = rowData.Cell("E").GetValue<string>(),
+                                    Avatar = null,
+                                    DOB = new DateTime(Convert.ToInt16(dob[2]), Convert.ToInt16(dob[1]), Convert.ToInt16(dob[0])),
+                                    Status = "Active",
+                                });
+                                MessageBox.Show($"Thêm {maxRows} sinh viên từ danh sách file Excel {file.FileName} thành công", "Thông báo");
+                            }
+                            catch (Exception ex)
+                            {
+                                if (ex.Message.Equals("001"))
+                                {
+                                    MessageBox.Show($"Dòng {i}: Số điện thoại đẫ tồn tại", "Thông báo",
+                                                    MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+                                    return;
+                                }
+                                else if (ex.Message.Equals("002"))
+                                {
+                                    MessageBox.Show($"Dòng {i}; MSSV đã tồn tại", "Thông báo",
+                                                    MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
+                                    return;
+                                }
+                            }
+                        }
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("Vui lòng tắt file Excel trước khi mở bằng ứng dụng này", "Thông báo");
+                }
+                finally
+                {
+                    InitializeAccountsData();
+                }
+            }
+        }
+        private void CreateTeacher(object sender, EventArgs e)
+        {
+            if (new FormCreateTeacher().ShowDialog() == DialogResult.OK)
+            {
+                InitializeAccountsData();
+            }
+        }
+        private void ExitAccountsDescriptionForm(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

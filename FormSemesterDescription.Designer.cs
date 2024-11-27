@@ -52,6 +52,7 @@ namespace TeacherManager
             pictureBox2 = new PictureBox();
             dataViewSemester = new DataGridView();
             excelIcon = new PictureBox();
+            btnAddClass = new CustomControls.CustomButton();
             ((ISupportInitialize)pictureBox2).BeginInit();
             ((ISupportInitialize)dataViewSemester).BeginInit();
             ((ISupportInitialize)excelIcon).BeginInit();
@@ -79,6 +80,7 @@ namespace TeacherManager
             // 
             // pictureBox2
             // 
+            pictureBox2.Cursor = Cursors.Hand;
             pictureBox2.Image = Properties.Resources.back_icon;
             pictureBox2.Location = new Point(29, 23);
             pictureBox2.Name = "pictureBox2";
@@ -128,18 +130,40 @@ namespace TeacherManager
             dataViewSemester.RowHeadersVisible = false;
             dataViewSemester.RowHeadersWidth = 51;
             dataViewSemester.RowTemplate.Height = 40;
-            dataViewSemester.Size = new Size(1543, 270);
+            dataViewSemester.Size = new Size(1492, 270);
             dataViewSemester.TabIndex = 13;
             // 
             // excelIcon
             // 
             excelIcon.Image = Properties.Resources.excel_icon;
-            excelIcon.Location = new Point(1211, 147);
+            excelIcon.Location = new Point(1482, 148);
             excelIcon.Name = "excelIcon";
             excelIcon.Size = new Size(52, 43);
             excelIcon.TabIndex = 15;
             excelIcon.TabStop = false;
             excelIcon.Click += ExportSemesterDataToExcel;
+            // 
+            // btnAddClass
+            // 
+            btnAddClass.BackColor = Color.MediumSlateBlue;
+            btnAddClass.BackgroundColor = Color.MediumSlateBlue;
+            btnAddClass.BorderColor = Color.PaleVioletRed;
+            btnAddClass.BorderRadius = 10;
+            btnAddClass.BorderSize = 0;
+            btnAddClass.Cursor = Cursors.Hand;
+            btnAddClass.FlatAppearance.BorderSize = 0;
+            btnAddClass.FlatStyle = FlatStyle.Flat;
+            btnAddClass.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnAddClass.ForeColor = Color.White;
+            btnAddClass.ImageAlign = ContentAlignment.MiddleLeft;
+            btnAddClass.Location = new Point(1333, 53);
+            btnAddClass.Name = "btnAddClass";
+            btnAddClass.Size = new Size(201, 43);
+            btnAddClass.TabIndex = 16;
+            btnAddClass.Text = "Thêm lớp học";
+            btnAddClass.TextColor = Color.White;
+            btnAddClass.UseVisualStyleBackColor = false;
+            btnAddClass.Click += ShowAddClassForm;
             // 
             // FormSemesterDescription
             // 
@@ -147,6 +171,7 @@ namespace TeacherManager
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.WhiteSmoke;
             ClientSize = new Size(1628, 858);
+            Controls.Add(btnAddClass);
             Controls.Add(excelIcon);
             Controls.Add(dataViewSemester);
             Controls.Add(pictureBox2);
@@ -155,7 +180,7 @@ namespace TeacherManager
             FormBorderStyle = FormBorderStyle.None;
             Name = "FormSemesterDescription";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "FormClassDescription";
+            Text = "Danh sách các lớp trong học kỳ";
             ((ISupportInitialize)pictureBox2).EndInit();
             ((ISupportInitialize)dataViewSemester).EndInit();
             ((ISupportInitialize)excelIcon).EndInit();
@@ -181,5 +206,6 @@ namespace TeacherManager
         private DataGridViewTextBoxColumn phoneDataGridViewTextBoxColumn;
         private CustomControls.CustomButton btnAddStudentIntoClass;
         private PictureBox excelIcon;
+        private CustomControls.CustomButton btnAddClass;
     }
 }

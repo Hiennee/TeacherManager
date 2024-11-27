@@ -80,10 +80,10 @@
             // 
             // pictureSemester
             // 
-            pictureSemester.Image = Properties.Resources.courses_class_whiteboard_1;
-            pictureSemester.Location = new Point(17, 16);
+            pictureSemester.Image = Properties.Resources.students;
+            pictureSemester.Location = new Point(-49, -2);
             pictureSemester.Name = "pictureSemester";
-            pictureSemester.Size = new Size(479, 263);
+            pictureSemester.Size = new Size(620, 282);
             pictureSemester.SizeMode = PictureBoxSizeMode.Zoom;
             pictureSemester.TabIndex = 3;
             pictureSemester.TabStop = false;
