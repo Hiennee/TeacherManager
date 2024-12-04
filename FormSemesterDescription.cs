@@ -20,8 +20,8 @@ namespace TeacherManager
         private IMongoCollection<Class> Classes;
         private IMongoCollection<Teacher> Teachers;
         private IMongoCollection<Account> Accounts;
+        private IMongoCollection<Faculty> Faculties;
         private IMongoCollection<Student_Class_Detail> StudentClasses;
-
         public FormSemesterDescription(Semester s)
         {
             semester = s;
@@ -29,6 +29,7 @@ namespace TeacherManager
             Classes = Login.Classes;
             Accounts = Login.Accounts;
             Teachers = Login.Teachers;
+            Faculties = Login.Faculties;
             StudentClasses = Login.StudentClasses;
             InitializeComponent();
             InitializeLabels();
@@ -55,19 +56,28 @@ namespace TeacherManager
         {
             dataViewSemester.Columns.Add("columnClassId", "Mã HP");
             dataViewSemester.Columns.Add("columnClassName", "Tên học phần");
+            dataViewSemester.Columns.Add("columnClassFaculty", "Khoa - Bộ môn");
             dataViewSemester.Columns.Add("columnTeacherName", "Giảng viên");
             dataViewSemester.Columns.Add("columnStudentNumber", "Sĩ số");
             dataViewSemester.Columns.Add("columnDayOfWeek", "TKB");
+            dataViewSemester.Columns.Add("columnShift", "Thời gian");
             dataViewSemester.Columns.Add("columnRoom", "Phòng");
 
             dataViewSemester.Columns["columnClassId"].Width += 50;
-            dataViewSemester.Columns["columnClassName"].Width += 150;
+            dataViewSemester.Columns["columnClassName"].Width += 200;
+            dataViewSemester.Columns["columnClassFaculty"].Width += 150;
             dataViewSemester.Columns["columnTeacherName"].Width += 70;
-            dataViewSemester.Columns["columnDayOfWeek"].Width += 50;
+            dataViewSemester.Columns["columnShift"].Width += 30;
 
             foreach (DataGridViewColumn column in dataViewSemester.Columns)
             {
                 column.SortMode = DataGridViewColumnSortMode.NotSortable;
+
+                if (column.Name.Equals("columnClassFaculty") || column.Name.Equals("columnDayOfWeek") ||
+                    column.Name.Equals("columnTeacherName") || column.Name.Equals("columnRoom"))
+                {
+                    column.SortMode = DataGridViewColumnSortMode.Automatic;
+                }
             }
         }
         private void InitializeSemestersData()
@@ -93,10 +103,12 @@ namespace TeacherManager
                     var resultTeacher = Accounts.Find(filterTeacherName).FirstOrDefault();
                     var filterStudentsInClass = Builders<Student_Class_Detail>.Filter.Eq(scd => scd.ClassId, c.ClassId);
                     int resultStudentsInClass = StudentClasses.Find(filterStudentsInClass).ToList().Count;
+                    var resultFaculty = Faculties.Find(Builders<Faculty>.Filter.Eq(f => f.FacultyId, c.FacultyId)).FirstOrDefault();
                     if (resultTeacher != null)
                     {
                         dataViewSemester.Rows[rowIndex].Cells["columnClassId"].Value = c.ClassId;
                         dataViewSemester.Rows[rowIndex].Cells["columnClassName"].Value = c.Name;
+                        dataViewSemester.Rows[rowIndex].Cells["columnClassFaculty"].Value = resultFaculty.Name;
                         dataViewSemester.Rows[rowIndex].Cells["columnTeacherName"].Value = resultTeacher.Name;
                         dataViewSemester.Rows[rowIndex].Cells["columnStudentNumber"].Value = resultStudentsInClass;
                         dataViewSemester.Rows[rowIndex].Cells["columnDayOfWeek"].Value = c.DayOfWeek
@@ -109,6 +121,7 @@ namespace TeacherManager
                                                                                          .Replace("Fri", "Thứ sáu")
                                                                                          .Replace("Sat", "Thứ bảy")
                                                                                          .Replace("Sun", "Chủ nhật");
+                        dataViewSemester.Rows[rowIndex].Cells["columnShift"].Value = c.From + " - " + c.To;
                         dataViewSemester.Rows[rowIndex].Cells["columnRoom"].Value = c.Room;
                     }
                 }

@@ -15,6 +15,8 @@ namespace TeacherManager.Models
         public string ClassId { get; set; }
         [BsonElement("semesterId")]
         public string SemesterId { get; set; }
+        [BsonElement("facultyId")]
+        public string FacultyId { get; set; }
         [BsonElement("teacherId")]
         public string TeacherId { get; set; }
         [BsonElement("dayOfWeek")]

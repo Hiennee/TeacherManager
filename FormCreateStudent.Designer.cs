@@ -77,6 +77,8 @@
             dtpBirth = new CustomControls.CustomDateTimePicker();
             lblBirthDate = new Label();
             lblPhoneWarning = new Label();
+            cbFaculty = new CustomControls.CustomComboBox();
+            lblFaculty = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             SuspendLayout();
@@ -191,7 +193,7 @@
             btnAddStudent.FlatStyle = FlatStyle.Flat;
             btnAddStudent.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnAddStudent.ForeColor = Color.White;
-            btnAddStudent.Location = new Point(403, 406);
+            btnAddStudent.Location = new Point(403, 444);
             btnAddStudent.Name = "btnAddStudent";
             btnAddStudent.Size = new Size(227, 48);
             btnAddStudent.TabIndex = 6;
@@ -343,12 +345,43 @@
             lblPhoneWarning.Text = "Số điện thoại không hợp lệ";
             lblPhoneWarning.Visible = false;
             // 
+            // cbFaculty
+            // 
+            cbFaculty.BackColor = Color.White;
+            cbFaculty.BorderColor = Color.MediumSlateBlue;
+            cbFaculty.BorderSize = 2;
+            cbFaculty.DropDownStyle = ComboBoxStyle.DropDown;
+            cbFaculty.Font = new Font("Segoe UI", 10F);
+            cbFaculty.ForeColor = Color.DimGray;
+            cbFaculty.IconColor = Color.MediumSlateBlue;
+            cbFaculty.ListBackColor = Color.FromArgb(230, 228, 245);
+            cbFaculty.ListTextColor = Color.DimGray;
+            cbFaculty.Location = new Point(202, 394);
+            cbFaculty.MinimumSize = new Size(50, 30);
+            cbFaculty.Name = "cbFaculty";
+            cbFaculty.Padding = new Padding(2);
+            cbFaculty.Size = new Size(297, 38);
+            cbFaculty.TabIndex = 44;
+            cbFaculty.Texts = "";
+            // 
+            // lblFaculty
+            // 
+            lblFaculty.AutoSize = true;
+            lblFaculty.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblFaculty.Location = new Point(202, 360);
+            lblFaculty.Name = "lblFaculty";
+            lblFaculty.Size = new Size(165, 31);
+            lblFaculty.TabIndex = 45;
+            lblFaculty.Text = "Khoa - bộ môn";
+            // 
             // FormCreateStudent
             // 
             AcceptButton = btnAddStudent;
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1092, 514);
+            Controls.Add(cbFaculty);
+            Controls.Add(lblFaculty);
             Controls.Add(lblPhoneWarning);
             Controls.Add(lblBirthWarning);
             Controls.Add(dtpBirth);
@@ -399,5 +432,7 @@
         private CustomControls.CustomDateTimePicker dtpBirth;
         private Label lblBirthDate;
         private Label lblPhoneWarning;
+        private CustomControls.CustomComboBox cbFaculty;
+        private Label lblFaculty;
     }
 }

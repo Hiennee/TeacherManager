@@ -17,13 +17,16 @@ namespace TeacherManager
     {
         IMongoCollection<Account> Accounts;
         IMongoCollection<Student> Students;
+        IMongoCollection<Faculty> Faculties;
         public FormCreateStudent()
         {
+            Accounts = Login.Accounts;
+            Students = Login.Students;
+            Faculties = Login.Faculties;
             InitializeComponent();
             InitializeBirthDateFirstValue();
             InitializeComboBoxGender();
-            Accounts = Login.Accounts;
-            Students = Login.Students;
+            InitializeComboBoxFaculty();
         }
         private void InitializeComboBoxGender()
         {
@@ -32,6 +35,18 @@ namespace TeacherManager
                 "Nam",
                 "Nữ"
             };
+        }
+        private void InitializeComboBoxFaculty()
+        {
+            List<Faculty> faculties = new List<Faculty>();
+            List<string> cbData = new List<string>() { "" };
+            var resultFaculties = Faculties.Find(Builders<Faculty>.Filter.Empty).ToList();
+            foreach (Faculty f in resultFaculties)
+            {
+                faculties.Add(f);
+                cbData.Add(f.FacultyId + " - " + f.Name);
+            }
+            cbFaculty.DataSource = cbData;
         }
         private void InitializeBirthDateFirstValue()
         {
@@ -63,6 +78,7 @@ namespace TeacherManager
                 txtBoxMSSV.Texts.Equals("")        ||
                 cbGender.Texts.Equals("")          ||
                 txtBoxEmail.Texts.Equals("")       ||
+                txtBoxPhone.Texts.Equals("")       ||
                 lblPhoneWarning.Visible == true    ||
                 lblBirthWarning.Visible == true)
             {
@@ -89,6 +105,12 @@ namespace TeacherManager
         }
         private void AddStudent(object sender, EventArgs e)
         {
+            if (txtBoxMSSV.Texts.Equals("") || txtBoxEmail.Texts.Equals("") ||
+                txtBoxPhone.Texts.Equals("") || txtBoxStudentName.Texts.Equals(""))
+            {
+                MessageBox.Show("Vui lòng nhập đủ dữ liệu", "Thông báo");
+                return;
+            }
             if (CheckAvailableAndAddStudent(new Account
             {
                 AccountId = txtBoxMSSV.Texts,
@@ -101,14 +123,15 @@ namespace TeacherManager
                 Avatar = null,
                 DOB = dtpBirth.Value,
                 Status = "Active",
-            }))
+            }, cbFaculty.Texts))
             {
                 this.DialogResult = DialogResult.OK;
                 Close();
+                return;
             }
             MessageBox.Show("E-mail hoặc số điện thoại, MSSV đã tồn tại", "Thông báo");
         }
-        public static bool CheckAvailableAndAddStudent(Account studentAccount)
+        public static bool CheckAvailableAndAddStudent(Account studentAccount, string faculty)
         {
             IMongoCollection<Account> Accounts = Login.Database.GetCollection<Account>("Account");
             IMongoCollection<Student> Students = Login.Database.GetCollection<Student>("Student");
@@ -143,6 +166,9 @@ namespace TeacherManager
             Student s = new Student
             {
                 accountId = studentAccount.AccountId,
+                FacultyId = faculty.Equals("") ?
+                            null :
+                            faculty.Split(" - ")[0],
             };
             try
             {

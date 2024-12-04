@@ -32,6 +32,8 @@
             pictureAvt = new CustomControls.CustomPictureBox();
             lblName = new Label();
             panelNavigate = new Panel();
+            btnQLBM = new CustomControls.CustomButton();
+            button1 = new Button();
             lblVersion = new Label();
             btnLGD = new CustomControls.CustomButton();
             btnLogOut = new CustomControls.CustomButton();
@@ -42,7 +44,6 @@
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             ChooseAvtDialog = new OpenFileDialog();
             btnIndex = new PictureBox();
-            button1 = new Button();
             panelHeading.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureAvt).BeginInit();
             panelNavigate.SuspendLayout();
@@ -93,6 +94,7 @@
             // panelNavigate
             // 
             panelNavigate.BackColor = SystemColors.ControlLightLight;
+            panelNavigate.Controls.Add(btnQLBM);
             panelNavigate.Controls.Add(button1);
             panelNavigate.Controls.Add(lblVersion);
             panelNavigate.Controls.Add(btnLGD);
@@ -105,6 +107,41 @@
             panelNavigate.RightToLeft = RightToLeft.No;
             panelNavigate.Size = new Size(351, 899);
             panelNavigate.TabIndex = 1;
+            // 
+            // btnQLBM
+            // 
+            btnQLBM.BackColor = Color.CornflowerBlue;
+            btnQLBM.BackgroundColor = Color.CornflowerBlue;
+            btnQLBM.BorderColor = Color.PaleVioletRed;
+            btnQLBM.BorderRadius = 1;
+            btnQLBM.BorderSize = 0;
+            btnQLBM.Cursor = Cursors.Hand;
+            btnQLBM.FlatAppearance.BorderSize = 0;
+            btnQLBM.FlatStyle = FlatStyle.Flat;
+            btnQLBM.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnQLBM.ForeColor = Color.White;
+            btnQLBM.Image = Properties.Resources.calendar_icon;
+            btnQLBM.ImageAlign = ContentAlignment.MiddleLeft;
+            btnQLBM.Location = new Point(0, 261);
+            btnQLBM.Name = "btnQLBM";
+            btnQLBM.Padding = new Padding(12, 0, 12, 0);
+            btnQLBM.Size = new Size(351, 92);
+            btnQLBM.TabIndex = 7;
+            btnQLBM.Text = "QUẢN LÍ BỘ MÔN";
+            btnQLBM.TextAlign = ContentAlignment.MiddleRight;
+            btnQLBM.TextColor = Color.White;
+            btnQLBM.UseVisualStyleBackColor = false;
+            btnQLBM.Click += OnButtonNavigateClick;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(128, 655);
+            button1.Name = "button1";
+            button1.Size = new Size(94, 29);
+            button1.TabIndex = 6;
+            button1.Text = "demo";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += OnButtonNavigateClick;
             // 
             // lblVersion
             // 
@@ -129,7 +166,7 @@
             btnLGD.ForeColor = Color.White;
             btnLGD.Image = Properties.Resources.calendar_icon;
             btnLGD.ImageAlign = ContentAlignment.MiddleLeft;
-            btnLGD.Location = new Point(0, 263);
+            btnLGD.Location = new Point(0, 350);
             btnLGD.Name = "btnLGD";
             btnLGD.Padding = new Padding(12, 0, 12, 0);
             btnLGD.Size = new Size(351, 92);
@@ -154,7 +191,7 @@
             btnLogOut.ForeColor = Color.White;
             btnLogOut.Image = Properties.Resources.dooropen_icon;
             btnLogOut.ImageAlign = ContentAlignment.MiddleLeft;
-            btnLogOut.Location = new Point(0, 352);
+            btnLogOut.Location = new Point(0, 437);
             btnLogOut.Name = "btnLogOut";
             btnLogOut.Padding = new Padding(12, 0, 12, 0);
             btnLogOut.Size = new Size(351, 92);
@@ -266,16 +303,6 @@
             btnIndex.TabStop = false;
             btnIndex.Click += OnButtonNavigateClick;
             // 
-            // button1
-            // 
-            button1.Location = new Point(176, 483);
-            button1.Name = "button1";
-            button1.Size = new Size(94, 29);
-            button1.TabIndex = 6;
-            button1.Text = "demo";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
-            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -321,5 +348,6 @@
         private PictureBox btnIndex;
         private Button btnTest;
         private Button button1;
+        private CustomControls.CustomButton btnQLBM;
     }
 }

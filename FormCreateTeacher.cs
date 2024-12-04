@@ -17,13 +17,16 @@ namespace TeacherManager
     {
         IMongoCollection<Account> Accounts;
         IMongoCollection<Teacher> Teachers;
+        IMongoCollection<Faculty> Faculties;
         public FormCreateTeacher()
         {
-            InitializeComponent();
-            InitializeComboBoxGender();
-            InitializeBirthDateFirstValue();
             Accounts = Login.Accounts;
             Teachers = Login.Teachers;
+            Faculties = Login.Faculties;
+            InitializeComponent();
+            InitializeComboBoxGender();
+            InitializeComboBoxFaculty();
+            InitializeBirthDateFirstValue();
         }
         private void InitializeComboBoxGender()
         {
@@ -32,6 +35,18 @@ namespace TeacherManager
                 "Nam",
                 "Nữ"
             };
+        }
+        private void InitializeComboBoxFaculty()
+        {
+            List<Faculty> faculties = new List<Faculty>();
+            List<string> cbData = new List<string>() { "" };
+            var resultFaculties = Faculties.Find(Builders<Faculty>.Filter.Empty).ToList();
+            foreach (Faculty f in resultFaculties)
+            {
+                faculties.Add(f);
+                cbData.Add(f.FacultyId + " - " + f.Name);
+            }
+            cbFaculty.DataSource = cbData;
         }
         private void InitializeBirthDateFirstValue()
         {
@@ -42,6 +57,7 @@ namespace TeacherManager
             if (txtBoxMSGV.Texts.Equals("")        ||
                 txtBoxTeacherName.Texts.Equals("") ||
                 txtBoxEmail.Texts.Equals("")       ||
+                txtBoxPhone.Texts.Equals("")       ||
                 cbGender.Texts.Equals("")          ||
                 lblPhoneWarning.Visible == true    ||
                 lblBirthWarning.Visible == true)      
@@ -91,6 +107,12 @@ namespace TeacherManager
 
         private void AddTeacher(object sender, EventArgs e)
         {
+            if (txtBoxMSGV.Texts.Equals("") || txtBoxEmail.Texts.Equals("") ||
+                txtBoxPhone.Texts.Equals("") || txtBoxTeacherName.Texts.Equals(""))
+            {
+                MessageBox.Show("Vui lòng nhập đủ dữ liệu", "Thông báo");
+                return;
+            }
             var IDEmailPhoneFilter = Builders<Account>.Filter.Eq(a => a.AccountId, txtBoxMSGV.Texts) |
                                      Builders<Account>.Filter.Eq(a => a.Email, txtBoxEmail.Texts) |
                                      Builders<Account>.Filter.Eq(a => a.Phone, txtBoxPhone.Texts);
@@ -118,6 +140,9 @@ namespace TeacherManager
             Teacher s = new Teacher
             {
                 AccountId = txtBoxMSGV.Texts,
+                FacultyId = cbFaculty.Texts.Equals("") ?
+                            null :
+                            cbFaculty.Texts.Split(" - ")[0],
                 MailTemplate = "Default",
             };
             Accounts.InsertOne(a);

@@ -212,13 +212,13 @@ namespace TeacherManager
         }
         private void ChooseDayToViewSchedule(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex < 0)
+            {
+                return;
+            }
             if (dataViewDaysOfMonth.Rows[e.RowIndex].Cells[e.ColumnIndex].Value == null)
             {
                 //dataViewDaysOfMonth.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.BackColor = Color.Coral;
-                return;
-            }
-            if (e.RowIndex < 0)
-            {
                 return;
             }
             //string dayToShow = $"{dataViewDaysOfMonth.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString()}/{CurrentMonth}/{CurrentYear}";
@@ -311,19 +311,19 @@ namespace TeacherManager
         {
             switch (dayOfWeek)
             {
-                case "Mon":
+                case "Mon" or "Thứ hai":
                     return DayOfWeek.Monday;
-                case "Tue":
+                case "Tue" or "Thứ ba":
                     return DayOfWeek.Tuesday;
-                case "Wed":
+                case "Wed" or "Thứ tư":
                     return DayOfWeek.Wednesday;
-                case "Thu":
+                case "Thu" or "Thứ năm":
                     return DayOfWeek.Thursday;
-                case "Fri":
+                case "Fri" or "Thứ sáu":
                     return DayOfWeek.Friday;
-                case "Sat":
+                case "Sat" or "Thứ bảy":
                     return DayOfWeek.Saturday;
-                case "Sun":
+                case "Sun" or "Chủ nhật":
                     return DayOfWeek.Sunday;
                 default:
                     return DayOfWeek.Sunday;

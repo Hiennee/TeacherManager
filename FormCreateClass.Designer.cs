@@ -64,16 +64,13 @@
             lblClassName = new Label();
             lblRoom = new Label();
             txtBoxClassId = new CustomControls.CustomTextBox();
-            txtBoxTeacherId = new CustomControls.CustomTextBox();
             txtBoxClassName = new CustomControls.CustomTextBox();
-            txtBoxRoom = new CustomControls.CustomTextBox();
             btnAddStudent = new CustomControls.CustomButton();
             pictureBox1 = new PictureBox();
             pictureBox2 = new PictureBox();
             lblScheduleFrom = new Label();
             lblHeader = new Label();
             lblScheduleTo = new Label();
-            lblIcon1 = new Label();
             lblGradeWeight1 = new Label();
             lblGradeWeight2 = new Label();
             lblGradeWeight3 = new Label();
@@ -92,6 +89,11 @@
             lblSemesterId = new Label();
             lblDayOfWeek = new Label();
             cbDayOfWeek = new CustomControls.CustomComboBox();
+            lblFaculty = new Label();
+            cbRoom = new CustomControls.CustomComboBox();
+            cbFaculty = new CustomControls.CustomComboBox();
+            cbTeacher = new CustomControls.CustomComboBox();
+            txtBoxPrefix = new CustomControls.CustomTextBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numericFromHour).BeginInit();
@@ -108,7 +110,7 @@
             // 
             lblTeacherId.AutoSize = true;
             lblTeacherId.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblTeacherId.Location = new Point(143, 254);
+            lblTeacherId.Location = new Point(143, 434);
             lblTeacherId.Name = "lblTeacherId";
             lblTeacherId.Size = new Size(189, 31);
             lblTeacherId.TabIndex = 0;
@@ -138,7 +140,7 @@
             // 
             lblRoom.AutoSize = true;
             lblRoom.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblRoom.Location = new Point(320, 417);
+            lblRoom.Location = new Point(291, 513);
             lblRoom.Name = "lblRoom";
             lblRoom.Size = new Size(80, 31);
             lblRoom.TabIndex = 3;
@@ -153,7 +155,7 @@
             txtBoxClassId.BorderSize = 2;
             txtBoxClassId.Font = new Font("Segoe UI", 9.5F);
             txtBoxClassId.ForeColor = Color.DimGray;
-            txtBoxClassId.Location = new Point(143, 115);
+            txtBoxClassId.Location = new Point(203, 116);
             txtBoxClassId.Margin = new Padding(4);
             txtBoxClassId.Multiline = false;
             txtBoxClassId.Name = "txtBoxClassId";
@@ -161,34 +163,11 @@
             txtBoxClassId.PasswordChar = false;
             txtBoxClassId.PlaceholderColor = Color.DarkGray;
             txtBoxClassId.PlaceholderText = "";
-            txtBoxClassId.Size = new Size(267, 36);
+            txtBoxClassId.Size = new Size(207, 36);
             txtBoxClassId.TabIndex = 4;
             txtBoxClassId.Texts = "";
             txtBoxClassId.UnderlinedStyle = false;
-            txtBoxClassId._TextChanged += CheckAddStudentButtonAvailable;
-            // 
-            // txtBoxTeacherId
-            // 
-            txtBoxTeacherId.BackColor = SystemColors.Window;
-            txtBoxTeacherId.BorderColor = Color.MediumSlateBlue;
-            txtBoxTeacherId.BorderFocusColor = Color.HotPink;
-            txtBoxTeacherId.BorderRadius = 0;
-            txtBoxTeacherId.BorderSize = 2;
-            txtBoxTeacherId.Font = new Font("Segoe UI", 9.5F);
-            txtBoxTeacherId.ForeColor = Color.DimGray;
-            txtBoxTeacherId.Location = new Point(143, 289);
-            txtBoxTeacherId.Margin = new Padding(4);
-            txtBoxTeacherId.Multiline = false;
-            txtBoxTeacherId.Name = "txtBoxTeacherId";
-            txtBoxTeacherId.Padding = new Padding(7);
-            txtBoxTeacherId.PasswordChar = false;
-            txtBoxTeacherId.PlaceholderColor = Color.DarkGray;
-            txtBoxTeacherId.PlaceholderText = "";
-            txtBoxTeacherId.Size = new Size(267, 36);
-            txtBoxTeacherId.TabIndex = 6;
-            txtBoxTeacherId.Texts = "";
-            txtBoxTeacherId.UnderlinedStyle = false;
-            txtBoxTeacherId._TextChanged += CheckAddStudentButtonAvailable;
+            txtBoxClassId._TextChanged += CheckAddClassButtonAvailable;
             // 
             // txtBoxClassName
             // 
@@ -212,30 +191,7 @@
             txtBoxClassName.TabIndex = 7;
             txtBoxClassName.Texts = "";
             txtBoxClassName.UnderlinedStyle = false;
-            txtBoxClassName._TextChanged += CheckAddStudentButtonAvailable;
-            // 
-            // txtBoxRoom
-            // 
-            txtBoxRoom.BackColor = SystemColors.Window;
-            txtBoxRoom.BorderColor = Color.MediumSlateBlue;
-            txtBoxRoom.BorderFocusColor = Color.HotPink;
-            txtBoxRoom.BorderRadius = 0;
-            txtBoxRoom.BorderSize = 2;
-            txtBoxRoom.Font = new Font("Segoe UI", 9.5F);
-            txtBoxRoom.ForeColor = Color.DimGray;
-            txtBoxRoom.Location = new Point(291, 458);
-            txtBoxRoom.Margin = new Padding(4);
-            txtBoxRoom.Multiline = false;
-            txtBoxRoom.Name = "txtBoxRoom";
-            txtBoxRoom.Padding = new Padding(7);
-            txtBoxRoom.PasswordChar = false;
-            txtBoxRoom.PlaceholderColor = Color.DarkGray;
-            txtBoxRoom.PlaceholderText = "";
-            txtBoxRoom.Size = new Size(119, 36);
-            txtBoxRoom.TabIndex = 9;
-            txtBoxRoom.Texts = "";
-            txtBoxRoom.UnderlinedStyle = false;
-            txtBoxRoom._TextChanged += CheckAddStudentButtonAvailable;
+            txtBoxClassName._TextChanged += CheckAddClassButtonAvailable;
             // 
             // btnAddStudent
             // 
@@ -249,7 +205,7 @@
             btnAddStudent.FlatStyle = FlatStyle.Flat;
             btnAddStudent.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnAddStudent.ForeColor = Color.White;
-            btnAddStudent.Location = new Point(362, 539);
+            btnAddStudent.Location = new Point(347, 624);
             btnAddStudent.Name = "btnAddStudent";
             btnAddStudent.Size = new Size(206, 44);
             btnAddStudent.TabIndex = 18;
@@ -283,7 +239,7 @@
             // 
             lblScheduleFrom.AutoSize = true;
             lblScheduleFrom.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblScheduleFrom.Location = new Point(513, 81);
+            lblScheduleFrom.Location = new Point(498, 81);
             lblScheduleFrom.Name = "lblScheduleFrom";
             lblScheduleFrom.Size = new Size(40, 31);
             lblScheduleFrom.TabIndex = 11;
@@ -303,27 +259,17 @@
             // 
             lblScheduleTo.AutoSize = true;
             lblScheduleTo.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblScheduleTo.Location = new Point(656, 81);
+            lblScheduleTo.Location = new Point(498, 167);
             lblScheduleTo.Name = "lblScheduleTo";
             lblScheduleTo.Size = new Size(55, 31);
             lblScheduleTo.TabIndex = 14;
             lblScheduleTo.Text = "Đến";
             // 
-            // lblIcon1
-            // 
-            lblIcon1.AutoSize = true;
-            lblIcon1.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblIcon1.Location = new Point(640, 103);
-            lblIcon1.Name = "lblIcon1";
-            lblIcon1.Size = new Size(20, 28);
-            lblIcon1.TabIndex = 15;
-            lblIcon1.Text = "_";
-            // 
             // lblGradeWeight1
             // 
             lblGradeWeight1.AutoSize = true;
             lblGradeWeight1.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblGradeWeight1.Location = new Point(513, 167);
+            lblGradeWeight1.Location = new Point(498, 254);
             lblGradeWeight1.Name = "lblGradeWeight1";
             lblGradeWeight1.Size = new Size(186, 31);
             lblGradeWeight1.TabIndex = 17;
@@ -333,7 +279,7 @@
             // 
             lblGradeWeight2.AutoSize = true;
             lblGradeWeight2.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblGradeWeight2.Location = new Point(513, 254);
+            lblGradeWeight2.Location = new Point(505, 342);
             lblGradeWeight2.Name = "lblGradeWeight2";
             lblGradeWeight2.Size = new Size(186, 31);
             lblGradeWeight2.TabIndex = 19;
@@ -343,7 +289,7 @@
             // 
             lblGradeWeight3.AutoSize = true;
             lblGradeWeight3.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblGradeWeight3.Location = new Point(513, 343);
+            lblGradeWeight3.Location = new Point(505, 434);
             lblGradeWeight3.Name = "lblGradeWeight3";
             lblGradeWeight3.Size = new Size(186, 31);
             lblGradeWeight3.TabIndex = 21;
@@ -353,7 +299,7 @@
             // 
             lblGradeWeight4.AutoSize = true;
             lblGradeWeight4.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblGradeWeight4.Location = new Point(513, 425);
+            lblGradeWeight4.Location = new Point(505, 516);
             lblGradeWeight4.Name = "lblGradeWeight4";
             lblGradeWeight4.Size = new Size(186, 31);
             lblGradeWeight4.TabIndex = 23;
@@ -361,7 +307,7 @@
             // 
             // numericFromHour
             // 
-            numericFromHour.Location = new Point(513, 116);
+            numericFromHour.Location = new Point(505, 124);
             numericFromHour.Maximum = new decimal(new int[] { 20, 0, 0, 0 });
             numericFromHour.Minimum = new decimal(new int[] { 6, 0, 0, 0 });
             numericFromHour.Name = "numericFromHour";
@@ -371,7 +317,7 @@
             // 
             // numericFromMinute
             // 
-            numericFromMinute.Location = new Point(586, 115);
+            numericFromMinute.Location = new Point(577, 124);
             numericFromMinute.Maximum = new decimal(new int[] { 60, 0, 0, 0 });
             numericFromMinute.Name = "numericFromMinute";
             numericFromMinute.Size = new Size(48, 27);
@@ -379,7 +325,7 @@
             // 
             // numericToMinute
             // 
-            numericToMinute.Location = new Point(735, 115);
+            numericToMinute.Location = new Point(577, 211);
             numericToMinute.Maximum = new decimal(new int[] { 60, 0, 0, 0 });
             numericToMinute.Name = "numericToMinute";
             numericToMinute.Size = new Size(48, 27);
@@ -387,7 +333,7 @@
             // 
             // numericToHour
             // 
-            numericToHour.Location = new Point(663, 115);
+            numericToHour.Location = new Point(505, 211);
             numericToHour.Maximum = new decimal(new int[] { 22, 0, 0, 0 });
             numericToHour.Minimum = new decimal(new int[] { 8, 0, 0, 0 });
             numericToHour.Name = "numericToHour";
@@ -398,7 +344,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(568, 118);
+            label1.Location = new Point(559, 126);
             label1.Name = "label1";
             label1.Size = new Size(12, 20);
             label1.TabIndex = 28;
@@ -407,7 +353,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(717, 118);
+            label2.Location = new Point(559, 213);
             label2.Name = "label2";
             label2.Size = new Size(12, 20);
             label2.TabIndex = 29;
@@ -416,7 +362,7 @@
             // numericGradeWeight1
             // 
             numericGradeWeight1.Increment = new decimal(new int[] { 5, 0, 0, 0 });
-            numericGradeWeight1.Location = new Point(513, 202);
+            numericGradeWeight1.Location = new Point(505, 298);
             numericGradeWeight1.Maximum = new decimal(new int[] { 80, 0, 0, 0 });
             numericGradeWeight1.Name = "numericGradeWeight1";
             numericGradeWeight1.Size = new Size(78, 27);
@@ -425,7 +371,7 @@
             // numericGradeWeight2
             // 
             numericGradeWeight2.Increment = new decimal(new int[] { 5, 0, 0, 0 });
-            numericGradeWeight2.Location = new Point(513, 289);
+            numericGradeWeight2.Location = new Point(505, 386);
             numericGradeWeight2.Maximum = new decimal(new int[] { 80, 0, 0, 0 });
             numericGradeWeight2.Name = "numericGradeWeight2";
             numericGradeWeight2.Size = new Size(78, 27);
@@ -434,7 +380,7 @@
             // numericGradeWeight3
             // 
             numericGradeWeight3.Increment = new decimal(new int[] { 5, 0, 0, 0 });
-            numericGradeWeight3.Location = new Point(513, 377);
+            numericGradeWeight3.Location = new Point(505, 468);
             numericGradeWeight3.Maximum = new decimal(new int[] { 80, 0, 0, 0 });
             numericGradeWeight3.Name = "numericGradeWeight3";
             numericGradeWeight3.Size = new Size(78, 27);
@@ -443,7 +389,7 @@
             // numericGradeWeight4
             // 
             numericGradeWeight4.Increment = new decimal(new int[] { 5, 0, 0, 0 });
-            numericGradeWeight4.Location = new Point(513, 460);
+            numericGradeWeight4.Location = new Point(505, 551);
             numericGradeWeight4.Maximum = new decimal(new int[] { 80, 0, 0, 0 });
             numericGradeWeight4.Name = "numericGradeWeight4";
             numericGradeWeight4.Size = new Size(78, 27);
@@ -471,7 +417,7 @@
             txtBoxSemesterId.TabIndex = 5;
             txtBoxSemesterId.Texts = "";
             txtBoxSemesterId.UnderlinedStyle = false;
-            txtBoxSemesterId._TextChanged += CheckAddStudentButtonAvailable;
+            txtBoxSemesterId._TextChanged += CheckAddClassButtonAvailable;
             // 
             // lblSemesterId
             // 
@@ -487,7 +433,7 @@
             // 
             lblDayOfWeek.AutoSize = true;
             lblDayOfWeek.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblDayOfWeek.Location = new Point(143, 425);
+            lblDayOfWeek.Location = new Point(143, 515);
             lblDayOfWeek.Name = "lblDayOfWeek";
             lblDayOfWeek.Size = new Size(53, 31);
             lblDayOfWeek.TabIndex = 35;
@@ -505,7 +451,7 @@
             cbDayOfWeek.Items.AddRange(new object[] { "Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu", "Thứ bảy" });
             cbDayOfWeek.ListBackColor = Color.FromArgb(230, 228, 245);
             cbDayOfWeek.ListTextColor = Color.DimGray;
-            cbDayOfWeek.Location = new Point(143, 458);
+            cbDayOfWeek.Location = new Point(143, 548);
             cbDayOfWeek.MinimumSize = new Size(100, 30);
             cbDayOfWeek.Name = "cbDayOfWeek";
             cbDayOfWeek.Padding = new Padding(2);
@@ -513,12 +459,112 @@
             cbDayOfWeek.TabIndex = 8;
             cbDayOfWeek.Texts = "";
             // 
+            // lblFaculty
+            // 
+            lblFaculty.AutoSize = true;
+            lblFaculty.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblFaculty.Location = new Point(143, 254);
+            lblFaculty.Name = "lblFaculty";
+            lblFaculty.Size = new Size(165, 31);
+            lblFaculty.TabIndex = 36;
+            lblFaculty.Text = "Khoa - bộ môn";
+            // 
+            // cbRoom
+            // 
+            cbRoom.BackColor = SystemColors.Window;
+            cbRoom.BorderColor = Color.MediumSlateBlue;
+            cbRoom.BorderSize = 2;
+            cbRoom.DropDownStyle = ComboBoxStyle.DropDown;
+            cbRoom.Font = new Font("Segoe UI", 10F);
+            cbRoom.ForeColor = Color.DimGray;
+            cbRoom.IconColor = Color.MediumSlateBlue;
+            cbRoom.Items.AddRange(new object[] { "Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu", "Thứ bảy" });
+            cbRoom.ListBackColor = Color.FromArgb(230, 228, 245);
+            cbRoom.ListTextColor = Color.DimGray;
+            cbRoom.Location = new Point(292, 548);
+            cbRoom.MinimumSize = new Size(100, 30);
+            cbRoom.Name = "cbRoom";
+            cbRoom.Padding = new Padding(2);
+            cbRoom.Size = new Size(118, 36);
+            cbRoom.TabIndex = 38;
+            cbRoom.Texts = "";
+            cbRoom.OnSelectedIndexChanged += CheckAddClassButtonAvailable;
+            // 
+            // cbFaculty
+            // 
+            cbFaculty.BackColor = SystemColors.Window;
+            cbFaculty.BorderColor = Color.MediumSlateBlue;
+            cbFaculty.BorderSize = 2;
+            cbFaculty.DropDownStyle = ComboBoxStyle.DropDown;
+            cbFaculty.Font = new Font("Segoe UI", 10F);
+            cbFaculty.ForeColor = Color.DimGray;
+            cbFaculty.IconColor = Color.MediumSlateBlue;
+            cbFaculty.Items.AddRange(new object[] { "Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu", "Thứ bảy" });
+            cbFaculty.ListBackColor = Color.FromArgb(230, 228, 245);
+            cbFaculty.ListTextColor = Color.DimGray;
+            cbFaculty.Location = new Point(143, 288);
+            cbFaculty.MinimumSize = new Size(100, 30);
+            cbFaculty.Name = "cbFaculty";
+            cbFaculty.Padding = new Padding(2);
+            cbFaculty.Size = new Size(267, 36);
+            cbFaculty.TabIndex = 39;
+            cbFaculty.Texts = "";
+            cbFaculty.OnSelectedIndexChanged += OnFacultyChange;
+            // 
+            // cbTeacher
+            // 
+            cbTeacher.BackColor = SystemColors.Window;
+            cbTeacher.BorderColor = Color.MediumSlateBlue;
+            cbTeacher.BorderSize = 2;
+            cbTeacher.DropDownStyle = ComboBoxStyle.DropDown;
+            cbTeacher.Font = new Font("Segoe UI", 10F);
+            cbTeacher.ForeColor = Color.DimGray;
+            cbTeacher.IconColor = Color.MediumSlateBlue;
+            cbTeacher.Items.AddRange(new object[] { "Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu", "Thứ bảy" });
+            cbTeacher.ListBackColor = Color.FromArgb(230, 228, 245);
+            cbTeacher.ListTextColor = Color.DimGray;
+            cbTeacher.Location = new Point(143, 468);
+            cbTeacher.MinimumSize = new Size(100, 30);
+            cbTeacher.Name = "cbTeacher";
+            cbTeacher.Padding = new Padding(2);
+            cbTeacher.Size = new Size(267, 36);
+            cbTeacher.TabIndex = 40;
+            cbTeacher.Texts = "";
+            // 
+            // txtBoxPrefix
+            // 
+            txtBoxPrefix.BackColor = SystemColors.Window;
+            txtBoxPrefix.BorderColor = Color.MediumSlateBlue;
+            txtBoxPrefix.BorderFocusColor = Color.HotPink;
+            txtBoxPrefix.BorderRadius = 0;
+            txtBoxPrefix.BorderSize = 2;
+            txtBoxPrefix.Enabled = false;
+            txtBoxPrefix.Font = new Font("Segoe UI", 9.5F);
+            txtBoxPrefix.ForeColor = Color.DimGray;
+            txtBoxPrefix.Location = new Point(143, 116);
+            txtBoxPrefix.Margin = new Padding(4);
+            txtBoxPrefix.Multiline = false;
+            txtBoxPrefix.Name = "txtBoxPrefix";
+            txtBoxPrefix.Padding = new Padding(7);
+            txtBoxPrefix.PasswordChar = false;
+            txtBoxPrefix.PlaceholderColor = Color.DarkGray;
+            txtBoxPrefix.PlaceholderText = "";
+            txtBoxPrefix.Size = new Size(53, 36);
+            txtBoxPrefix.TabIndex = 41;
+            txtBoxPrefix.Texts = "";
+            txtBoxPrefix.UnderlinedStyle = false;
+            // 
             // FormCreateClass
             // 
             AcceptButton = btnAddStudent;
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(962, 615);
+            ClientSize = new Size(962, 691);
+            Controls.Add(txtBoxPrefix);
+            Controls.Add(cbTeacher);
+            Controls.Add(cbFaculty);
+            Controls.Add(cbRoom);
+            Controls.Add(lblFaculty);
             Controls.Add(cbDayOfWeek);
             Controls.Add(lblDayOfWeek);
             Controls.Add(txtBoxSemesterId);
@@ -537,16 +583,13 @@
             Controls.Add(lblGradeWeight3);
             Controls.Add(lblGradeWeight2);
             Controls.Add(lblGradeWeight1);
-            Controls.Add(lblIcon1);
             Controls.Add(lblScheduleTo);
             Controls.Add(lblHeader);
             Controls.Add(lblScheduleFrom);
             Controls.Add(pictureBox2);
             Controls.Add(pictureBox1);
             Controls.Add(btnAddStudent);
-            Controls.Add(txtBoxRoom);
             Controls.Add(txtBoxClassName);
-            Controls.Add(txtBoxTeacherId);
             Controls.Add(txtBoxClassId);
             Controls.Add(lblRoom);
             Controls.Add(lblClassName);
@@ -579,16 +622,13 @@
         private Label lblClassName;
         private Label lblRoom;
         private TeacherManager.CustomControls.CustomTextBox txtBoxClassId;
-        private TeacherManager.CustomControls.CustomTextBox txtBoxTeacherId;
         private TeacherManager.CustomControls.CustomTextBox txtBoxClassName;
-        private TeacherManager.CustomControls.CustomTextBox txtBoxRoom;
         private TeacherManager.CustomControls.CustomButton btnAddStudent;
         private PictureBox pictureBox1;
         private PictureBox pictureBox2;
         private Label lblScheduleFrom;
         private Label lblHeader;
         private Label lblScheduleTo;
-        private Label lblIcon1;
         private Label lblGradeWeight1;
         private Label lblGradeWeight2;
         private Label lblGradeWeight3;
@@ -608,5 +648,10 @@
         private Label lblSemesterId;
         private Label lblDayOfWeek;
         private CustomControls.CustomComboBox cbDayOfWeek;
+        private Label lblFaculty;
+        private CustomControls.CustomComboBox cbRoom;
+        private CustomControls.CustomComboBox cbFaculty;
+        private CustomControls.CustomComboBox cbTeacher;
+        private CustomControls.CustomTextBox txtBoxPrefix;
     }
 }

@@ -19,6 +19,8 @@ namespace TeacherManager
         IMongoCollection<Student> Students;
         IMongoCollection<Teacher> Teachers;
         IMongoCollection<Class> Classes;
+        IMongoCollection<Faculty> Faculties;
+
         Semester semester;
 
         private string semesterType;
@@ -29,6 +31,7 @@ namespace TeacherManager
             Students = Login.Students;
             Teachers = Login.Teachers;
             Classes = Login.Classes;
+            Faculties = Login.Faculties;
             semester = s;
             semesterType = s.Type;
             numericGradeWeight1.Value = 20;
@@ -36,6 +39,8 @@ namespace TeacherManager
             numericGradeWeight3.Value = 20;
             numericGradeWeight4.Value = 40;
             txtBoxSemesterId.Texts = semester.SemesterId;
+            InitializeComboBoxFaculty();
+            InitializeComboBoxRoom();
             LoadDayOfWeeksComboBox();
         }
         private void LoadDayOfWeeksComboBox()
@@ -56,11 +61,53 @@ namespace TeacherManager
                                          "3, 5, 7",
                                      };
         }
-        public void CheckAddStudentButtonAvailable(object sender, EventArgs e)
+        private void InitializeComboBoxFaculty()
         {
-            if (txtBoxClassId.Texts == "" || txtBoxSemesterId.Texts == "" ||
-                txtBoxTeacherId.Texts == "" || txtBoxClassName.Texts == "" ||
-                cbDayOfWeek.Texts == "" || txtBoxRoom.Texts == "")
+            List<Faculty> faculties = new List<Faculty>();
+            List<string> cbData = new List<string>() { "" };
+            var resultFaculties = Faculties.Find(Builders<Faculty>.Filter.Empty).ToList();
+            foreach (Faculty f in resultFaculties)
+            {
+                faculties.Add(f);
+                cbData.Add(f.FacultyId + " - " + f.Name);
+            }
+            cbFaculty.DataSource = cbData;
+        }
+        private void OnFacultyChange(object sender, EventArgs e)
+        {
+            CheckAddClassButtonAvailable(sender, e);
+            txtBoxPrefix.Texts = cbFaculty.Texts.Split(" - ")[0];
+            InitializeComboBoxTeacher();
+        }
+        private void InitializeComboBoxTeacher()
+        {
+            List<Teacher> teachers = new List<Teacher>();
+            List<string> cbData = new List<string> { "" };
+            var resultTeachers = Teachers.Find(Builders<Teacher>.Filter.Eq(
+                                 t => t.FacultyId, cbFaculty.Texts.Split(" - ")[0])).ToList();
+            foreach (Teacher t in resultTeachers)
+            {
+                var teacher = Accounts.Find(Builders<Account>.Filter.Eq(a => a.AccountId, t.AccountId))
+                                          .FirstOrDefault();
+                cbData.Add(t.AccountId + " - " + teacher.Name);
+            }
+            cbTeacher.DataSource = cbData;
+        }
+        private void InitializeComboBoxRoom()
+        {
+            List<int> rooms = new List<int>();
+            for (int i = 1; i <= 30; i++)
+            {
+                rooms.Add(i);
+            }
+            cbRoom.DataSource = rooms;
+        }
+        public void CheckAddClassButtonAvailable(object sender, EventArgs e)
+        {
+            if (txtBoxClassId.Texts.Equals("") || txtBoxSemesterId.Texts.Equals("") ||
+                cbTeacher.Texts.Equals("") || txtBoxClassName.Texts.Equals("") ||
+                cbFaculty.Texts.Equals("") || cbDayOfWeek.Texts.Equals("") ||
+                cbRoom.Texts.Equals(""))
             {
                 btnAddStudent.Enabled = false;
             }
@@ -77,22 +124,28 @@ namespace TeacherManager
 
         private void AddClass(object sender, EventArgs e)
         {
-            if (txtBoxClassId.Texts == "")
+            if (txtBoxClassId.Texts.Equals(""))
             {
                 MessageBox.Show("Mã học phần không được để trống", "Thông báo");
                 return;
             }
-            if (txtBoxClassName.Texts == "")
+            if (txtBoxClassName.Texts.Equals(""))
             {
                 MessageBox.Show("Tên học phần không được để trống", "Thông báo");
                 return;
             }
-            if (txtBoxRoom.Texts == "")
+            if (cbFaculty.Texts.Equals(""))
+            {
+                MessageBox.Show("Bộ môn không được để trống", "Thông báo");
+                return;
+            }
+            if (cbRoom.Texts.Equals(""))
             {
                 MessageBox.Show("Số phòng không được để trống", "Thông báo");
                 return;
             }
-            var ClassIdFilter = Builders<Class>.Filter.Eq(c => c.ClassId, txtBoxClassId.Texts) &
+            string classId = txtBoxPrefix.Texts + txtBoxClassId.Texts;
+            var ClassIdFilter = Builders<Class>.Filter.Eq(c => c.ClassId, classId) &
                                 Builders<Class>.Filter.Eq(c => c.SemesterId, semester.SemesterId);
             var ClassIdExist = Classes.Find(ClassIdFilter).Any();
             if (ClassIdExist)
@@ -100,7 +153,7 @@ namespace TeacherManager
                 MessageBox.Show($"Số hiệu lớp đã tồn tại trong học kì {semester.SemesterId}", "Thông báo");
                 return;
             }
-            var TeacherIdFilter = Builders<Teacher>.Filter.Eq(t => t.AccountId, txtBoxTeacherId.Texts);
+            var TeacherIdFilter = Builders<Teacher>.Filter.Eq(t => t.AccountId, cbTeacher.Texts.Split(" - ")[0]);
             var TeacherIdExist = Teachers.Find(TeacherIdFilter).Any();
             if (!TeacherIdExist)
             {
@@ -125,13 +178,20 @@ namespace TeacherManager
                 MessageBox.Show("Thời gian không hợp lệ", "Thông báo");
                 return;
             }
+            
             string from = GenerateStringHour(fromHour, fromMinute);
             string to = GenerateStringHour(toHour, toMinute);
+            if (IsConflictClassSchedule(txtBoxSemesterId.Texts, cbRoom.Texts, from, to, cbDayOfWeek.Texts))
+            {
+                MessageBox.Show("Thời gian trùng với lớp khác", "Thông báo");
+                return;
+            }
             Class c = new Class
             {
-                ClassId = txtBoxClassId.Texts,
+                ClassId = classId,
                 SemesterId = semester.SemesterId,
-                TeacherId = txtBoxTeacherId.Texts,
+                TeacherId = cbTeacher.Texts.Split(" - ")[0],
+                FacultyId = cbFaculty.Texts.Split(" - ")[0],
                 DayOfWeek = cbDayOfWeek.Texts.Replace("Thứ hai", "Mon").Replace("2", "Mon")
                                              .Replace("Thứ ba", "Tue").Replace("3", "Tue")
                                              .Replace("Thứ tư", "Wed").Replace("4", "Wed")
@@ -141,7 +201,7 @@ namespace TeacherManager
                 From = from,
                 To = to,
                 Name = txtBoxClassName.Texts,
-                Room = txtBoxRoom.Texts,
+                Room = cbRoom.Texts,
                 Grade01_weight = grade01_weight,
                 Grade02_weight = grade02_weight,
                 Grade03_weight = grade03_weight,
@@ -151,7 +211,42 @@ namespace TeacherManager
             this.DialogResult = DialogResult.OK;
             Close();
         }
-        private string GenerateStringHour(int hour, int minute)
+        private bool IsConflictClassSchedule(string semesterId, string room, string from, string to, string dow)
+        {
+            bool IsConflictHour(string from1, string to1, string from2, string to2)
+            {
+                double ParseTime(string time)
+                {
+                    var parts = time.Split(":");
+                    int hours = Convert.ToInt32(parts[0]);
+                    int minutes = Convert.ToInt32(parts[1]);
+                    return hours + (minutes / 60.0);
+                }
+                double start1 = ParseTime(from1);
+                double end1 = ParseTime(to1);
+                double start2 = ParseTime(from2);
+                double end2 = ParseTime(to2);
+
+                return start1 < end2 && start2 < end1;
+            }
+
+            DayOfWeek dayOfWeek = FormLGD.TranslateDayOfWeek(dow);
+            var classConflictFilter = Builders<Class>.Filter.Eq(c => c.DayOfWeek, dayOfWeek.ToString().Substring(0, 3)) &
+                                      Builders<Class>.Filter.Eq(c => c.Room, room)     &
+                                      Builders<Class>.Filter.Eq(c => c.SemesterId, semesterId);
+            var classConflictResult = Classes.Find(classConflictFilter).FirstOrDefault();
+
+            if (classConflictResult == null)
+            {
+                return false;
+            }
+            return IsConflictHour(GenerateStringHour(Convert.ToInt16(numericFromHour.Value), Convert.ToInt16(numericFromMinute.Value)),
+                                  GenerateStringHour(Convert.ToInt16(numericToHour.Value), Convert.ToInt16(numericToMinute.Value)),
+                                  classConflictResult.From, classConflictResult.To);
+            // true: conflict; false: 0 conflict
+        }
+        
+        public static string GenerateStringHour(int hour, int minute)
         {
             return (hour < 10 ? "0" + hour.ToString() : hour.ToString()) 
                 + ":" +

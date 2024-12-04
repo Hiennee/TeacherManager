@@ -130,7 +130,7 @@ namespace TeacherManager
             dataViewSemester.RowHeadersVisible = false;
             dataViewSemester.RowHeadersWidth = 51;
             dataViewSemester.RowTemplate.Height = 40;
-            dataViewSemester.Size = new Size(1492, 270);
+            dataViewSemester.Size = new Size(1492, 580);
             dataViewSemester.TabIndex = 13;
             // 
             // excelIcon

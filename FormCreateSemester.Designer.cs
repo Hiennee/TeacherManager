@@ -237,7 +237,7 @@
             // 
             // cbSemesterType
             // 
-            cbSemesterType.BackColor = Color.WhiteSmoke;
+            cbSemesterType.BackColor = Color.White;
             cbSemesterType.BorderColor = Color.MediumSlateBlue;
             cbSemesterType.BorderSize = 2;
             cbSemesterType.DropDownStyle = ComboBoxStyle.DropDown;

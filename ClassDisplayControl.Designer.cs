@@ -83,7 +83,7 @@
             // lblSemester
             // 
             lblSemester.AutoSize = true;
-            lblSemester.Location = new Point(17, 312);
+            lblSemester.Location = new Point(390, 316);
             lblSemester.Name = "lblSemester";
             lblSemester.Size = new Size(54, 20);
             lblSemester.TabIndex = 2;
@@ -104,7 +104,7 @@
             // 
             lblClassId.AutoSize = true;
             lblClassId.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblClassId.Location = new Point(414, 273);
+            lblClassId.Location = new Point(17, 309);
             lblClassId.Name = "lblClassId";
             lblClassId.Size = new Size(82, 28);
             lblClassId.TabIndex = 4;

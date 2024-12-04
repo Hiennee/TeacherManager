@@ -54,6 +54,7 @@ namespace TeacherManager
             Login.Database.GetCollection<Student>("Student").DeleteMany(Builders<Student>.Filter.Empty);
             Login.Database.GetCollection<Student_Class_Detail>("StudentClasses").DeleteMany(Builders<Student_Class_Detail>.Filter.Empty);
             Login.Database.GetCollection<Semester>("Semester").DeleteMany(Builders<Semester>.Filter.Empty);
+            Login.Database.GetCollection<Faculty>("Faculty").DeleteMany(Builders<Faculty>.Filter.Empty);
         }
     }
 }

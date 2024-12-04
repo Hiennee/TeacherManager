@@ -13,5 +13,7 @@ namespace TeacherManager.Models
         public ObjectId Id { get; set; }
         [BsonElement("MSSV")]
         public string accountId { get; set; }
+        [BsonElement("facultyId")]
+        public string FacultyId { get; set; }
     }
 }

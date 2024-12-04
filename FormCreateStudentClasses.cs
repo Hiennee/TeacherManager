@@ -123,10 +123,7 @@ namespace TeacherManager
                     Grade_total = 0.0,
                 };
                 StudentClasses.InsertOne(sc);
-                if (MessageBox.Show("Thêm sinh viên vào lớp thành công", "Thông báo") == DialogResult.OK)
-                {
-                    this.DialogResult = DialogResult.OK;
-                }
+                this.DialogResult = DialogResult.OK;
                 Close();
                 return;
             }

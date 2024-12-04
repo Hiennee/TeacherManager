@@ -19,7 +19,9 @@ namespace TeacherManager
         private IMongoCollection<Account> Accounts;
         private Class Class;
         private List<Student_Class_Detail> StudentsInThisClass;
+
         private int weekNo;
+        private bool status;
         public FormWeekOfClassDescription(Class c, List<Student_Class_Detail> sc, int weekNo)
         {
             StudentClasses = Login.StudentClasses;
@@ -27,8 +29,11 @@ namespace TeacherManager
             Class = c;
             StudentsInThisClass = sc;
             this.weekNo = weekNo;
+            status = IsWeekActive();
             InitializeComponent();
+            
             InitializeDataGridView();
+            InitializeComboBoxStatus();
             InitializeWeekData();
 
             InitializeLabelsHeader();
@@ -38,6 +43,70 @@ namespace TeacherManager
             lblClassName.Text = Class.Name;
             lblWeekNo.Text = $"Danh sách sinh viên tuần {weekNo}";
         }
+        private void InitializeComboBoxStatus()
+        {
+            cbStatus.DataSource = new List<string>
+            {
+                "Chưa mở",
+                "Đã mở"
+            };
+            if (status)
+            {
+                cbStatus.Enabled = false;
+                cbStatus.Texts = "Đã mở";
+            }
+        }
+        private void OnChangeWeekStatus(object sender, EventArgs e)
+        {
+            if (cbStatus.Texts.Equals("Đã mở"))
+            {
+                if (IsWeekActive(weekNo - 1))
+                {
+                    UpdateCheckInStatusToAllStudent();
+                    status = true;
+                    cbStatus.Enabled = false;
+
+                    dataViewWeek.ReadOnly = false;
+                    dataViewWeek.RefreshEdit();
+
+                    return;
+                }
+                MessageBox.Show("Tuần trước chưa điểm danh, không thể mở tuần kế", "Thông báo");
+                //InitializeComboBoxStatus();
+            }
+        }
+        private void UpdateCheckInStatusToAllStudent()
+        {
+            var filterStudentsInClass = Builders<Student_Class_Detail>.Filter.Eq(sc => sc.ClassId, Class.ClassId);
+            var resultStudentsInClass = StudentClasses.Find(filterStudentsInClass).ToList();
+            foreach (var studentDetail in resultStudentsInClass)
+            {
+                string[] strList = studentDetail.CheckedIn.Split(", ");
+                strList[weekNo - 1] = "0";
+                string newCheckedIn = string.Join(", ", strList);
+                var filterStudent = filterStudentsInClass &
+                                    Builders<Student_Class_Detail>.Filter.Eq(sc => sc.StudentId, studentDetail.StudentId);
+                var updateStudentCheckIn = Builders<Student_Class_Detail>.Update.Set(sc => sc.CheckedIn, newCheckedIn);
+                StudentClasses.UpdateOne(filterStudent, updateStudentCheckIn);
+            }
+            
+        }
+        private bool IsWeekActive()
+        {
+            var filterStudentsInClass = Builders<Student_Class_Detail>.Filter.Eq(sc => sc.ClassId, Class.ClassId);
+            var resultStudentInClass = StudentClasses.Find(filterStudentsInClass).FirstOrDefault();
+            return !resultStudentInClass.CheckedIn.Split(", ")[weekNo - 1].Equals("null");
+        }
+        private bool IsWeekActive(int weekNo)
+        {
+            if (weekNo == 0)
+            {
+                return true;
+            }
+            var filterStudentsInClass = Builders<Student_Class_Detail>.Filter.Eq(sc => sc.ClassId, Class.ClassId);
+            var resultStudentInClass = StudentClasses.Find(filterStudentsInClass).FirstOrDefault();
+            return !resultStudentInClass.CheckedIn.Split(", ")[weekNo - 1].Equals("null");
+        }
         private void ExitSemesterDescriptionForm(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.OK;
@@ -45,6 +114,8 @@ namespace TeacherManager
         }
         private void InitializeDataGridView()
         {
+            dataViewWeek.Columns.Clear();
+
             DataGridViewCheckBoxColumn checkBoxColumn = new DataGridViewCheckBoxColumn()
             {
                 Name = "columnCheckIn",
@@ -77,6 +148,16 @@ namespace TeacherManager
             dataViewWeek.Columns["columnStudentName"].ReadOnly = true;
             dataViewWeek.Columns["columnMSSV"].ReadOnly = true;
 
+            if (status)
+            {
+                dataViewWeek.ReadOnly = false;
+                dataViewWeek.RefreshEdit();
+            }
+            else
+            {
+                dataViewWeek.ReadOnly = true;
+                dataViewWeek.RefreshEdit();
+            }
 
             foreach (DataGridViewColumn column in dataViewWeek.Columns)
             {
@@ -155,6 +236,13 @@ namespace TeacherManager
         {
             if (e.RowIndex > -1 && e.ColumnIndex == dataViewWeek.Columns["columnCheckIn"].Index)
             {
+                if (!status)
+                {
+                    //MessageBox.Show("Chưa thể điểm danh", "Thông báo");
+                    lblNote.Text = "Chưa thể điểm danh";
+                    noteTimer.Start();
+                    return;
+                }
                 string MSSV = dataViewWeek.Rows[e.RowIndex].Cells["columnMSSV"].Value.ToString() ?? "";
                 string studentName = dataViewWeek.Rows[e.RowIndex].Cells["columnStudentName"].Value.ToString() ?? "";
                 var filterStudentToCheckIn = Builders<Student_Class_Detail>.Filter.Eq(sc => sc.StudentId, MSSV) &
@@ -184,9 +272,14 @@ namespace TeacherManager
                 var updateCheckInStudent = Builders<Student_Class_Detail>.Update.Set(sc => sc.CheckedIn, string.Join(", ", checkInStatusString));
                 StudentClasses.UpdateOne(filterStudentToCheckIn, updateCheckInStudent);
                 
-                MessageBox.Show($"Sửa điểm danh tuần {weekNo} cho sinh viên {studentName} thành công", "Thông báo");
-                
+                lblNote.Text = $"Sửa điểm danh tuần {weekNo} cho sinh viên {studentName} thành công";
+                noteTimer.Start();
             }
+        }
+        private void NoteClear(object sender, EventArgs e)
+        {
+            lblNote.Text = "";
+            noteTimer.Stop();
         }
         private Student_Class_Detail FindStudentInClass(string MSSV)
         {

@@ -176,7 +176,12 @@ namespace TeacherManager
             }
 
             var accountFilter = Builders<Account>.Filter.Eq(a => a.AccountId, account.AccountId);
-            var update = Builders<Account>.Update.Set(a => a.Email, txtBoxEmail.Texts)
+            UpdateDefinition<Account> update = txtBoxNewPassword.Texts.Equals("") ? 
+                                                 Builders<Account>.Update.Set(a => a.Email, txtBoxEmail.Texts)
+                                                 .Set(a => a.DOB, dtpBirth.Value)
+                                                 .Set(a => a.Phone, txtBoxPhone.Texts)
+                                                 .Set(a => a.Gender, isMale ? "M" : "F") :
+                                                 Builders<Account>.Update.Set(a => a.Email, txtBoxEmail.Texts)
                                                  .Set(a => a.DOB, dtpBirth.Value)
                                                  .Set(a => a.Phone, txtBoxPhone.Texts)
                                                  .Set(a => a.Password, txtBoxNewPassword.Texts)

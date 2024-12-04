@@ -19,7 +19,7 @@ namespace TeacherManager
             this.Class = Class;
             InitializeComponent();
             lblClassName.Text = Class.Name;
-            lblSemester.Text = Class.SemesterId;
+            lblSemester.Text = "Học kỳ " + Class.SemesterId;
             lblClassId.Text = Class.ClassId;
         }
         private void ClassDisplayControl_Load(object sender, EventArgs e)

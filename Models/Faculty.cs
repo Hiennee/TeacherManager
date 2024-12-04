@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace TeacherManager.Models
 {
-    public class Teacher
+    public class Faculty
     {
         public ObjectId Id { get; set; }
-        [BsonElement("MSGV")]
-        public string AccountId { get; set; }
-        [BsonElement("facultyId")]
+        [BsonElement("semesterId")]
         public string FacultyId { get; set; }
-        [BsonElement("mailTemplate")]
-        public string MailTemplate { get; set; }
+        [BsonElement("type")]
+        public string Name { get; set; }
+        [BsonElement("headTeacher")]
+        public string HeadTeacher { get; set; }
     }
 }

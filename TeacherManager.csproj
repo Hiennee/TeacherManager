@@ -20,11 +20,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="FormCreateFaculty.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="FormEditAccount.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="FormChangeGradeEmailTemplate.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="FormQLBM.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Update="FormWeekOfClassDescription.cs">
       <SubType>Form</SubType>

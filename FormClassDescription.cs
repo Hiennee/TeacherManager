@@ -31,6 +31,7 @@ namespace TeacherManager
         private SmtpClient smtpClient;
         private Semester Semester;
         private Teacher Teacher;
+
         private bool isViewingGrade = true;
         private string nameToFind = "";
 
@@ -161,10 +162,11 @@ namespace TeacherManager
             dataViewStudents.Columns["columnGrade04"].ReadOnly = false;
 
             dataViewStudents.Columns["columnCheckBox"].Width -= 40;
-            dataViewStudents.Columns["columnMinus"].Width -= 20;
+            
             //dataViewStudents.Columns["columnFullName"].Width += 50;
             dataViewStudents.Columns["columnEmail"].Width += 100;
-            //dataViewStudents.Columns["columnBonus"].Width += 20;
+            dataViewStudents.Columns["columnBonus"].Width -= 30;
+            dataViewStudents.Columns["columnMinus"].Width -= 30;
             dataViewStudents.Columns["columnGrade_total"].Width += 20;
 
             foreach (DataGridViewColumn column in dataViewStudents.Columns)
@@ -188,7 +190,8 @@ namespace TeacherManager
                                          Builders<Account>.Filter.Empty :
                                          Builders<Account>.Filter.Regex(a => a.Name, new BsonRegularExpression($".*{nameToFind}.*", "i"));
                     var filterStudentsInClass = Builders<Account>.Filter.Eq(a => a.AccountId, r.StudentId);
-                    var accountResult = Accounts.Find(filterStudentsInClass & filterStudentsName);
+                    var sortStudents = Builders<Account>.Sort.Ascending(a => a.Name);
+                    var accountResult = Accounts.Find(filterStudentsInClass & filterStudentsName).Sort(sortStudents);
                     if (accountResult.Any())
                     {
                         foreach (var a in accountResult.ToList())
@@ -232,7 +235,7 @@ namespace TeacherManager
                                     e.ColumnIndex == dataViewStudents.Columns["columnGrade02"].Index ||
                                     e.ColumnIndex == dataViewStudents.Columns["columnGrade03"].Index ||
                                     e.ColumnIndex == dataViewStudents.Columns["columnGrade04"].Index ||
-                                    e.ColumnIndex == dataViewStudents.Columns["columnBonus"].Index ||
+                                    e.ColumnIndex == dataViewStudents.Columns["columnBonus"].Index   ||
                                     e.ColumnIndex == dataViewStudents.Columns["columnMinus"].Index))
             {
                 double grade01 = 0, grade02 = 0, grade03 = 0, grade04 = 0,
@@ -695,13 +698,14 @@ namespace TeacherManager
         {
             DataGridViewButtonColumn btnColumn = new DataGridViewButtonColumn
             {
-                Name = "columnButton",
+                Name = "columnButtonDetail",
                 HeaderText = "Chi tiết",
                 Text = "Xem chi tiết",
                 UseColumnTextForButtonValue = true,
             };
             dataViewWeeks.Columns.Add("columnWeekNo", "Tuần");
             dataViewWeeks.Columns.Add("columnDays", "Ngày tháng");
+            dataViewWeeks.Columns.Add("columnStatus", "Trạng thái");
             dataViewWeeks.Columns.Add("columnStudentsNo", "Sĩ số");
             dataViewWeeks.Columns.Add("columnPresent", "Hiện diện");
             dataViewWeeks.Columns.Add("columnAbsences", "Vắng");
@@ -712,24 +716,37 @@ namespace TeacherManager
 
             foreach (DataGridViewColumn column in dataViewWeeks.Columns)
             {
-                column.SortMode = DataGridViewColumnSortMode.NotSortable;
+                column.SortMode = DataGridViewColumnSortMode.NotSortable;   
             }
         }
         private void InitializeWeeksData()
         {
             dataViewWeeks.Rows.Clear();
             int no = 0;
+            
             foreach (var d in GetAllDaysOfClass(Class))
             {
+                bool isWeekActive = IsWeekActive(no);
                 int rowIndex = dataViewWeeks.Rows.Add();
-                int absencesNo = GetNumberOfAbsencesOfWeek(no);
+                int absencesNo = isWeekActive ? GetNumberOfAbsencesOfWeek(no) : 0;
                 dataViewWeeks.Rows[rowIndex].Cells["columnWeekNo"].Value = (no + 1).ToString();
                 dataViewWeeks.Rows[rowIndex].Cells["columnDays"].Value = d.ToShortDateString();
+                dataViewWeeks.Rows[rowIndex].Cells["columnStatus"].Value = isWeekActive ? "Đã mở" : "Chưa mở";
                 dataViewWeeks.Rows[rowIndex].Cells["columnStudentsNo"].Value = StudentsInThisClass.Count;
-                dataViewWeeks.Rows[rowIndex].Cells["columnPresent"].Value = StudentsInThisClass.Count - absencesNo;
-                dataViewWeeks.Rows[rowIndex].Cells["columnAbsences"].Value = absencesNo;
+                dataViewWeeks.Rows[rowIndex].Cells["columnPresent"].Value = isWeekActive ? StudentsInThisClass.Count - absencesNo : "-";
+                dataViewWeeks.Rows[rowIndex].Cells["columnAbsences"].Value = isWeekActive ? absencesNo : "-";
                 no++;
             }
+        }
+        private bool IsWeekActive(int week)
+        {
+            var filterStudentsInClass = Builders<Student_Class_Detail>.Filter.Eq(sc => sc.ClassId, Class.ClassId);
+            var resultStudentsInClass = StudentClasses.Find(filterStudentsInClass).FirstOrDefault();
+            if (resultStudentsInClass == null)
+            {
+                return false;
+            }
+            return !resultStudentsInClass.CheckedIn.Split(", ")[week].Equals("null");
         }
         private int GetNumberOfAbsencesOfWeek(int week)
         {
@@ -766,15 +783,16 @@ namespace TeacherManager
             dataViewWeeks.Visible = false;
             dataViewStudents.Refresh();
         }
-        private void ShowWeekCheckInDescriptionForm(object sender, DataGridViewCellEventArgs e)
+        private void HandleGridViewButtons(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.ColumnIndex == dataViewWeeks.Columns["columnButton"].Index)
+            if (e.ColumnIndex == dataViewWeeks.Columns["columnButtonDetail"].Index)
             {
                 if (new FormWeekOfClassDescription(Class, StudentsInThisClass, e.RowIndex + 1).ShowDialog() == DialogResult.OK)
                 {
                     InitializeDataStudentsInThisClass();
                     InitializeWeeksData();
                     InitializeStudentsData();
+                    return;
                 }
             }
         }

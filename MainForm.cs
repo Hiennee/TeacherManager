@@ -71,8 +71,9 @@ namespace TeacherManager
             {
                 btnQLLH,
                 btnQLTK,
-                btnLGD,
                 btnQLHK,
+                btnQLBM,
+                btnLGD,
                 btnLogOut,
             };
             UserControls = new List<UserControl>()
@@ -81,6 +82,7 @@ namespace TeacherManager
                 new FormQLLH(),
                 FormQLTK,
                 new FormQLHK(),
+                new FormQLBM(),
                 new FormLGD(),
                 new FormTestingGround(), // test here
             };
@@ -108,7 +110,6 @@ namespace TeacherManager
         public void OnButtonNavigateClick(object sender, EventArgs e)
         {
             Control btn = (Control)sender;
-
             switch (btn.Name)
             {
                 case "btnIndex":
@@ -151,9 +152,19 @@ namespace TeacherManager
                         UncheckNavigateButton(customButton);
                     }
                     break;
-                case "btnLGD":
+                case "btnQLBM":
                     CheckNavigateButton(btn);
                     Navigator.Display(4);
+                    foreach (CustomButton customButton in NavigateButtons)
+                    {
+                        if (customButton.Name == "btnQLBM")
+                            continue;
+                        UncheckNavigateButton(customButton);
+                    }
+                    break;
+                case "btnLGD":
+                    CheckNavigateButton(btn);
+                    Navigator.Display(5);
                     foreach (CustomButton customButton in NavigateButtons)
                     {
                         if (customButton.Name == "btnLGD")
@@ -171,7 +182,7 @@ namespace TeacherManager
                     }
                     break;
                 case "button1": // test here
-                    Navigator.Display(5);
+                    Navigator.Display(6);
                     break;
                 default:
                     break;

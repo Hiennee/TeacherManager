@@ -147,7 +147,8 @@ namespace TeacherManager
                          filterName = Builders<Account>.Filter.Empty :
                          filterName = Builders<Account>.Filter.Regex(a => a.Name, new BsonRegularExpression($".*{nameToFind}.*", "i")) |
                                       Builders<Account>.Filter.Regex(a => a.AccountId, new BsonRegularExpression($".*{nameToFind}.*", "i"));
-            var accountList = Accounts.Find(filterRoles & filterName).ToList();
+            SortDefinition<Account> sortAccount = Builders<Account>.Sort.Ascending(a => a.Role);
+            var accountList = Accounts.Find(filterRoles & filterName).Sort(sortAccount).ToList();
 
             dataViewAccounts.Rows.Clear();
 
@@ -338,27 +339,34 @@ namespace TeacherManager
                         {
                             try
                             {
-                                var dob = rowData.Cell("F").GetValue<string>().Split("-");
+                                var A = rowData.Cell("A").GetValue<string>(); // MSSV
+                                var B = rowData.Cell("B").GetValue<string>(); // Tên
+                                var C = rowData.Cell("C").GetValue<string>(); // Giới tính: M hoặc F
+                                var D = rowData.Cell("D").GetValue<string>(); // Số điện thoại
+                                var E = rowData.Cell("E").GetValue<string>(); // Ngày sinh
+                                var F = rowData.Cell("F").GetValue<string>(); // Khoa
+                                var rawDob = E.Split("/");
+                                DateTime dob = new DateTime(Convert.ToInt16(rawDob[0]), Convert.ToInt16(rawDob[1]), Convert.ToInt16(rawDob[2]));
                                 FormCreateStudent.CheckAvailableAndAddStudent(new Account
                                 {
-                                    AccountId = rowData.Cell("A").GetValue<string>(),
-                                    Name = rowData.Cell("B").GetValue<string>(),
+                                    AccountId = A,
+                                    Name = B,
                                     Password = "123456",
-                                    Email = rowData.Cell("C").GetValue<string>(),
-                                    Gender = rowData.Cell("D").GetValue<string>().Equals("Nam") ? "M" : "F",
+                                    Email = A + "@sinhvien.safumi.edu.vn",
+                                    Gender = C.Equals("Nam") ? "M" : "F",
                                     Role = "Student",
-                                    Phone = rowData.Cell("E").GetValue<string>(),
+                                    Phone = D,
                                     Avatar = null,
-                                    DOB = new DateTime(Convert.ToInt16(dob[2]), Convert.ToInt16(dob[1]), Convert.ToInt16(dob[0])),
+                                    DOB = dob,
                                     Status = "Active",
-                                });
+                                }, F);
                                 MessageBox.Show($"Thêm {maxRows} sinh viên từ danh sách file Excel {file.FileName} thành công", "Thông báo");
                             }
                             catch (Exception ex)
                             {
                                 if (ex.Message.Equals("001"))
                                 {
-                                    MessageBox.Show($"Dòng {i}: Số điện thoại đẫ tồn tại", "Thông báo",
+                                    MessageBox.Show($"Dòng {i}: Số điện thoại đã tồn tại", "Thông báo",
                                                     MessageBoxButtons.OKCancel, MessageBoxIcon.Error);
                                     return;
                                 }
