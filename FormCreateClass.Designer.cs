@@ -314,6 +314,7 @@
             numericFromHour.Size = new Size(48, 27);
             numericFromHour.TabIndex = 10;
             numericFromHour.Value = new decimal(new int[] { 8, 0, 0, 0 });
+            numericFromHour.ValueChanged += FilterAvailableRooms;
             // 
             // numericFromMinute
             // 
@@ -322,6 +323,7 @@
             numericFromMinute.Name = "numericFromMinute";
             numericFromMinute.Size = new Size(48, 27);
             numericFromMinute.TabIndex = 11;
+            numericFromMinute.ValueChanged += FilterAvailableRooms;
             // 
             // numericToMinute
             // 
@@ -330,6 +332,7 @@
             numericToMinute.Name = "numericToMinute";
             numericToMinute.Size = new Size(48, 27);
             numericToMinute.TabIndex = 13;
+            numericToMinute.ValueChanged += FilterAvailableRooms;
             // 
             // numericToHour
             // 
@@ -340,6 +343,7 @@
             numericToHour.Size = new Size(48, 27);
             numericToHour.TabIndex = 12;
             numericToHour.Value = new decimal(new int[] { 12, 0, 0, 0 });
+            numericToHour.ValueChanged += FilterAvailableRooms;
             // 
             // label1
             // 
@@ -458,6 +462,7 @@
             cbDayOfWeek.Size = new Size(118, 36);
             cbDayOfWeek.TabIndex = 8;
             cbDayOfWeek.Texts = "";
+            cbDayOfWeek.OnSelectedIndexChanged += FilterAvailableRooms;
             // 
             // lblFaculty
             // 
@@ -488,7 +493,7 @@
             cbRoom.Size = new Size(118, 36);
             cbRoom.TabIndex = 38;
             cbRoom.Texts = "";
-            cbRoom.OnSelectedIndexChanged += CheckAddClassButtonAvailable;
+            //cbRoom.OnSelectedIndexChanged += FilterAvailableRooms;
             // 
             // cbFaculty
             // 

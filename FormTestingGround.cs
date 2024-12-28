@@ -18,11 +18,16 @@ namespace TeacherManager
     {
         IMongoCollection<Account> Accounts;
         IMongoCollection<Student> Students;
+
+        List<Account> accountList;
         public FormTestingGround()
         {
             Accounts = Login.Accounts;
             Students = Login.Students;
             InitializeComponent();
+
+            var filterAccounts = Builders<Account>.Filter.Empty;
+            accountList = Accounts.Find(filterAccounts).ToList();
         }
         private void OnFindStudent(object sender, EventArgs e)
         {
@@ -31,12 +36,11 @@ namespace TeacherManager
             {
                 return;
             }
-            var filterAccounts = Builders<Account>.Filter.Empty;
-            var resultAccounts = Accounts.Find(filterAccounts).ToList();
-            var queryResult = from account in resultAccounts
-                              where account.Name.Contains(txtBoxName.Texts)
-                              select account;
-            //var queryResult = resultAccounts.Where(a => Regex.IsMatch(a.Name, $"{txtBoxName.Texts}", RegexOptions.IgnoreCase)).ToList();
+            
+            //var queryResult = from account in accountList
+            //                  where account.Name.Contains(txtBoxName.Texts)
+            //                  select account;
+            var queryResult = accountList.Where(a => Regex.IsMatch(a.Name, $"{txtBoxName.Texts}", RegexOptions.IgnoreCase)).ToList();
             foreach (var r in queryResult)
             {
                 txtBoxResult.Texts += r.Name + Environment.NewLine;

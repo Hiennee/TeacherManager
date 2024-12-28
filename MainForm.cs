@@ -225,6 +225,30 @@ namespace TeacherManager
                 return image;
             }
         }
+        public static string GenerateAccountId(string role)
+        {
+            string prefix = string.Empty;
+            switch (role)
+            {
+                case "Teacher":
+                    prefix = "GV";
+                    break;
+                case "Student":
+                    prefix = "SV";
+                    break;
+                case "Admin":
+                    prefix = "QTV";
+                    break;
+                default:
+                    prefix = "G";
+                    break;
+            }
+            var existingAccounts = Login.Accounts.Find(Builders<Account>.Filter.Empty).ToList();
+            var existingIds = existingAccounts.Select(a => a.AccountId).Where(id => id.StartsWith(prefix)).ToList();
+
+            int maxNumber = existingIds.Select(id => int.Parse(id.Substring(2))).DefaultIfEmpty(0).Max();
+            return prefix + (maxNumber + 1).ToString("D5");
+        }
         private void MainForm_Leave(object sender, EventArgs e)
         {
             LoginForm.Close();

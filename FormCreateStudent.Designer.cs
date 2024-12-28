@@ -60,16 +60,12 @@
         private void InitializeComponent()
         {
             lblStudentName = new Label();
-            lblEmail = new Label();
             lblPhone = new Label();
             txtBoxStudentName = new CustomControls.CustomTextBox();
-            txtBoxEmail = new CustomControls.CustomTextBox();
             txtBoxPhone = new CustomControls.CustomTextBox();
             btnAddStudent = new CustomControls.CustomButton();
             pictureBox1 = new PictureBox();
             pictureBox2 = new PictureBox();
-            txtBoxMSSV = new CustomControls.CustomTextBox();
-            lblMSSV = new Label();
             lblHeader = new Label();
             lblGender = new Label();
             cbGender = new CustomControls.CustomComboBox();
@@ -93,21 +89,11 @@
             lblStudentName.TabIndex = 0;
             lblStudentName.Text = "Tên sinh viên";
             // 
-            // lblEmail
-            // 
-            lblEmail.AutoSize = true;
-            lblEmail.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblEmail.Location = new Point(551, 187);
-            lblEmail.Name = "lblEmail";
-            lblEmail.Size = new Size(79, 31);
-            lblEmail.TabIndex = 2;
-            lblEmail.Text = "E-mail";
-            // 
             // lblPhone
             // 
             lblPhone.AutoSize = true;
             lblPhone.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblPhone.Location = new Point(551, 269);
+            lblPhone.Location = new Point(551, 187);
             lblPhone.Name = "lblPhone";
             lblPhone.Size = new Size(148, 31);
             lblPhone.TabIndex = 3;
@@ -136,29 +122,6 @@
             txtBoxStudentName.UnderlinedStyle = false;
             txtBoxStudentName._TextChanged += CheckAddStudentButtonAvailable;
             // 
-            // txtBoxEmail
-            // 
-            txtBoxEmail.BackColor = SystemColors.Window;
-            txtBoxEmail.BorderColor = Color.MediumSlateBlue;
-            txtBoxEmail.BorderFocusColor = Color.HotPink;
-            txtBoxEmail.BorderRadius = 0;
-            txtBoxEmail.BorderSize = 2;
-            txtBoxEmail.Enabled = false;
-            txtBoxEmail.Font = new Font("Segoe UI", 9.5F);
-            txtBoxEmail.ForeColor = Color.DimGray;
-            txtBoxEmail.Location = new Point(551, 221);
-            txtBoxEmail.Margin = new Padding(4);
-            txtBoxEmail.Multiline = false;
-            txtBoxEmail.Name = "txtBoxEmail";
-            txtBoxEmail.Padding = new Padding(7);
-            txtBoxEmail.PasswordChar = false;
-            txtBoxEmail.PlaceholderColor = Color.DarkGray;
-            txtBoxEmail.PlaceholderText = "";
-            txtBoxEmail.Size = new Size(297, 36);
-            txtBoxEmail.TabIndex = 4;
-            txtBoxEmail.Texts = "";
-            txtBoxEmail.UnderlinedStyle = false;
-            // 
             // txtBoxPhone
             // 
             txtBoxPhone.BackColor = SystemColors.Window;
@@ -168,7 +131,7 @@
             txtBoxPhone.BorderSize = 2;
             txtBoxPhone.Font = new Font("Segoe UI", 9.5F);
             txtBoxPhone.ForeColor = Color.DimGray;
-            txtBoxPhone.Location = new Point(551, 305);
+            txtBoxPhone.Location = new Point(551, 223);
             txtBoxPhone.Margin = new Padding(4);
             txtBoxPhone.Multiline = false;
             txtBoxPhone.Name = "txtBoxPhone";
@@ -223,39 +186,6 @@
             pictureBox2.TabStop = false;
             pictureBox2.Click += CloseForm;
             // 
-            // txtBoxMSSV
-            // 
-            txtBoxMSSV.BackColor = SystemColors.Window;
-            txtBoxMSSV.BorderColor = Color.MediumSlateBlue;
-            txtBoxMSSV.BorderFocusColor = Color.HotPink;
-            txtBoxMSSV.BorderRadius = 0;
-            txtBoxMSSV.BorderSize = 2;
-            txtBoxMSSV.Font = new Font("Segoe UI", 9.5F);
-            txtBoxMSSV.ForeColor = Color.DimGray;
-            txtBoxMSSV.Location = new Point(202, 221);
-            txtBoxMSSV.Margin = new Padding(4);
-            txtBoxMSSV.Multiline = false;
-            txtBoxMSSV.Name = "txtBoxMSSV";
-            txtBoxMSSV.Padding = new Padding(7);
-            txtBoxMSSV.PasswordChar = false;
-            txtBoxMSSV.PlaceholderColor = Color.DarkGray;
-            txtBoxMSSV.PlaceholderText = "";
-            txtBoxMSSV.Size = new Size(297, 36);
-            txtBoxMSSV.TabIndex = 2;
-            txtBoxMSSV.Texts = "";
-            txtBoxMSSV.UnderlinedStyle = false;
-            txtBoxMSSV._TextChanged += GenerateEmailBasedOnMSSV;
-            // 
-            // lblMSSV
-            // 
-            lblMSSV.AutoSize = true;
-            lblMSSV.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblMSSV.Location = new Point(202, 187);
-            lblMSSV.Name = "lblMSSV";
-            lblMSSV.Size = new Size(172, 31);
-            lblMSSV.TabIndex = 11;
-            lblMSSV.Text = "Mã số sinh viên";
-            // 
             // lblHeader
             // 
             lblHeader.AutoSize = true;
@@ -270,7 +200,7 @@
             // 
             lblGender.AutoSize = true;
             lblGender.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblGender.Location = new Point(202, 271);
+            lblGender.Location = new Point(202, 187);
             lblGender.Name = "lblGender";
             lblGender.Size = new Size(102, 31);
             lblGender.TabIndex = 14;
@@ -287,7 +217,7 @@
             cbGender.IconColor = Color.MediumSlateBlue;
             cbGender.ListBackColor = Color.FromArgb(230, 228, 245);
             cbGender.ListTextColor = Color.DimGray;
-            cbGender.Location = new Point(202, 305);
+            cbGender.Location = new Point(202, 223);
             cbGender.MinimumSize = new Size(50, 30);
             cbGender.Name = "cbGender";
             cbGender.Padding = new Padding(2);
@@ -338,7 +268,7 @@
             lblPhoneWarning.AutoSize = true;
             lblPhoneWarning.Font = new Font("Segoe UI", 10F, FontStyle.Italic);
             lblPhoneWarning.ForeColor = Color.Red;
-            lblPhoneWarning.Location = new Point(644, 345);
+            lblPhoneWarning.Location = new Point(644, 263);
             lblPhoneWarning.Name = "lblPhoneWarning";
             lblPhoneWarning.Size = new Size(204, 23);
             lblPhoneWarning.TabIndex = 43;
@@ -356,7 +286,7 @@
             cbFaculty.IconColor = Color.MediumSlateBlue;
             cbFaculty.ListBackColor = Color.FromArgb(230, 228, 245);
             cbFaculty.ListTextColor = Color.DimGray;
-            cbFaculty.Location = new Point(202, 394);
+            cbFaculty.Location = new Point(202, 310);
             cbFaculty.MinimumSize = new Size(50, 30);
             cbFaculty.Name = "cbFaculty";
             cbFaculty.Padding = new Padding(2);
@@ -368,7 +298,7 @@
             // 
             lblFaculty.AutoSize = true;
             lblFaculty.Font = new Font("Segoe UI", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblFaculty.Location = new Point(202, 360);
+            lblFaculty.Location = new Point(202, 276);
             lblFaculty.Name = "lblFaculty";
             lblFaculty.Size = new Size(165, 31);
             lblFaculty.TabIndex = 45;
@@ -389,16 +319,12 @@
             Controls.Add(cbGender);
             Controls.Add(lblGender);
             Controls.Add(lblHeader);
-            Controls.Add(txtBoxMSSV);
-            Controls.Add(lblMSSV);
             Controls.Add(pictureBox2);
             Controls.Add(pictureBox1);
             Controls.Add(btnAddStudent);
             Controls.Add(txtBoxPhone);
-            Controls.Add(txtBoxEmail);
             Controls.Add(txtBoxStudentName);
             Controls.Add(lblPhone);
-            Controls.Add(lblEmail);
             Controls.Add(lblStudentName);
             FormBorderStyle = FormBorderStyle.None;
             Name = "FormCreateStudent";
@@ -418,12 +344,10 @@
         private Label lblEmail;
         private Label lblPhone;
         private TeacherManager.CustomControls.CustomTextBox txtBoxStudentName;
-        private TeacherManager.CustomControls.CustomTextBox txtBoxEmail;
         private TeacherManager.CustomControls.CustomTextBox txtBoxPhone;
         private TeacherManager.CustomControls.CustomButton btnAddStudent;
         private PictureBox pictureBox1;
         private PictureBox pictureBox2;
-        private TeacherManager.CustomControls.CustomTextBox txtBoxMSSV;
         private Label lblMSSV;
         private Label lblHeader;
         private Label lblGender;

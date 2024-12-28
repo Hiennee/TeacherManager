@@ -54,9 +54,7 @@ namespace TeacherManager
         }
         private void CheckAddTeacherButtonAvailable(object sender, EventArgs e)
         {
-            if (txtBoxMSGV.Texts.Equals("")        ||
-                txtBoxTeacherName.Texts.Equals("") ||
-                txtBoxEmail.Texts.Equals("")       ||
+            if (txtBoxTeacherName.Texts.Equals("") ||
                 txtBoxPhone.Texts.Equals("")       ||
                 cbGender.Texts.Equals("")          ||
                 lblPhoneWarning.Visible == true    ||
@@ -90,16 +88,6 @@ namespace TeacherManager
             }
             lblBirthWarning.Visible = true;
         }
-        private void GenerateEmailBasedOnMSGV(object sender, EventArgs e)
-        {
-            CheckAddTeacherButtonAvailable(sender, e);
-            if (txtBoxMSGV.Texts.Equals(""))
-            {
-                txtBoxEmail.Texts = "";
-                return;
-            }
-            txtBoxEmail.Texts = txtBoxMSGV.Texts + "@safumi.edu.vn";
-        }
         private void CloseForm(object sender, EventArgs e)
         {
             Close();
@@ -107,15 +95,17 @@ namespace TeacherManager
 
         private void AddTeacher(object sender, EventArgs e)
         {
-            if (txtBoxMSGV.Texts.Equals("") || txtBoxEmail.Texts.Equals("") ||
-                txtBoxPhone.Texts.Equals("") || txtBoxTeacherName.Texts.Equals(""))
+            if (txtBoxPhone.Texts.Equals("") ||
+                txtBoxTeacherName.Texts.Equals(""))
             {
                 MessageBox.Show("Vui lòng nhập đủ dữ liệu", "Thông báo");
                 return;
             }
-            var IDEmailPhoneFilter = Builders<Account>.Filter.Eq(a => a.AccountId, txtBoxMSGV.Texts) |
-                                     Builders<Account>.Filter.Eq(a => a.Email, txtBoxEmail.Texts) |
-                                     Builders<Account>.Filter.Eq(a => a.Phone, txtBoxPhone.Texts);
+            if (!FormQLTK.ValidatePhoneNumber(txtBoxPhone.Texts))
+            {
+                return;
+            }
+            var IDEmailPhoneFilter = Builders<Account>.Filter.Eq(a => a.Phone, txtBoxPhone.Texts);
             //var MSNVFilter = Builders<Teacher>.Filter.Eq(t => t.AccountId, txtBoxMSGV.Texts);
             var IDEmailExist = Accounts.Find(IDEmailPhoneFilter).Any();
             //var MSSVExist = Teachers.Find(MSNVFilter).Any();
@@ -124,13 +114,14 @@ namespace TeacherManager
                 MessageBox.Show("Mã số giảng viên, E-mail hoặc số điện thoại đã tồn tại", "Thông báo");
                 return;
             }
+            var teacherId = MainForm.GenerateAccountId("Teacher");
             Account a = new Account
             {
-                AccountId = txtBoxMSGV.Texts.Trim(),
+                AccountId = teacherId,
                 Name = txtBoxTeacherName.Texts.Trim(),
-                Password = "123",
+                Password = "123456",
                 Avatar = null,
-                Email = txtBoxEmail.Texts.Trim(),
+                Email = teacherId + "@safumi.edu.vn",
                 Gender = cbGender.Texts.Equals("Nam") ? "M" : "F",
                 Phone = txtBoxPhone.Texts.Trim(),
                 Role = "Teacher",
@@ -139,7 +130,7 @@ namespace TeacherManager
             };
             Teacher s = new Teacher
             {
-                AccountId = txtBoxMSGV.Texts,
+                AccountId = teacherId,
                 FacultyId = cbFaculty.Texts.Equals("") ?
                             null :
                             cbFaculty.Texts.Split(" - ")[0],

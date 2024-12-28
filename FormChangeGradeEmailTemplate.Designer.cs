@@ -54,6 +54,7 @@ namespace TeacherManager
             btnChangeTemplate = new CustomControls.CustomButton();
             lblTip = new Label();
             toolTipKeyword = new ToolTip(components);
+            lblSetDefault = new LinkLabel();
             ((ISupportInitialize)pictureBox2).BeginInit();
             SuspendLayout();
             // 
@@ -153,12 +154,25 @@ namespace TeacherManager
             lblTip.TabIndex = 22;
             lblTip.Text = "Hỗ trợ định dạng HTML cùng các keyword (?)";
             // 
+            // lblSetDefault
+            // 
+            lblSetDefault.AutoSize = true;
+            lblSetDefault.Font = new Font("Segoe UI", 11F, FontStyle.Italic);
+            lblSetDefault.Location = new Point(741, 148);
+            lblSetDefault.Name = "lblSetDefault";
+            lblSetDefault.Size = new Size(151, 25);
+            lblSetDefault.TabIndex = 23;
+            lblSetDefault.TabStop = true;
+            lblSetDefault.Text = "Cài đặt mặc định";
+            lblSetDefault.LinkClicked += ChangeTemplateToDefault;
+            // 
             // FormChangeGradeEmailTemplate
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.WhiteSmoke;
             ClientSize = new Size(979, 762);
+            Controls.Add(lblSetDefault);
             Controls.Add(lblTip);
             Controls.Add(btnChangeTemplate);
             Controls.Add(lblBody);
@@ -199,5 +213,6 @@ namespace TeacherManager
         private CustomControls.CustomButton btnChangeTemplate;
         private Label lblTip;
         private ToolTip toolTipKeyword;
+        private LinkLabel lblSetDefault;
     }
 }

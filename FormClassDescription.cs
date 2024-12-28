@@ -604,11 +604,15 @@ namespace TeacherManager
                 var message = new MailMessage(mailSender, new MailAddress(row.Cells["columnEmail"].Value.ToString() ?? ""));
                 message.IsBodyHtml = true;
 
-                message.Subject = "Điểm thành phần môn {className} - {classId}, Học kỳ {semesterId}";
+
+                message.Subject = "Điểm thành phần môn {className} - {classId}, Học kỳ {semesterId}"
+                                  .Replace("{className}", Class.Name)
+                                  .Replace("{classId}", Class.ClassId)
+                                  .Replace("{semesterId}", Semester.SemesterId);
                 message.Body = Teacher.MailTemplate.Equals("Default") ?
                                ("<h2>Chào các bạn sinh viên trong lớp {className}, học kỳ {semesterId}</h2>" +
                                "\n\n" +
-                               "<p>Thầy/Cô xin gửi điểm thành phần môn học {className} cho các bạn:</p>\n" +
+                               "<p>{gender} xin gửi điểm thành phần môn học {className} cho các bạn:</p>\n" +
                                "Sinh viên {studentName}:\n" +
                                "Điểm 1 ({%1}%): {1}, " +
                                "Điểm 2 ({%2}%): {2}, " +
@@ -616,9 +620,10 @@ namespace TeacherManager
                                "Điểm 4 ({%4}%): {4}, " +
                                "Điểm cộng tích lũy: {bonus},\n" +
                                "Điểm tổng (100%): {total}" +
-                               "<p>Nếu có vấn đề gì hay thắc mắc vui lòng email lại Thầy/Cô trong thời gian sớm nhất.</p>\n\n\n" +
+                               "<p>Nếu có vấn đề gì hay thắc mắc vui lòng email lại {gender} trong thời gian sớm nhất.</p>\n\n\n" +
                                "<p>Thân mến,</p>\n" +
                                "<p>{teacherName}.</p>")
+                               .Replace("{gender}", Account.Gender.Equals("M") ? "Thầy" : "Cô")
                                .Replace("{className}", Class.Name)
                                .Replace("{classId}", Class.ClassId)
                                .Replace("{semesterId}", Semester.SemesterId)
@@ -636,6 +641,7 @@ namespace TeacherManager
                                .Replace("{teacherName}", Account.Name)
                                :
                                Teacher.MailTemplate
+                               .Replace("{gender}", Account.Gender.Equals("M") ? "Thầy" : "Cô")
                                .Replace("{className}", Class.Name)
                                .Replace("{classId}", Class.ClassId)
                                .Replace("{semesterId}", Semester.SemesterId)

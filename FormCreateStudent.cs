@@ -75,9 +75,7 @@ namespace TeacherManager
         private void CheckAddStudentButtonAvailable(object sender, EventArgs e)
         {
             if (txtBoxStudentName.Texts.Equals("") ||
-                txtBoxMSSV.Texts.Equals("")        ||
                 cbGender.Texts.Equals("")          ||
-                txtBoxEmail.Texts.Equals("")       ||
                 txtBoxPhone.Texts.Equals("")       ||
                 lblPhoneWarning.Visible == true    ||
                 lblBirthWarning.Visible == true)
@@ -89,34 +87,28 @@ namespace TeacherManager
                 btnAddStudent.Enabled = true;
             }
         }
-        private void GenerateEmailBasedOnMSSV(object sender, EventArgs e)
-        {
-            CheckAddStudentButtonAvailable(sender, e);
-            if (txtBoxMSSV.Texts.Equals(""))
-            {
-                txtBoxEmail.Texts = "";
-                return;
-            }
-            txtBoxEmail.Texts = txtBoxMSSV.Texts + "@sinhvien.safumi.edu.vn";
-        }
         private void CloseForm(object sender, EventArgs e)
         {
             Close();
         }
         private void AddStudent(object sender, EventArgs e)
         {
-            if (txtBoxMSSV.Texts.Equals("") || txtBoxEmail.Texts.Equals("") ||
-                txtBoxPhone.Texts.Equals("") || txtBoxStudentName.Texts.Equals(""))
+            if (txtBoxPhone.Texts.Equals("") || txtBoxStudentName.Texts.Equals(""))
             {
                 MessageBox.Show("Vui lòng nhập đủ dữ liệu", "Thông báo");
                 return;
             }
+            if (!FormQLTK.ValidatePhoneNumber(txtBoxPhone.Texts))
+            {
+                return;
+            }
+            var studentId = MainForm.GenerateAccountId("Student");
             if (CheckAvailableAndAddStudent(new Account
             {
-                AccountId = txtBoxMSSV.Texts,
+                AccountId = studentId,
                 Name = txtBoxStudentName.Texts,
                 Password = "123456",
-                Email = txtBoxEmail.Texts,
+                Email = studentId + "@sinhvien.safumi.edu.vn",
                 Gender = cbGender.Texts.Equals("Nam") ? "M" : "F",
                 Role = "Student",
                 Phone = txtBoxPhone.Texts,
@@ -129,7 +121,7 @@ namespace TeacherManager
                 Close();
                 return;
             }
-            MessageBox.Show("E-mail hoặc số điện thoại, MSSV đã tồn tại", "Thông báo");
+            MessageBox.Show("Số điện thoại đã tồn tại", "Thông báo");
         }
         public static bool CheckAvailableAndAddStudent(Account studentAccount, string faculty)
         {
@@ -174,12 +166,12 @@ namespace TeacherManager
             {
                 Accounts.InsertOne(a);
                 Students.InsertOne(s);
+                return true;
             }
             catch
             {
                 return false;
             }
-            return true;
         }
     }
 }

@@ -81,5 +81,20 @@ namespace TeacherManager
                 Close();
             }
         }
+        private void ChangeTemplateToDefault(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (MessageBox.Show("Xác nhận thay đổi định dạng gửi email điểm về mặc định?",
+                                "Thông báo",
+                                MessageBoxButtons.OKCancel,
+                                MessageBoxIcon.Question) == DialogResult.OK)
+            {
+                var filterTeacher = Builders<Teacher>.Filter.Eq(t => t.AccountId, Teacher.AccountId);
+                var updateEmailTemplate = Builders<Teacher>.Update.Set(t => t.MailTemplate, "Default");
+                Teachers.UpdateOne(filterTeacher, updateEmailTemplate);
+                Teacher = Teachers.Find(filterTeacher).FirstOrDefault();
+                LoadMailTemplate();
+                MessageBox.Show("Thay đổi định dạng email thành công", "Thông báo");
+            }
+        }
     }
 }

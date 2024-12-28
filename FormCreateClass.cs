@@ -181,7 +181,7 @@ namespace TeacherManager
             
             string from = GenerateStringHour(fromHour, fromMinute);
             string to = GenerateStringHour(toHour, toMinute);
-            if (IsConflictClassSchedule(txtBoxSemesterId.Texts, cbRoom.Texts, from, to, cbDayOfWeek.Texts))
+            if (IsConflictClassSchedule(txtBoxSemesterId.Texts, cbRoom.Texts, cbDayOfWeek.Texts))
             {
                 MessageBox.Show("Thời gian trùng với lớp khác", "Thông báo");
                 return;
@@ -211,7 +211,7 @@ namespace TeacherManager
             this.DialogResult = DialogResult.OK;
             Close();
         }
-        private bool IsConflictClassSchedule(string semesterId, string room, string from, string to, string dow)
+        private bool IsConflictClassSchedule(string semesterId, string room, string dow)
         {
             bool IsConflictHour(string from1, string to1, string from2, string to2)
             {
@@ -232,7 +232,7 @@ namespace TeacherManager
 
             DayOfWeek dayOfWeek = FormLGD.TranslateDayOfWeek(dow);
             var classConflictFilter = Builders<Class>.Filter.Eq(c => c.DayOfWeek, dayOfWeek.ToString().Substring(0, 3)) &
-                                      Builders<Class>.Filter.Eq(c => c.Room, room)     &
+                                      Builders<Class>.Filter.Eq(c => c.Room, room)                                      &
                                       Builders<Class>.Filter.Eq(c => c.SemesterId, semesterId);
             var classConflictResult = Classes.Find(classConflictFilter).FirstOrDefault();
 
@@ -244,6 +244,18 @@ namespace TeacherManager
                                   GenerateStringHour(Convert.ToInt16(numericToHour.Value), Convert.ToInt16(numericToMinute.Value)),
                                   classConflictResult.From, classConflictResult.To);
             // true: conflict; false: 0 conflict
+        }
+        public void FilterAvailableRooms(object sender, EventArgs e)
+        {
+            List<string> availableRooms = new List<string>();
+            for (int i = 1; i <= 30; i ++)
+            {
+                if (!IsConflictClassSchedule(txtBoxSemesterId.Texts, i.ToString(), cbDayOfWeek.Texts))
+                {
+                    availableRooms.Add(i.ToString());
+                }
+            }
+            cbRoom.DataSource = availableRooms;
         }
         
         public static string GenerateStringHour(int hour, int minute)
