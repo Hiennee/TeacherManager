@@ -119,7 +119,7 @@ namespace TeacherManager
             {
                 AccountId = teacherId,
                 Name = txtBoxTeacherName.Texts.Trim(),
-                Password = "123456",
+                Password = PasswordHasher.HashPassword("123456"),
                 Avatar = null,
                 Email = teacherId + "@safumi.edu.vn",
                 Gender = cbGender.Texts.Equals("Nam") ? "M" : "F",

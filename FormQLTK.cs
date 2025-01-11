@@ -184,7 +184,7 @@ namespace TeacherManager
                                                  Builders<Account>.Update.Set(a => a.Email, txtBoxEmail.Texts)
                                                  .Set(a => a.DOB, dtpBirth.Value)
                                                  .Set(a => a.Phone, txtBoxPhone.Texts)
-                                                 .Set(a => a.Password, txtBoxNewPassword.Texts)
+                                                 .Set(a => a.Password, PasswordHasher.HashPassword(txtBoxNewPassword.Texts))
                                                  .Set(a => a.Gender, isMale ? "M" : "F");
             if (Accounts.UpdateOne(accountFilter, update).ModifiedCount > 0)
             {

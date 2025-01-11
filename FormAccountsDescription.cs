@@ -351,7 +351,7 @@ namespace TeacherManager
                                 {
                                     AccountId = A,
                                     Name = B,
-                                    Password = "123456",
+                                    Password = PasswordHasher.HashPassword("123456"),
                                     Email = A + "@sinhvien.safumi.edu.vn",
                                     Gender = C.Equals("Nam") ? "M" : "F",
                                     Role = "Student",

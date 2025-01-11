@@ -107,7 +107,7 @@ namespace TeacherManager
             {
                 AccountId = studentId,
                 Name = txtBoxStudentName.Texts,
-                Password = "123456",
+                Password = PasswordHasher.HashPassword("123456"),
                 Email = studentId + "@sinhvien.safumi.edu.vn",
                 Gender = cbGender.Texts.Equals("Nam") ? "M" : "F",
                 Role = "Student",
@@ -146,7 +146,7 @@ namespace TeacherManager
             {
                 AccountId = studentAccount.AccountId,
                 Name = studentAccount.Name,
-                Password = "123456",
+                Password = PasswordHasher.HashPassword("123456"),
                 Email = studentAccount.Email,
                 Gender = studentAccount.Gender,
                 Role = "Student",

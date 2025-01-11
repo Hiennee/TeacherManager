@@ -120,7 +120,7 @@
             btnQLBM.FlatStyle = FlatStyle.Flat;
             btnQLBM.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnQLBM.ForeColor = Color.White;
-            btnQLBM.Image = Properties.Resources.calendar_icon;
+            btnQLBM.Image = Properties.Resources.category1;
             btnQLBM.ImageAlign = ContentAlignment.MiddleLeft;
             btnQLBM.Location = new Point(0, 261);
             btnQLBM.Name = "btnQLBM";
